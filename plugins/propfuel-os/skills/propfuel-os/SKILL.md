@@ -20,6 +20,12 @@ The PropFuel Marketing OS (https://propfuel-marketing-os.vercel.app) is the team
 - New work that isn't tracked yet: `create_initiative` (ask the user first).
 - At the end of the session, tell the user in one line what you wrote to the OS.
 
+## Turn refinements into skills
+When the user refines how a kind of content gets made (corrects the process, rejects a version and says why, hand-edits your output, or settles on a format), that know-how belongs in a skill, not just this chat.
+- If a skill already covers that content type, read it first and follow it.
+- Before finishing, offer once: "Want me to save how we made this as a skill?" On yes, or if the user asks at any point ("save this as a skill", "update the skill", "train the brain on this"), follow the `save-skill` skill.
+- Small corrections to an existing skill (one or two new rules) can be saved without asking. Tell the user in one line.
+
 ## Due dates
 Never invent a due date. A new to-do, action item, milestone or initiative date needs one from a person: if none was given, ask "When does this need to be done?" and suggest one specific business day with the reason. Dates land on business days; flag a weekend or US holiday and offer the Friday before or the Monday after (the OS refuses weekend dates unless you pass `confirm_weekend: true` after the user insists). Write dates with the weekday. Check a date's weekday before reusing it from a source doc.
 
