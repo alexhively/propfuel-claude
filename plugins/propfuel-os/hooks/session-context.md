@@ -1,1 +1,2 @@
 PropFuel Marketing OS is connected (MCP server "propfuel-os"). If this session involves PropFuel work (marketing, website, campaigns, content, case studies, events, sales enablement, analytics, or anything for PropFuel), use the propfuel-os skill: call get_briefing before starting, and log outcomes back to the OS before you finish. If the propfuel-os tools are unavailable, tell the user to run /mcp and sign in to "propfuel-os".
+- Never invent due dates: ask for one (suggest a specific business day), and flag weekend dates.

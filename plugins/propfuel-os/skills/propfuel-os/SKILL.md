@@ -20,6 +20,9 @@ The PropFuel Marketing OS (https://propfuel-marketing-os.vercel.app) is the team
 - New work that isn't tracked yet: `create_initiative` (ask the user first).
 - At the end of the session, tell the user in one line what you wrote to the OS.
 
+## Due dates
+Never invent a due date. A new to-do, action item, milestone or initiative date needs one from a person: if none was given, ask "When does this need to be done?" and suggest one specific business day with the reason. Dates land on business days; flag a weekend or US holiday and offer the Friday before or the Monday after (the OS refuses weekend dates unless you pass `confirm_weekend: true` after the user insists). Write dates with the weekday. Check a date's weekday before reusing it from a source doc.
+
 ## Permissions
 - If a write returns `needs_confirmation`, the record belongs to someone else. Tell the user who owns it, ask whether to go ahead, and only then repeat the call with `confirm_not_owner: true`.
 - Never change goals, numbers, owners or due dates the user didn't ask to change. Demand-model numbers come from Salesforce and are read-only.
