@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "propfuel-os": {
+      "type": "http",
+      "url": "https://propfuel-marketing-os.vercel.app/api/mcp"
+    }
+  }
+}

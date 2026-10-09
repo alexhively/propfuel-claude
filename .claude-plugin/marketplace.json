@@ -1,0 +1,13 @@
+{
+  "name": "propfuel",
+  "owner": { "name": "PropFuel Marketing", "email": "alex@propfuel.com" },
+  "metadata": { "description": "PropFuel's Claude Code plugins" },
+  "plugins": [
+    {
+      "name": "propfuel-os",
+      "source": "./plugins/propfuel-os",
+      "description": "Connects Claude Code to the PropFuel Marketing OS: reads the current state before PropFuel work and writes progress back.",
+      "version": "1.0.0"
+    }
+  ]
+}
