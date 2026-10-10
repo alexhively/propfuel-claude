@@ -25,3 +25,7 @@ Restart Claude Code, then run `/mcp`, pick **propfuel-os**, and sign in with you
 - `/propfuel-os:sweep` — one-time sync of everything your Claude already knows about your PropFuel work into the OS (you approve before anything is written).
 
 The plugin contains no credentials: each person signs in to the OS with their own passcode.
+
+### Team marketing skills (1.2.0)
+
+The plugin also ships 12 skills from ECC (MIT), adapted to PropFuel: `marketing-campaign`, `seo`, `content-engine`, `article-writing`, `brand-voice`, `market-research`, `deep-research`, `competitive-platform-analysis`, `competitive-report-structure`, `lead-intelligence`, `frontend-slides`, `crosspost`. The same playbooks live in the Marketing OS knowledge (`Skill - <name>.md`) so claude.ai and Poppy use them too. Update with `/plugin marketplace update propfuel`.
