@@ -50,6 +50,24 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Instagram skills (1.5.0)
+
+Thirteen Instagram skills from the Instagram Agent Skill (github.com/Jakeschincariol/instagram-agent-skill, MIT, by Jake Schincariol), adapted to PropFuel:
+
+- `/ig-reel`: Reel script from an idea: hook options off 26 formulas, spoken script, on-screen text, timed beat sheet
+- `/ig-caption`: caption, one ask, search terms and three hashtags, linted
+- `/ig-carousel`: carousel cover and slides, 1080x1350, PropFuel brand
+- `/ig-story`: the day's Stories sequence and stickers
+- `/ig-comment`, `/ig-reply`, `/ig-dm`: comments, replies and DMs that read as a person
+- `/ig-plan`: the week: what, which format, when, who to engage with
+- `/ig-profile`: 100-point profile score and rewrites
+- `/ig-repurpose`: one long asset (webinar, case study, call) into a week of reels and carousels
+- `/ig-audit`: what's working in your insights and why
+- `/ig-viral`: study what works in the niche through your own browser, never logged in by Claude (the yt-dlp step only if Alex OKs installing it)
+- `/ig-human`: humanizer and five-check AI detector
+
+Every skill loads **Instagram - Master.md** from the Marketing OS first. It writes in your own voice if you have `~/.claude/instagram/voice.md`; otherwise it uses PropFuel's (`skills/ig-caption/propfuel-voice.md`). None of them post, comment, reply, DM or automate anything. It writes, you post.
+
 ### More ECC skills and two agents (1.4.0)
 
 Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; sends only on your explicit OK), `growth-log`, `product-lens`, `brand-discovery`, `click-path-audit`, `browser-qa`, `dashboard-builder`, `research-ops`. Plus two ECC agents Claude can hand work to: `marketing-agent` (campaign strategy and copy, drafts only) and `seo-specialist` (site audits as recommendations; never publishes Webflow). Each starts from the Marketing OS (`get_briefing`, Master docs) and carries PropFuel's hard rules. The same playbooks are in the OS knowledge as `Skill - <name>.md` and `Agent - <name>.md`.
@@ -57,6 +75,8 @@ Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; send
 Not included on purpose: ECC's hooks, its coding and build agents, investor skills, `security-review` (would shadow the built-in `/security-review`) and `social-publisher` (posts through a third-party API).
 
 #### Changelog
+
+- **1.5.0 (Oct 11 2026):** added the 13 `ig-*` Instagram skills (MIT, Jake Schincariol), the PropFuel Instagram voice default and brand tokens for carousels and Stories. Scripts run from the plugin folder with `python3 -I`; ig-viral never logs in and does not install yt-dlp.
 
 - **1.4.0 (Oct 11 2026):** 8 more ECC skills and the `marketing-agent` and `seo-specialist` agents, PropFuel-adapted. Browser and click-path QA never submit real propfuel.com forms (they create real leads and ad conversions); email-ops is draft-first.
 
