@@ -1,7 +1,7 @@
 {
   "name": "propfuel-os",
-  "version": "1.2.0",
-  "description": "Connects Claude Code to the PropFuel Marketing OS (propfuel-marketing-os.vercel.app). Claude gets a briefing before PropFuel work and logs progress, initiative updates and knowledge back to the OS, credited to you. Includes 12 team marketing skills (campaigns, SEO, social, articles, brand voice, research, competitive analysis, lead lists, slides).",
+  "version": "1.3.0",
+  "description": "Connects Claude Code to the PropFuel Marketing OS (propfuel-marketing-os.vercel.app). Claude gets a briefing before PropFuel work and logs progress, initiative updates and knowledge back to the OS, credited to you. Includes 12 team marketing skills (campaigns, SEO, social, articles, brand voice, research, competitive analysis, lead lists, slides). Plus 11 LinkedIn skills (posts, comments, replies, DMs, carousels, weekly plan, profile score, audits, humanizer) that load the OS LinkedIn brain and never post for you.",
   "author": {
     "name": "PropFuel Marketing"
   },
