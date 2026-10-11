@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Design skill (1.6.0)
+
+- `/apple-design`: Apple's approach to interface design and fluid motion (springs, interruptible gestures, momentum, materials and depth, typography, reduced motion, the eight design principles), from Emil Kowalski's skills (github.com/emilkowalski/skills, MIT), translated for the web. Use it when building or reviewing any PropFuel UI: the Marketing OS, Webflow pages, landing pages, artifacts. PropFuel's brand tokens and rules come first (no `alert`/`confirm`/`prompt` dialogs; inline confirm or undo instead). The same playbook is in the OS knowledge as `Skill - apple-design.md`.
+
 ### Instagram skills (1.5.0)
 
 Thirteen Instagram skills from the Instagram Agent Skill (github.com/Jakeschincariol/instagram-agent-skill, MIT, by Jake Schincariol), adapted to PropFuel:
@@ -75,6 +79,8 @@ Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; send
 Not included on purpose: ECC's hooks, its coding and build agents, investor skills, `security-review` (would shadow the built-in `/security-review`) and `social-publisher` (posts through a third-party API).
 
 #### Changelog
+
+- **1.6.0 (Oct 11 2026):** added `apple-design` (Emil Kowalski, MIT), PropFuel-adapted: brand tokens first, no modal dialogs, iOS share instead of download links.
 
 - **1.5.0 (Oct 11 2026):** added the 13 `ig-*` Instagram skills (MIT, Jake Schincariol), the PropFuel Instagram voice default and brand tokens for carousels and Stories. Scripts run from the plugin folder with `python3 -I`; ig-viral never logs in and does not install yt-dlp.
 
