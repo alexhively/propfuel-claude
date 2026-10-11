@@ -50,6 +50,14 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### More ECC skills and two agents (1.4.0)
+
+Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; sends only on your explicit OK), `growth-log`, `product-lens`, `brand-discovery`, `click-path-audit`, `browser-qa`, `dashboard-builder`, `research-ops`. Plus two ECC agents Claude can hand work to: `marketing-agent` (campaign strategy and copy, drafts only) and `seo-specialist` (site audits as recommendations; never publishes Webflow). Each starts from the Marketing OS (`get_briefing`, Master docs) and carries PropFuel's hard rules. The same playbooks are in the OS knowledge as `Skill - <name>.md` and `Agent - <name>.md`.
+
+Not included on purpose: ECC's hooks, its coding and build agents, investor skills, `security-review` (would shadow the built-in `/security-review`) and `social-publisher` (posts through a third-party API).
+
 #### Changelog
+
+- **1.4.0 (Oct 11 2026):** 8 more ECC skills and the `marketing-agent` and `seo-specialist` agents, PropFuel-adapted. Browser and click-path QA never submit real propfuel.com forms (they create real leads and ad conversions); email-ops is draft-first.
 
 - **1.3.0 (Oct 11 2026):** added the 11 `li-*` skills, the PropFuel voice default, and PropFuel brand tokens for carousels. The humanizer scripts now run from the plugin folder with `python3 -I`.
