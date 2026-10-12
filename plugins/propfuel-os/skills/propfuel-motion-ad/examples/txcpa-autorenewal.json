@@ -1,0 +1,140 @@
+{
+  "slug": "txcpa-autorenewal",
+  "title": "TXCPA autorenewal: one question, 38.3% answered",
+  "proof": {
+    "client": "Texas Society of CPAs",
+    "client_status": "Case study Live + Named in the OS (live 2026-09-25)",
+    "case_study_url": "https://www.propfuel.com/case-studies/txcpa-autorenewal-response",
+    "url_checked": "2026-10-12 200",
+    "claims": [
+      {
+        "on_screen": "38.3% response rate",
+        "source": "live case study page, Results"
+      },
+      {
+        "on_screen": "575 of 1,502 members answered",
+        "source": "live case study page, Results"
+      },
+      {
+        "on_screen": "usually just a receipt",
+        "source": "live page: 'autorenewal normally produces a receipt and nothing else'"
+      },
+      {
+        "on_screen": "Would you like to update your payment information now? + 4 answers",
+        "source": "exemplars/campaign-visual/specs/txcpa.json (the real campaign question)"
+      }
+    ]
+  },
+  "cta": {
+    "headline": "See it with your members",
+    "button": "Book a demo",
+    "url": "propfuel.com/book-a-demo",
+    "link": "https://www.propfuel.com/book-a-demo",
+    "tagline": "Know and Grow Your Membership."
+  },
+  "cuts": {
+    "15s": {
+      "duration": 15,
+      "captions": [
+        {
+          "start": 0,
+          "end": 2.2,
+          "eyebrow": "Membership directors",
+          "text": "Your autorenewal email asks nothing."
+        },
+        {
+          "start": 2.2,
+          "end": 5.4,
+          "text": "Texas Society of CPAs asked one question."
+        },
+        {
+          "start": 5.4,
+          "end": 9.0,
+          "text": "On a notice that's usually just a receipt."
+        }
+      ],
+      "scenes": [
+        {
+          "type": "inbox",
+          "start": 0,
+          "end": 5.4,
+          "email": {
+            "from": "Membership Team",
+            "subject": "Your membership renews automatically",
+            "body": "Your dues will be charged to the card on file.",
+            "receipt": "Payment scheduled",
+            "rows": [
+              [
+                "Annual dues",
+                "Auto-charged"
+              ],
+              [
+                "Reply needed",
+                "No"
+              ]
+            ]
+          },
+          "question": {
+            "at": 2.2,
+            "text": "Would you like to update your payment information now?",
+            "answers": [
+              "Yes, take me to it!",
+              "Yes, show me how to do it!",
+              "I want to opt out of auto-renewal",
+              "I need help updating my payment info"
+            ],
+            "pick": 0,
+            "pickAt": 4.1
+          }
+        },
+        {
+          "type": "stat",
+          "start": 5.4,
+          "end": 9.0,
+          "value": 38.3,
+          "decimals": 1,
+          "suffix": "%",
+          "label": "response rate",
+          "sub": "575 of 1,502 members answered",
+          "dots": 38,
+          "source": "Texas Society of CPAs · 2026 autorenewal campaign"
+        },
+        {
+          "type": "cta",
+          "start": 9.0,
+          "end": 15
+        }
+      ]
+    },
+    "6s": {
+      "duration": 6,
+      "captions": [
+        {
+          "start": 0,
+          "end": 1.6,
+          "eyebrow": "Membership directors",
+          "text": "One question on an autorenewal email."
+        }
+      ],
+      "scenes": [
+        {
+          "type": "stat",
+          "start": 0,
+          "end": 3.4,
+          "value": 38.3,
+          "decimals": 1,
+          "suffix": "%",
+          "label": "response rate",
+          "sub": "575 of 1,502 Texas Society of CPAs members",
+          "dots": 38,
+          "source": "Texas Society of CPAs · 2026 autorenewal campaign"
+        },
+        {
+          "type": "cta",
+          "start": 3.4,
+          "end": 6
+        }
+      ]
+    }
+  }
+}

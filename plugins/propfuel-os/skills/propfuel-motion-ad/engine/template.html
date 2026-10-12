@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width={{W}}, height={{H}}" />
+    <title>{{TITLE}}</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "DM Sans";
+        src: url("assets/DMSans-Variable.ttf") format("truetype");
+        font-weight: 100 1000;
+        font-style: normal;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: {{W}}px; height: {{H}}px; overflow: hidden; background: #F4F1EA; }
+      #root {
+        --u: {{U}};
+        --ch: #2F2F2F; --mg: #6E6E6E; --bg: #F4F1EA; --card: #FBF8F2; --deep: #EAE4D8; --line: #E3DDD2; --am: #F9A825;
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        background: var(--bg); color: var(--ch);
+        font-family: "DM Sans", -apple-system, sans-serif; -webkit-font-smoothing: antialiased;
+      }
+      /* T1 grain: static, seeded turbulence (deterministic) */
+      .grain { position: absolute; inset: 0; opacity: 0.32; mix-blend-mode: multiply; pointer-events: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.40  0 0 0 0 0.32  0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+      /* the safe zone: every word, number and logo lives inside it */
+      #safe { position: absolute; top: {{SAFE_T}}px; bottom: {{SAFE_B}}px; left: {{SAFE_L}}px; right: {{SAFE_R}}px;
+        display: flex; flex-direction: column; }
+      #cap { position: relative; flex: 0 0 calc(var(--u) * 230px); }
+      #stage { position: relative; flex: 1 1 auto; }
+      .layout-row #safe { flex-direction: row; gap: 80px; }
+      .layout-row #cap { flex: 0 0 42%; }
+      .bug { position: absolute; top: 0; right: 0; width: calc(var(--u) * 92px); height: auto; }
+      .bug img { width: 100%; display: block; }
+
+      /* captions (burned in: the story reads with the sound off) */
+      .cap { position: absolute; inset: 0; display: flex; align-items: flex-start; }
+      .layout-row .cap { align-items: center; }
+      .cap-in { max-width: calc(100% - var(--u) * 110px); }
+      .layout-row .cap-in { max-width: 100%; }
+      .eyebrow { font-size: calc(var(--u) * 26px); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mg); margin-bottom: calc(var(--u) * 14px); }
+      .cap-t { font-size: calc(var(--u) * 62px); font-weight: 750; line-height: 1.08; letter-spacing: -0.025em; color: var(--ch); }
+      .layout-row .cap-t { font-size: 68px; }
+
+      .scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      .scene.full { inset: 0; }
+
+      /* inbox: an email recreated in code, with the PropFuel question inside it */
+      .card { width: 100%; max-width: 940px; background: var(--card); border: 1px solid var(--line); border-radius: calc(var(--u) * 28px);
+        box-shadow: 0 2px 0 rgba(47,47,47,0.03), 0 24px 60px -24px rgba(90,70,40,0.28); padding: calc(var(--u) * 40px); }
+      .mail-head { display: flex; align-items: center; gap: calc(var(--u) * 18px); }
+      .avatar { width: calc(var(--u) * 64px); height: calc(var(--u) * 64px); border-radius: 50%; background: var(--deep); color: var(--ch);
+        display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: calc(var(--u) * 28px); }
+      .mail-from { font-size: calc(var(--u) * 32px); font-weight: 700; }
+      .mail-to { font-size: calc(var(--u) * 24px); color: var(--mg); }
+      .mail-subject { margin-top: calc(var(--u) * 28px); font-size: calc(var(--u) * 42px); font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+      .swap { display: grid; margin-top: calc(var(--u) * 18px); }
+      .swap > * { grid-area: 1 / 1; }
+      .mail-body { align-self: start; }
+      .mail-p { font-size: calc(var(--u) * 32px); line-height: 1.45; color: var(--mg); }
+      .receipt { position: relative; margin-top: calc(var(--u) * 28px); padding: calc(var(--u) * 10px) calc(var(--u) * 28px) calc(var(--u) * 24px);
+        border: 2px dashed var(--line); border-radius: calc(var(--u) * 18px); }
+      .rc-row { display: flex; justify-content: space-between; padding: calc(var(--u) * 16px) 0; border-bottom: 1px solid var(--line);
+        font-size: calc(var(--u) * 30px); color: var(--mg); }
+      .rc-row b { color: var(--ch); font-weight: 700; }
+      .rc-stamp { display: inline-flex; align-items: center; gap: 12px; margin-top: calc(var(--u) * 22px); padding: calc(var(--u) * 12px) calc(var(--u) * 22px);
+        background: var(--deep); border-radius: 999px; font-size: calc(var(--u) * 28px); font-weight: 700; color: var(--mg); }
+      .receipt-i { color: #55702F; font-weight: 800; }
+      .q { opacity: 0; }
+      .q-text { font-size: calc(var(--u) * 40px); font-weight: 650; line-height: 1.25; }
+      .answers { margin-top: calc(var(--u) * 22px); display: flex; flex-direction: column; gap: calc(var(--u) * 14px); }
+      .ans { position: relative; display: flex; align-items: center; gap: calc(var(--u) * 16px); padding: calc(var(--u) * 24px) calc(var(--u) * 26px);
+        border: 2px solid var(--line); border-radius: calc(var(--u) * 16px); background: #F4F1EA; font-size: calc(var(--u) * 31px); font-weight: 600; }
+      .ans-dot { flex: 0 0 auto; width: calc(var(--u) * 22px); height: calc(var(--u) * 22px); border-radius: 50%; border: 2px solid #BDBDBD; }
+      .ans-t { flex: 1 1 auto; }
+      .ans-check { flex: 0 0 auto; display: block; opacity: 0; font-weight: 800; color: var(--am); }
+      .tap { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+        background: rgba(47,47,47,0.35); pointer-events: none; display: block; opacity: 0; }
+
+      /* stat: the one gradient element in the frame */
+      .stat-wrap { display: flex; flex-direction: column; align-items: flex-start; width: 100%; }
+      .stat-num { display: block; font-size: calc(var(--u) * 250px); font-weight: 800; line-height: 0.95; letter-spacing: -0.045em;
+        font-variant-numeric: tabular-nums; transform-origin: left center; }
+      .stat-num .g { background: linear-gradient(to top, #F47C2C, #FBC02D); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .stat-label { font-size: calc(var(--u) * 44px); font-weight: 700; margin-top: calc(var(--u) * 6px); }
+      .dots { display: grid; grid-template-columns: repeat(25, 1fr); gap: calc(var(--u) * 10px); width: 100%; margin-top: calc(var(--u) * 40px); }
+      .dot { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--deep); }
+      .dot.on { background: var(--ch); }
+      .stat-sub { font-size: calc(var(--u) * 34px); font-weight: 600; margin-top: calc(var(--u) * 32px); }
+      .stat-src { font-size: calc(var(--u) * 22px); font-weight: 600; letter-spacing: 0.04em; color: #5A5A5A; margin-top: calc(var(--u) * 14px); }
+
+      .quote-wrap { width: 100%; }
+      .quote-mark { font-size: calc(var(--u) * 160px); line-height: 0.6; color: var(--am); font-weight: 800; }
+      .quote-t { font-size: calc(var(--u) * 48px); font-weight: 650; line-height: 1.22; letter-spacing: -0.01em; margin-top: calc(var(--u) * 20px); }
+      .quote-by { margin-top: calc(var(--u) * 26px); font-size: calc(var(--u) * 26px); color: var(--mg); }
+      .quote-by b { display: block; color: var(--ch); font-weight: 700; }
+
+      /* end card: logo, CTA inside the first 10s, tagline */
+      .cta-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
+      .cta-logo { width: calc(var(--u) * 300px); height: auto; display: block; }
+      .cta-h { margin-top: calc(var(--u) * 48px); font-size: calc(var(--u) * 84px); font-weight: 800; line-height: 1.02; letter-spacing: -0.035em; max-width: 12ch; }
+      .layout-row .cta-h { max-width: 20ch; }
+      .cta-h .w { display: inline-block; }
+      .btn { margin-top: calc(var(--u) * 48px); display: inline-flex; align-items: center; gap: 14px; padding: calc(var(--u) * 28px) calc(var(--u) * 56px);
+        border-radius: calc(var(--u) * 22px); background: linear-gradient(to right, #F47C2C, #FBC02D); color: #2F2F2F;
+        font-size: calc(var(--u) * 42px); font-weight: 800; letter-spacing: -0.005em; box-shadow: 0 18px 40px -18px rgba(244,124,44,0.6); }
+      .cta-url { margin-top: calc(var(--u) * 26px); font-size: calc(var(--u) * 30px); font-weight: 600; color: var(--ch); }
+      .cta-tag { margin-top: calc(var(--u) * 34px); font-size: calc(var(--u) * 26px); font-weight: 700; letter-spacing: 0.02em; color: var(--mg); }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="fmt-{{FMT}} layout-{{LAYOUT}}" data-composition-id="main" data-start="0" data-duration="{{DURATION}}" data-width="{{W}}" data-height="{{H}}">
+      <div class="grain"></div>
+      <div id="safe">
+        <div id="cap">{{CAPTIONS}}
+          <div id="bug" class="clip bug" data-start="0" data-duration="{{BUG_DURATION}}" data-track-index="4"><img id="bug-img" src="assets/propfuel-logo.png" alt="PropFuel" /></div>
+        </div>
+        <div id="stage">{{SCENES}}</div>{{FULL}}
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      {{TIMELINE}}
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

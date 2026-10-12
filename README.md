@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Video ad skill (1.10.0)
+
+- `/propfuel-motion-ad`: a PropFuel video ad where every frame is drawn by code (HyperFrames: HTML, CSS and GSAP rendered to mp4). No video model, stock footage, AI imagery or AI people. It uses the real logo, real product UI recreated in code, and type. Storyboard first, then a `spec.json` builds 9:16, 4:5, 1:1 and 16:9 projects plus a 6s bumper, with platform safe zones and burned-in captions. A budget-gated render exports H.264 mp4s, and `qa.sh` writes contact sheets for the frame check. Outputs go to `~/Desktop/PropFuel Motion Ads/<slug>/`. Nothing is uploaded until Alex approves the exact file. Needs Node 22+ and ffmpeg. The reference ad is TXCPA autorenewal (15s). Also in OS knowledge as `Skill - propfuel-motion-ad.md`.
+
 ### Sales skill (1.7.0)
 
 - `/winback-walkthrough`: when a demo goes unperformed (no-show, cancelled, or requested but never booked), builds the 3-page win-back walkthrough "prepared for our call" for that association (the note, the campaign map, the comparison with the published medical-society proof), plus a cover email, a day-3 bump, an optional lateral email and a CRM note. Facts come from the Salesforce opp; no invented membership numbers. Draft only: the rep sends. In the content repurposer it renders through `scripts/make-winback-asset.mjs`; anywhere else it fills the bundled `walkthrough-template.html`. Also in OS knowledge as `Skill - winback-walkthrough.md`.
@@ -83,6 +87,8 @@ Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; send
 Not included on purpose: ECC's hooks, its coding and build agents, investor skills, `security-review` (would shadow the built-in `/security-review`) and `social-publisher` (posts through a third-party API).
 
 #### Changelog
+
+- **1.10.0 (Oct 12 2026):** added `propfuel-motion-ad`: coded video ads (HyperFrames), the replacement for the AI-generated case-study videos. It ships with its engine, the DM Sans font (OFL), the PropFuel logo, vendored GSAP, and render and QA scripts.
 
 - **1.8.0 (Oct 12 2026):** `winback-walkthrough` publishes a per-prospect web page through the propfuel-winback generator (`npm run new -- "<account>" --preview`, then `publish-page` when the rep says so), and the cover email links to it; opens show in `npm run views`.
 

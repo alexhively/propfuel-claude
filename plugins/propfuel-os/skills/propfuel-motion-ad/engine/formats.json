@@ -1,0 +1,27 @@
+{
+  "_note": "Canvas + safe zone per format. Safe = the box every word, number and logo must sit inside. Values are px from each edge. Sources and reasoning: ../SKILL.md 'Safe zones'.",
+  "9x16": {
+    "w": 1080, "h": 1920, "u": 1,
+    "safe": { "top": 270, "bottom": 672, "left": 72, "right": 72 },
+    "layout": "column",
+    "use": "Meta Reels + Stories, IG Reels, YouTube Shorts, LinkedIn vertical"
+  },
+  "4x5": {
+    "w": 1080, "h": 1350, "u": 1,
+    "safe": { "top": 60, "bottom": 60, "left": 60, "right": 60 },
+    "layout": "column",
+    "use": "Meta + IG feed, LinkedIn feed (mobile)"
+  },
+  "1x1": {
+    "w": 1080, "h": 1080, "u": 0.86,
+    "safe": { "top": 60, "bottom": 60, "left": 60, "right": 60 },
+    "layout": "column",
+    "use": "Meta right column / marketplace, LinkedIn feed, fallback square"
+  },
+  "16x9": {
+    "w": 1920, "h": 1080, "u": 1,
+    "safe": { "top": 72, "bottom": 150, "left": 110, "right": 110 },
+    "layout": "row",
+    "use": "YouTube in-stream + 6s bumpers, LinkedIn desktop, website"
+  }
+}
