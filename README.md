@@ -84,6 +84,8 @@ Not included on purpose: ECC's hooks, its coding and build agents, investor skil
 
 #### Changelog
 
+- **1.8.0 (Oct 12 2026):** `winback-walkthrough` publishes a per-prospect web page through the propfuel-winback generator (`npm run new -- "<account>" --preview`, then `publish-page` when the rep says so), and the cover email links to it; opens show in `npm run views`.
+
 - **1.7.0 (Oct 12 2026):** added `winback-walkthrough` (Sales OTM Oct 9 demo-unperformed playbook), with a self-contained template so it works outside the repurposer.
 
 - **1.6.0 (Oct 11 2026):** added `apple-design` (Emil Kowalski, MIT), PropFuel-adapted: brand tokens first, no modal dialogs, iOS share instead of download links.

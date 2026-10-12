@@ -1,6 +1,6 @@
 ---
 name: winback-walkthrough
-description: Build a prospect-branded "win-back walkthrough" for a PropFuel demo that didn't happen (no-show, cancelled, or a demo request that never booked), plus the emails that carry it. Input is the account name, a Salesforce opportunity/account link, a Gong call, or a PropFuel campaign link. Output is the 3-page walkthrough (the note, the campaign map, the comparison) in the house template, a cover email, a follow-up bump, an optional lateral email, and the web-page draft, using only that account's real Salesforce data and published proof. Use when someone says "win-back walkthrough", "the call we missed", "send them the walkthrough", "demo no-show asset", "they cancelled, send something", or names a Demo Unperformed opp.
+description: Build a prospect-branded "win-back walkthrough" for a PropFuel demo that didn't happen (no-show, cancelled, or a demo request that never booked), plus the emails that carry it. Input is the account name, a Salesforce opportunity/account link, a Gong call, or a PropFuel campaign link. Output is the 3-page walkthrough (the note, the campaign map, the comparison) in the house template, a per-prospect web page (propfuel-winback.vercel.app), a cover email, a follow-up bump and an optional lateral email, using only that account's real Salesforce data and published proof. Use when someone says "win-back walkthrough", "the call we missed", "send them the walkthrough", "demo no-show asset", "they cancelled, send something", or names a Demo Unperformed opp.
 ---
 
 # Win-back walkthrough
@@ -70,8 +70,21 @@ Write these to `output/winback/<slug>-companions.md` in the repo, or as one file
 1. **Cover email** (sent with the PDF, same or next business day). Subject: "{First name}, the walkthrough I had ready" (`cancelled`) / "For the call we missed" (`no_show`) / "Before we talk: a win-back for {ASSOC}" (`request`). Body under 80 words: one line acknowledging the missed or unbooked call with no guilt, one line on what's attached, one proof sentence (42 rejoined, $18,438 in seven weeks, anonymous medical society), and a tiny ask ("Worth 20 minutes when the timing's better?"). Signed by the rep.
 2. **Bump** (day 3–4, same thread). Two sentences. Point at one specific thing on page 2, e.g. "the 'Did you know it expired?' question is the one that brought back 42", and repeat the ask.
 3. **Lateral email** (only if Salesforce has a second contact, or the rep names one). For the playbook's "lateral or up the account" step: three sentences in the house cold-email shape (`exemplars/email/PATTERNS.md`, family 1). Name that you'd built this for {first contact}, offer to send it, and keep the ask tiny. Don't attach the PDF unsolicited.
-4. **Web page draft.** The rendered HTML is the one-URL-per-prospect page. Don't deploy it; the Vercel version is still a planned build.
+4. **Web page.** Publish the walkthrough as a page and put its link in the cover email (see "Publish as a web page" below).
 5. **CRM note** (one line for the rep to paste on the opp): "Win-back walkthrough sent {date}: scenario {scenario}, cover + bump drafted."
+
+## 3b. Publish as a web page
+
+Each prospect gets their own page at `https://propfuel-winback.vercel.app/<name>-<6 random chars>`, built from the same template. It's mobile-friendly and noindex, and its "Book a time" button goes to propfuel.com/book-a-demo with `utm_source=winback&utm_campaign=<slug>`. Repo: `~/Projects/propfuel-winback` (github.com/alexhively/propfuel-winback).
+
+1. **Run the generator** (Claude Code, in that repo). It does section 1 for you: reads the opp read-only with the `sf` CLI, picks the scenario, writes the page JSON to the private page store and prints the URL.
+   - `npm run new -- "<account name | Salesforce link | Gong link>" --preview` gives a preview only, behind Vercel login. **Start here for a real prospect.**
+   - `npm run publish-page -- <slug>` makes it live **once the rep says so**. Only the rep publishes a real prospect's page.
+   - Flags: `--contact`, `--scenario`, `--date`, `--color` (only from their logo or site), `--booking`, `--rep-email`, `--dry-run`.
+2. **Paste the live URL into the cover email** in place of the attachment line ("I put it on one page for you: <URL>"). The PDF can still go along as an attachment.
+3. **Opened signal:** `npm run views -- <slug>` shows when it was opened (4+ seconds on the page; email link scanners don't count) and whether they clicked Book a time. Use that to time the bump.
+
+Outside Claude Code (claude.ai), you can't publish. Ask a teammate with the repo to run the generator, or send the PDF.
 
 ## 4. Check before handing over
 
