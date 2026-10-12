@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Sales skill (1.7.0)
+
+- `/winback-walkthrough`: when a demo goes unperformed (no-show, cancelled, or requested but never booked), builds the 3-page win-back walkthrough "prepared for our call" for that association (the note, the campaign map, the comparison with the published medical-society proof), plus a cover email, a day-3 bump, an optional lateral email and a CRM note. Facts come from the Salesforce opp; no invented membership numbers. Draft only: the rep sends. In the content repurposer it renders through `scripts/make-winback-asset.mjs`; anywhere else it fills the bundled `walkthrough-template.html`. Also in OS knowledge as `Skill - winback-walkthrough.md`.
+
 ### Design skill (1.6.0)
 
 - `/apple-design`: Apple's approach to interface design and fluid motion (springs, interruptible gestures, momentum, materials and depth, typography, reduced motion, the eight design principles), from Emil Kowalski's skills (github.com/emilkowalski/skills, MIT), translated for the web. Use it when building or reviewing any PropFuel UI: the Marketing OS, Webflow pages, landing pages, artifacts. PropFuel's brand tokens and rules come first (no `alert`/`confirm`/`prompt` dialogs; inline confirm or undo instead). The same playbook is in the OS knowledge as `Skill - apple-design.md`.
@@ -79,6 +83,8 @@ Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; send
 Not included on purpose: ECC's hooks, its coding and build agents, investor skills, `security-review` (would shadow the built-in `/security-review`) and `social-publisher` (posts through a third-party API).
 
 #### Changelog
+
+- **1.7.0 (Oct 12 2026):** added `winback-walkthrough` (Sales OTM Oct 9 demo-unperformed playbook), with a self-contained template so it works outside the repurposer.
 
 - **1.6.0 (Oct 11 2026):** added `apple-design` (Emil Kowalski, MIT), PropFuel-adapted: brand tokens first, no modal dialogs, iOS share instead of download links.
 
