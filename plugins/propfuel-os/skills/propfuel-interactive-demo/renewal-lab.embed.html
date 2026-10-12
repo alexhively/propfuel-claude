@@ -1,0 +1,252 @@
+<!-- PropFuel · Renewal lab (interactive demo, built with the propfuel-interactive-demo skill)
+     Self-contained: scoped .rl CSS, markup and one small script. DM Sans is loaded site-wide.
+     NAMED RULE: every number the model uses comes from PropFuel's published proof
+     (Case Studies - Master: one association's on-time renewals 80.5% -> 95%;
+      ROI - Master, Feb 2026: platform-wide stats). Nothing else drives the math.
+     Source: ~/Projects/propfuel-page-previews/src/renewal-lab/embed.html -->
+<style>
+.rl{--ch:#2F2F2F;--mg:#6E6E6E;--bg:#F4F1EA;--card:#F6F2E8;--deep:#EAE4D8;--fill:#E7E2D8;--line:#E3DDD2;--or:#F47C2C;--am:#F9A825;--yl:#FBC02D;--oi:#B04A16;--st:#4A7FA5;
+  --shadow:0 1px 2px rgba(120,110,95,.10),0 8px 24px rgba(120,110,95,.10);--spring:cubic-bezier(.34,1.36,.64,1);--ease:cubic-bezier(.22,1,.36,1);
+  color:var(--ch);background:var(--bg);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;line-height:1.6;font-size:16px;position:relative}
+.rl *,.rl *::before,.rl *::after{box-sizing:border-box}
+.rl :where(h1,h2,h3,p,ul,ol,li,figure,output,fieldset,legend){margin:0;padding:0;line-height:inherit;border:0}
+.rl :where(ul,ol){list-style:none}
+:where(.rl) a{color:var(--st)}
+.rl-grain{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .42  0 0 0 .08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.rl-wrap{position:relative;max-width:1180px;margin:0 auto;padding:40px 16px 64px}
+html[data-wf-page] .rl-wrap{padding-top:124px}
+.rl-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mg)}
+.rl-eyebrow{color:var(--oi)}
+.rl-h1{font-size:clamp(32px,7vw,52px);line-height:1.08;font-weight:700;letter-spacing:-.02em;margin-top:10px;max-width:18ch}
+.rl-sub{font-size:18px;color:var(--mg);margin-top:14px;max-width:58ch}
+
+.rl-lab{display:grid;gap:16px;margin-top:28px}
+.rl-card{background:var(--card);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+
+/* controls */
+.rl-ctl{display:grid;gap:18px}
+.rl-f label,.rl-f .rl-fl{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;font-weight:600}
+.rl-f output{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.rl-f small{display:block;color:var(--mg);font-size:13px;margin-top:4px}
+.rl input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:2px 0 0;cursor:pointer;touch-action:pan-y}
+.rl input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:100px;background:linear-gradient(to right,var(--or) 0,var(--yl) var(--p,50%),var(--fill) var(--p,50%))}
+.rl input[type=range]::-moz-range-track{height:8px;border-radius:100px;background:var(--fill)}
+.rl input[type=range]::-moz-range-progress{height:8px;border-radius:100px;background:linear-gradient(to right,var(--or),var(--yl))}
+.rl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-10px;border-radius:50%;background:var(--bg);box-shadow:0 1px 3px rgba(120,110,95,.35),0 0 0 1px rgba(120,110,95,.12);transition:transform .2s var(--spring)}
+.rl input[type=range]::-moz-range-thumb{width:28px;height:28px;border:0;border-radius:50%;background:var(--bg);box-shadow:0 1px 3px rgba(120,110,95,.35),0 0 0 1px rgba(120,110,95,.12)}
+.rl input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
+.rl input[type=range]:focus-visible{outline:2px solid rgba(244,124,44,.4);outline-offset:2px;border-radius:8px}
+
+.rl-sw{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:64px;padding:14px 16px;border-radius:14px;background:var(--bg);font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s ease}
+.rl-sw b{display:block;font-size:16px}
+.rl-sw span.rl-swd{display:block;font-size:13px;color:var(--mg);font-weight:500}
+.rl-sw .rl-track{flex:none;width:44px;height:24px;border-radius:100px;background:var(--fill);position:relative;transition:background .2s ease;box-shadow:inset 0 0 0 1px rgba(120,110,95,.12)}
+.rl-sw .rl-thumb{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:100px;background:var(--bg);box-shadow:0 1px 3px rgba(120,110,95,.35);transition:transform .35s var(--spring)}
+.rl-sw[aria-checked=true] .rl-track{background:var(--or)}
+.rl-sw[aria-checked=true] .rl-thumb{transform:translateX(20px)}
+.rl-sw:active .rl-thumb{width:24px}
+.rl-sw[aria-checked=true]:active .rl-thumb{transform:translateX(16px)}
+.rl-sw:focus{outline:none}.rl-sw:focus-visible{outline:2px solid rgba(244,124,44,.4);outline-offset:2px}
+
+/* model */
+.rl-model{display:grid;gap:18px;align-content:start}
+.rl-big{display:flex;flex-direction:column;gap:4px}
+.rl-stat{font-size:clamp(48px,11vw,88px);font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(to top,var(--or),var(--yl));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--am)}
+.rl-big p{font-size:15px;color:var(--mg);max-width:46ch}
+.rl-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rl-n{background:var(--bg);border-radius:12px;padding:12px}
+.rl-n b{display:block;font-size:clamp(20px,4.6vw,26px);font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums;line-height:1.15}
+.rl-n span{display:block;font-size:12px;color:var(--mg);line-height:1.35;margin-top:4px}
+.rl-grid{display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:4px;max-width:520px}
+.rl-d{aspect-ratio:1;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 1.5px #CFC6B6;transition:background .35s ease,box-shadow .35s ease,transform .45s var(--spring)}
+.rl-d.on{background:var(--ch);box-shadow:none;opacity:.82}
+.rl-d.back{background:var(--am);box-shadow:none;transform:scale(1.08)}
+.rl-key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--mg)}
+.rl-key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.rl-key .k1{background:var(--ch);opacity:.82}.rl-key .k2{background:var(--am)}.rl-key .k3{box-shadow:inset 0 0 0 1.5px #CFC6B6}
+
+/* panel */
+.rl-panel{background:var(--ch);color:#F4F1EA;border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.rl-panel .rl-label{color:var(--yl)}
+.rl-log{display:grid;gap:12px;margin-top:12px}
+.rl-log li{font-size:15px;line-height:1.55;color:#E7DFD0;padding-left:14px;border-left:2px solid rgba(251,192,45,.35)}
+.rl-log li:first-child{color:#F4F1EA;border-left-color:var(--yl)}
+.rl-log li b{color:#F4F1EA}
+.rl-log li.new{animation:rl-in .45s var(--ease) both}
+@keyframes rl-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.rl-proof{display:grid;gap:12px;margin-top:20px}
+.rl-pf{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.rl-pf b{display:block;font-size:24px;font-weight:700;letter-spacing:-.01em}
+.rl-pf p{font-size:14px;color:var(--mg);margin-top:4px}
+.rl-fine{font-size:13px;color:var(--mg);margin-top:16px;max-width:90ch}
+.rl-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;padding:22px;border-radius:22px;background:var(--card);box-shadow:var(--shadow)}
+.rl-cta h2{font-size:clamp(22px,4.4vw,28px);font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.rl-cta p{color:var(--mg);margin-top:6px}
+.rl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;color:#fff!important;background:linear-gradient(to right,#F47C2C,#FBC02D);box-shadow:0 6px 18px rgba(244,124,44,.28);transition:transform .15s ease,box-shadow .2s ease;-webkit-tap-highlight-color:transparent}
+.rl-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(244,124,44,.32)}
+.rl-btn:active{transform:scale(.97)}
+.rl-btn:focus-visible{outline:2px solid rgba(244,124,44,.4);outline-offset:3px}
+.rl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* entrance: from below only, staggered */
+.rl.rl-js .rl-r{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.rl.rl-js.rl-go .rl-r{opacity:1;transform:none}
+
+@media (min-width:760px){
+  .rl-wrap{padding:56px 32px 80px}
+  html[data-wf-page] .rl-wrap{padding-top:140px}
+  .rl-lab{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}
+  .rl-panel{grid-column:1/-1}
+  .rl-proof{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:1080px){
+  .rl-lab{grid-template-columns:300px minmax(0,1fr) 300px;gap:20px}
+  .rl-panel{grid-column:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .rl *{animation:none!important;transition-duration:0s!important}
+  .rl.rl-js .rl-r{opacity:1;transform:none}
+  .rl-d.back{transform:none}
+}
+</style>
+
+<div class="rl" id="rl">
+<div class="rl-grain" aria-hidden="true"></div>
+<div class="rl-wrap">
+  <p class="rl-label rl-eyebrow rl-r">Renewal lab</p>
+  <h1 class="rl-h1 rl-r">What one question before renewal could do for your numbers</h1>
+  <p class="rl-sub rl-r">Set your members, your on-time renewal rate and your dues. Then switch on the question and watch who renews on time. The math uses only results PropFuel has published.</p>
+
+  <div class="rl-lab">
+    <section class="rl-card rl-ctl rl-r" aria-label="Your numbers">
+      <div class="rl-f">
+        <label for="rl-m">Members up for renewal each year <output id="rl-mo" for="rl-m">2,500</output></label>
+        <input id="rl-m" type="range" min="100" max="25000" step="100" value="2500">
+      </div>
+      <div class="rl-f">
+        <label for="rl-r">On-time renewal rate today <output id="rl-ro" for="rl-r">80.5%</output></label>
+        <input id="rl-r" type="range" min="50" max="98" step="0.5" value="80.5">
+        <small>Members who renew before, or within a month of, their expiration date.</small>
+      </div>
+      <div class="rl-f">
+        <label for="rl-d">Annual dues <output id="rl-do" for="rl-d">$250</output></label>
+        <input id="rl-d" type="range" min="25" max="1500" step="5" value="250">
+      </div>
+      <button type="button" class="rl-sw" id="rl-q" role="switch" aria-checked="false">
+        <span><b>Ask one question before renewal</b><span class="rl-swd">A PropFuel check-in, a few weeks ahead</span></span>
+        <span class="rl-track" aria-hidden="true"><span class="rl-thumb"></span></span>
+      </button>
+    </section>
+
+    <section class="rl-card rl-model rl-r" aria-label="The model">
+      <div class="rl-big">
+        <p class="rl-label" id="rl-bl">Dues renewed on time instead of late or at risk</p>
+        <span class="rl-stat" id="rl-s" aria-describedby="rl-bl">$0</span>
+        <p id="rl-bp">Switch on the question to see the difference.</p>
+      </div>
+      <div class="rl-nums">
+        <div class="rl-n"><b id="rl-n1">2,013</b><span>renew on time today</span></div>
+        <div class="rl-n"><b id="rl-n2">2,013</b><span>renew on time with the question</span></div>
+        <div class="rl-n"><b id="rl-n3">+0</b><span>more members on time</span></div>
+      </div>
+      <div>
+        <p class="rl-label" style="margin-bottom:8px">Every 100 members up for renewal</p>
+        <div class="rl-grid" id="rl-g" role="img" aria-label=""></div>
+        <div class="rl-key" style="margin-top:10px"><span><i class="k1"></i>Renew on time today</span><span><i class="k2"></i>On time once the question is asked</span><span><i class="k3"></i>Late or lapsed</span></div>
+      </div>
+    </section>
+
+    <aside class="rl-panel rl-r" aria-label="What changed and why">
+      <p class="rl-label">What changed, and why</p>
+      <ol class="rl-log" id="rl-log" aria-live="polite"></ol>
+    </aside>
+  </div>
+
+  <div class="rl-proof">
+    <div class="rl-pf rl-r"><b>80.5% &rarr; 95%</b><p>On-time renewals at one association after it started asking members a question before renewal. Its membership grew 7%.</p></div>
+    <div class="rl-pf rl-r"><b>8.68%</b><p>Average revenue growth in year one, across PropFuel clients (platform-wide).</p></div>
+    <div class="rl-pf rl-r"><b>370+ associations</b><p>use PropFuel to know and grow their membership.</p></div>
+  </div>
+  <p class="rl-fine rl-r">How the lab works: the association above went from 80.5% to 95% on-time renewals, so it brought 74% of its late or lapsed members back to on time (14.5 of 19.5 points). The lab applies that same share to your gap. It is one association's published result applied to your numbers, not a forecast or a guarantee, and some members counted here might have renewed late anyway. Sources: PropFuel case-study library and ROI figures (Feb 2026, platform-wide).</p>
+
+  <div class="rl-cta rl-r">
+    <div><h2>Want to run it on your real renewal data?</h2><p>Twenty minutes, your numbers, and the question we'd ask first.</p></div>
+    <a class="rl-btn" href="https://www.propfuel.com/book-a-demo?utm_source=renewal-lab&amp;utm_medium=interactive&amp;utm_campaign=renewal-lab">Book a demo</a>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('rl');if(!root)return;
+  // THE NAMED RULE. Only these published numbers drive the model.
+  var PROOF={before:0.805,after:0.95};               // Case Studies - Master: one association, on-time renewals
+  var SHARE=(PROOF.after-PROOF.before)/(1-PROOF.before); // = 0.7436: share of the late/lapsed gap brought back on time
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id)};
+  var m=$('rl-m'),r=$('rl-r'),d=$('rl-d'),q=$('rl-q'),log=$('rl-log'),grid=$('rl-g');
+  var fmt=function(n){return Math.round(n).toLocaleString('en-US')};
+  var money=function(n){return '$'+fmt(n)};
+  var pts=function(x){return (Math.round(x*1000)/10).toFixed(1).replace(/\.0$/,'')};
+  var pct=function(x){return pts(x)+'%'};
+  for(var i=0;i<100;i++){var s=document.createElement('span');s.className='rl-d';grid.appendChild(s)}
+  var dots=grid.children;
+
+  function calc(){
+    var N=+m.value,R=+r.value/100,D=+d.value,on=q.getAttribute('aria-checked')==='true';
+    var R2=on?R+(1-R)*SHARE:R;
+    return {N:N,R:R,D:D,on:on,R2:R2,today:N*R,with:N*R2,more:N*(R2-R),dues:N*(R2-R)*D};
+  }
+  // interruptible tweens: every frame moves toward the latest target, so a new input just retargets
+  var shown={s:0,n1:0,n2:0,n3:0},target={},raf=0;
+  function paint(){
+    var done=true;
+    for(var k in target){var a=shown[k],b=target[k],nx=reduce?b:a+(b-a)*0.22;if(Math.abs(b-nx)<0.5)nx=b;else done=false;shown[k]=nx}
+    $('rl-s').textContent=money(shown.s);$('rl-n1').textContent=fmt(shown.n1);$('rl-n2').textContent=fmt(shown.n2);$('rl-n3').textContent='+'+fmt(shown.n3);
+    raf=done?0:requestAnimationFrame(paint);
+  }
+  function update(){
+    var c=calc();
+    target={s:c.dues,n1:c.today,n2:c.with,n3:c.more};
+    if(!raf)raf=requestAnimationFrame(paint);
+    $('rl-mo').textContent=fmt(c.N);$('rl-ro').textContent=pct(c.R);$('rl-do').textContent=money(c.D);
+    [m,r,d].forEach(function(el){el.style.setProperty('--p',((el.value-el.min)/(el.max-el.min)*100)+'%')});
+    var a=Math.floor(c.R*100+1e-9),b=Math.max(a,Math.round(c.R2*100));
+    for(var i=0;i<100;i++){var cl='rl-d'+(i<a?' on':i<b?' back':'');var el=dots[i];
+      if(el.className!==cl){if(!reduce&&cl.indexOf('back')>-1)el.style.transitionDelay=((i-a)*14)+'ms';else el.style.transitionDelay='0ms';el.className=cl}}
+    grid.setAttribute('aria-label',a+' of every 100 members renew on time today'+(c.on?'; '+(b-a)+' more renew on time once the question is asked':'')+'.');
+    $('rl-bp').textContent=c.on?fmt(c.more)+' more members renewing on time, at '+money(c.D)+' each. On-time rate goes from '+pct(c.R)+' to '+pct(c.R2)+'.':'Switch on the question to see the difference.';
+    return c;
+  }
+  function say(html){
+    var li=document.createElement('li');li.className='new';li.innerHTML=html;log.insertBefore(li,log.firstChild);
+    while(log.children.length>4)log.removeChild(log.lastChild);
+  }
+  function explain(what){
+    var c=calc(),gap=1-c.R;
+    if(what==='q'){
+      if(c.on)say('<b>You asked one question before renewal.</b> At one association, doing this moved on-time renewals from 80.5% to 95%: 74% of the members who used to renew late or lapse renewed on time. Your gap is '+pct(gap)+' of members, so the lab brings 74% of them back on time, '+pct(gap*SHARE)+' of all your members: <b>'+fmt(c.more)+' more members</b>, worth <b>'+money(c.dues)+'</b> in dues.');
+      else say('<b>You switched the question off.</b> Back to today: '+pct(c.R)+' of '+fmt(c.N)+' members renew on time, and '+fmt(c.N*gap)+' renew late or lapse.');
+    }else if(what==='m'){
+      say('<b>Members set to '+fmt(c.N)+'.</b> The share that moves stays the same, so the number of people grows with the list'+(c.on?': now '+fmt(c.more)+' more on time.':'. Switch on the question to see how many move.'));
+    }else if(what==='r'){
+      say('<b>On-time rate set to '+pct(c.R)+'.</b> '+(c.on?'The higher your rate today, the smaller the gap to close, so the lift shrinks. You now gain '+pts(c.R2-c.R)+' points, not a fixed 14.5.':'That leaves '+pct(gap)+' of members renewing late or lapsing: the gap the question works on.'));
+    }else if(what==='d'){
+      say('<b>Dues set to '+money(c.D)+'.</b> '+(c.on?'Each member who renews on time instead of late or not at all is worth '+money(c.D)+', so the dues renewed on time are now '+money(c.dues)+'.':'Dues don\'t change who renews, only what each renewal is worth.'));
+    }
+  }
+  [['m',m],['r',r],['d',d]].forEach(function(p){
+    p[1].addEventListener('input',update);
+    p[1].addEventListener('change',function(){explain(p[0])});
+  });
+  q.addEventListener('click',function(){q.setAttribute('aria-checked',q.getAttribute('aria-checked')==='true'?'false':'true');update();explain('q')});
+  update();
+  say('<b>Start here.</b> These are sample numbers: 2,500 members, 80.5% renewing on time, $250 dues. Change them to yours, then switch on the question.');
+  root.classList.add('rl-js');
+  var items=root.querySelectorAll('.rl-r');
+  items.forEach(function(el,i){el.style.transitionDelay=Math.min(i,6)*100+'ms'});
+  requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('rl-go')})});
+})();
+</script>
