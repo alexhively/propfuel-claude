@@ -88,6 +88,8 @@ Not included on purpose: ECC's hooks, its coding and build agents, investor skil
 
 #### Changelog
 
+- **1.10.3 (Oct 14 2026):** speaker tiles without footage show the speaker's initial and name (no photo crop).
+
 - **1.10.2 (Oct 14 2026):** the speaker-tile rule is now Alex's pick: show only the person speaking, one tile with a sound-wave ring driven by their real audio; the listener isn't shown.
 
 - **1.10.1 (Oct 14 2026):** `propfuel-motion-ad` carries the speaker-tile rule for real call footage: real moving footage from that exact moment, or an avatar card that reads as not on camera. Never a frozen frame or reused footage (Alex, ANA ad).

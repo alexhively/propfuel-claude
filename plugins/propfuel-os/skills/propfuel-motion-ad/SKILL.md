@@ -35,9 +35,9 @@ entirely in code").
 - **Speaker tiles on real call footage** (Alex, Oct 14 2026): show only the person who is speaking, in one
   Zoom-style tile with their name label and a sound-wave ring (crisp gold edge plus a soft gold glow) driven by
   their real audio. The listener isn't shown: no second tile, no avatar, no still. No footage of the speaker at that
-  moment (camera off, sharing screen) means a camera-off tile (initial or round photo) with the same ring. Never a
-  frozen frame or footage borrowed from another moment. Crossfade at speaker changes and hold each tile at least
-  ~0.6s. Keep the LIVE CLIENT CALL chip and the client attribution. Full rule in `testimonial-video`.
+  moment (camera off, sharing screen) means a camera-off tile (their initial and name, no photo) with the same ring.
+  Never a frozen frame or footage borrowed from another moment. Crossfade at speaker changes and hold each tile at
+  least ~0.6s. Keep the LIVE CLIENT CALL chip and the client attribution. Full rule in `testimonial-video`.
 
 ## Workflow
 
