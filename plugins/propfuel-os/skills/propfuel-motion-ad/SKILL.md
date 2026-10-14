@@ -32,10 +32,12 @@ entirely in code").
 - Replacing any AI-generated video.
 - **Not** for real recorded footage (Gong clips, Dave on camera): that's `testimonial-video` in
   propfuel-meta-ads. Captions and lower-thirds on real footage can still borrow this look.
-- **Speaker tiles on real call footage** (Alex, Oct 13 + Oct 14 2026): a tile is either real moving footage from
-  that exact moment, or an avatar card that reads as "not on camera" (dark tile, small round avatar from the
-  initial or a real frame used as a profile photo, name label, no speaking ring while silent). Never a frozen or
-  dimmed still, and never footage looped or borrowed from another moment. Full rule in `testimonial-video`.
+- **Speaker tiles on real call footage** (Alex, Oct 14 2026): show only the person who is speaking, in one
+  Zoom-style tile with their name label and a sound-wave ring (crisp gold edge plus a soft gold glow) driven by
+  their real audio. The listener isn't shown: no second tile, no avatar, no still. No footage of the speaker at that
+  moment (camera off, sharing screen) means a camera-off tile (initial or round photo) with the same ring. Never a
+  frozen frame or footage borrowed from another moment. Crossfade at speaker changes and hold each tile at least
+  ~0.6s. Keep the LIVE CLIENT CALL chip and the client attribution. Full rule in `testimonial-video`.
 
 ## Workflow
 
