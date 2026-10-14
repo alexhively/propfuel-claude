@@ -88,6 +88,8 @@ Not included on purpose: ECC's hooks, its coding and build agents, investor skil
 
 #### Changelog
 
+- **1.11.0 (Oct 14 2026):** `propfuel-motion-ad` gains an effects library (Matter.js stack, Rough.js sketch, p5.brush swipe, PixiJS glow/glitch, thinking-orbs orb, Anime.js words), all vendored with licenses and made deterministic, plus product-UI beats and the new workflow: XML brief, then a 1-second test render of the hardest beat, then a keyframe sheet reviewed before the full render.
+
 - **1.10.3 (Oct 14 2026):** speaker tiles without footage show the speaker's initial and name (no photo crop).
 
 - **1.10.2 (Oct 14 2026):** the speaker-tile rule is now Alex's pick: show only the person speaking, one tile with a sound-wave ring driven by their real audio; the listener isn't shown.

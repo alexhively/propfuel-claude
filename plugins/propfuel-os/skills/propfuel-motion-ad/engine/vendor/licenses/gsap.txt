@@ -1,0 +1,4 @@
+GSAP 3.14.2 (gsap.min.js), Copyright 2025 GreenSock. All rights reserved.
+Licensed under the GSAP Standard "No Charge" License: https://gsap.com/standard-license
+Free for commercial use, including this internal video-rendering use; not an OSI license.
+The notice in the first lines of gsap.min.js is kept unmodified.

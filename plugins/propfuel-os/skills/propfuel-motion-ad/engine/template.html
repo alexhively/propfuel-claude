@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width={{W}}, height={{H}}" />
     <title>{{TITLE}}</title>
-    <script src="assets/gsap.min.js"></script>
+    <script src="assets/gsap.min.js"></script>{{VENDOR}}
     <style>
       @font-face {
         font-family: "DM Sans";
@@ -90,6 +90,32 @@
       .stat-sub { font-size: calc(var(--u) * 34px); font-weight: 600; margin-top: calc(var(--u) * 32px); }
       .stat-src { font-size: calc(var(--u) * 22px); font-weight: 600; letter-spacing: 0.04em; color: #5A5A5A; margin-top: calc(var(--u) * 14px); }
 
+      .stat-num.md { font-size: calc(var(--u) * 196px); }
+      .stat-num.sm { font-size: calc(var(--u) * 164px); }
+      .layout-row .stat-num.md, .layout-row .stat-num.sm { font-size: 180px; }
+
+      /* popup: a website (skeleton page) with the PropFuel Website Engagement question on it */
+      .browser { width: 100%; max-width: 940px; background: var(--card); border: 1px solid var(--line); border-radius: calc(var(--u) * 28px);
+        box-shadow: 0 2px 0 rgba(47,47,47,0.03), 0 24px 60px -24px rgba(90,70,40,0.28); overflow: hidden; }
+      .br-bar { display: flex; align-items: center; gap: calc(var(--u) * 12px); padding: calc(var(--u) * 20px) calc(var(--u) * 26px); background: var(--deep); }
+      .br-bar i { display: block; width: calc(var(--u) * 16px); height: calc(var(--u) * 16px); border-radius: 50%; background: #CFC7B8; }
+      .br-url { margin-left: calc(var(--u) * 14px); flex: 1 1 auto; padding: calc(var(--u) * 10px) calc(var(--u) * 22px); border-radius: 999px; background: var(--card);
+        font-size: calc(var(--u) * 26px); font-weight: 600; color: var(--mg); }
+      .br-page { position: relative; height: calc(var(--u) * 640px); padding: calc(var(--u) * 36px); display: flex; flex-direction: column; gap: calc(var(--u) * 18px); }
+      .sk { height: calc(var(--u) * 22px); width: 86%; border-radius: 999px; background: var(--deep); }
+      .sk-h { height: calc(var(--u) * 40px); width: 64%; }
+      .sk-s { width: 52%; }
+      .sk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: calc(var(--u) * 16px); }
+      .sk-grid div { height: calc(var(--u) * 120px); border-radius: calc(var(--u) * 14px); background: var(--deep); }
+      .pop { position: absolute; left: calc(var(--u) * 26px); right: calc(var(--u) * 26px); bottom: calc(var(--u) * 26px); background: var(--card); border: 2px solid var(--ch); border-radius: calc(var(--u) * 22px);
+        padding: calc(var(--u) * 30px); box-shadow: 0 30px 60px -28px rgba(47,47,47,0.45); }
+      .pop-text { font-size: calc(var(--u) * 40px); font-weight: 650; line-height: 1.25; }
+      .ans-sk .sk-bar { display: block; height: calc(var(--u) * 20px); border-radius: 999px; background: #D9D2C4; }
+      .ans-sk { justify-content: flex-start; }
+      .q-text .sk-q { display: block; height: calc(var(--u) * 30px); width: 88%; border-radius: 999px; background: #CFC7B8; margin: calc(var(--u) * 8px) 0; }
+      .q-text .sk-q2 { width: 56%; }
+      .ans-sk .ans-check { margin-left: auto; }
+
       .quote-wrap { width: 100%; }
       .quote-mark { font-size: calc(var(--u) * 160px); line-height: 0.6; color: var(--am); font-weight: 800; }
       .quote-t { font-size: calc(var(--u) * 48px); font-weight: 650; line-height: 1.22; letter-spacing: -0.01em; margin-top: calc(var(--u) * 20px); }
@@ -121,8 +147,17 @@
     </div>
     <script>
       const tl = gsap.timeline({ paused: true });
+      // fx beats (scenes-fx.mjs) that measure fonts/layout or init WebGL push a promise here; the timeline is
+      // registered only after all of them settle. Without fx beats it registers synchronously, as before.
+      const __fx = [];
+      const __fxT0 = {{T0}};
+      const __fxFonts = document.fonts.ready.then(() => Promise.all(["800 100px", "750 100px", "650 100px"].map((f) => document.fonts.load(f + ' "DM Sans"'))));
+      const __fxAnime = (a) => { (window.__hfAnime = window.__hfAnime || []).push({ seek: (ms) => a.seek(ms + __fxT0 * 1000), pause: () => a.pause(), play: () => {} }); };
       {{TIMELINE}}
-      window.__timelines["main"] = tl;
+      // __fxT0 > 0 only in a 1-second test build (scripts/test-1s.sh): play the main timeline from that second
+      const __fxRegister = () => { window.__timelines["main"] = __fxT0 ? gsap.timeline({ paused: true }).add(tl.tweenFromTo(__fxT0, __fxT0 + {{DURATION}}, { ease: "none" }), 0) : tl; };
+      if (__fx.length) Promise.all(__fx.map((p) => p.catch((e) => console.error(e)))).then(__fxRegister);
+      else __fxRegister();
     </script>
   </body>
 </html>

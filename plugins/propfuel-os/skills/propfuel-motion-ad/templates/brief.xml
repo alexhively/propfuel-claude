@@ -1,0 +1,43 @@
+<!--
+  propfuel-motion-ad brief. Fill this in at step 2 (storyboard), save it as <adDir>/brief.xml, and show it with the
+  storyboard table. Each tag holds one kind of instruction, so style, timing and output never blur together.
+  Copy the timing lines straight into spec.json (captions[] and scenes[]).
+-->
+<brief slug="SLUG" requester="NAME" date="YYYY-MM-DD">
+
+  <art_direction>
+    Cream #F4F1EA ground with the static grain. Charcoal #2F2F2F type, DM Sans only (750 captions, 800 heroes).
+    One #F47C2C to #FBC02D gradient element per frame (stat number, CTA button, brush swipe, sketch mark or
+    hero card: pick one). Real PropFuel logo. Product UI recreated in code. No AI imagery, no people, no stock.
+    Effect beats used: NONE | stack | sketch | brush | filter(glow|glitch) | orb | words. Why each one earns its place: ...
+  </art_direction>
+
+  <references>
+    Real product screens: exemplars/campaign-visual/specs/ORG.json (the client's actual question and answers).
+    Motion moves to adapt (inspiration only, never copy another brand's work): ...
+    Earlier PropFuel ads to match: ~/Desktop/PropFuel Motion Ads/SLUG/ ...
+  </references>
+
+  <timing>
+    15 s total, 30 fps.
+    0.00-2.20  hook. Caption: "..." (eyebrow: "Membership directors"). Visual: ... Frame 0 reads on its own.
+    2.20-5.40  the turn. Caption: "...". Visual: ...
+    5.40-9.00  stat reveal. Caption: "...". Visual: ... (count-up lands on the sourced number)
+    9.00-15.00 CTA: "See it with your members", Book a demo, propfuel.com/book-a-demo. Holds to the end.
+    Hardest second (the 1-second test): beat N, from N.NN s. Why it is the hardest: ...
+  </timing>
+
+  <deliverable>
+    Cuts: 15s (and 6s bumper?). Formats: 9x16, 4x5 (1x1, 16x9?). H.264 High, yuv420p, 30 fps, silent AAC.
+    Files: ~/Desktop/PropFuel Motion Ads/SLUG/SLUG_CUT_FORMAT.mp4. Local only: nothing uploads.
+  </deliverable>
+
+  <proof>
+    Client: NAME or "none". Case study Live + Named in the OS? yes/no. URL 200 on YYYY-MM-DD.
+    Claim: "..." | Source: ...
+    Claim: "..." | Source: ...
+    Count and tagline: "370+ associations", "Know and Grow Your Membership." Nothing else.
+    Banned words checked: unlock, leverage, empower, transform, seamless, robust, game-changing, best, agent, "!"
+  </proof>
+
+</brief>

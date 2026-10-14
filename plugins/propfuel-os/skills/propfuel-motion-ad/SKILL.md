@@ -5,9 +5,10 @@ description: Make a PropFuel video ad where every frame is drawn by code (HTML/C
 
 # PropFuel motion ad (drawn entirely in code)
 
-A motion ad is a small program: `spec.json` (beats, copy, proof) → `engine/build.mjs` → one HyperFrames
-project per cut × format → `scripts/render.sh` (mp4) → `scripts/qa.sh` (contact sheets). Change a word,
-rebuild, re-render in about 15 seconds. Pattern 3 of the Opus 5.5 build guide ("An animation drawn
+A motion ad is a small program: `brief.xml` + storyboard → `spec.json` (beats, copy, proof) → `engine/build.mjs`
+→ one HyperFrames project per cut × format → `scripts/test-1s.sh` (the hardest second) → `scripts/keyframes.sh`
+(pre-render sheet, wait for feedback) → `scripts/render.sh` (mp4) → `scripts/qa.sh` (contact sheets). Change a
+word, rebuild, re-render in about 15 seconds. Pattern 3 of the Opus 5.5 build guide ("An animation drawn
 entirely in code").
 
 ## Hard rules
@@ -49,9 +50,13 @@ entirely in code").
 - Real product UI: the campaign question and answers are in the content repurposer at `exemplars/campaign-visual/specs/<org>.json`.
   Recreate them in code; never invent a question the client didn't send.
 
-### 2. Storyboard first (show it before building)
+### 2. Brief + storyboard first (show them before building)
 
-Write the beats as a table and show the requester before writing any spec:
+Fill in `templates/brief.xml` and save it as `<adDir>/brief.xml`. Its tags keep the instructions apart:
+`<art_direction>` (look, the one gradient element, which effect beats and why), `<references>` (real product
+screens, inspiration links), `<timing>` (every beat to the hundredth of a second, plus the hardest second),
+`<deliverable>` (cuts, formats, codec, paths) and `<proof>` (every claim and its source). Then write the beats as
+a table and show both to the requester before writing any spec:
 
 | # | Time | Caption (burned in, ≤7 words) | Visual (drawn in code) | Motion | Proof |
 |---|---|---|---|---|---|
@@ -66,7 +71,7 @@ Rules for a 15s ad (Shiver, `propfuel-meta-ads/knowledge/matt-shiver-method.md`)
 
 **6s bumper (YouTube):** hook caption over the stat 0–3.4s, CTA 3.4–6s. No product UI: there isn't time.
 
-If running autonomously (no one to show), write the storyboard into the ad folder's README and proceed.
+If running autonomously (no one to show), write the brief and storyboard into the ad folder and proceed.
 
 ### 3. Write the spec
 
@@ -80,13 +85,19 @@ Scene types the engine draws today:
 | `inbox` | An email card; optional hand-off to a PropFuel question with answer buttons and a tap | `email{from,subject,body,rows,receipt}`, `question{at,text,answers,pick,pickAt}` |
 | `stat` | Hero number counting up (gradient), label, 100-dot grid, support line, source line | `value,decimals,suffix,label,sub,dots,source` |
 | `quote` | Verbatim client quote + name and title (only Gong-verified quotes: grep the transcript for the exact string) | `text,name,role` |
-| `cta` | Full-safe-zone end card: logo, headline, gradient button, URL, tagline, button pulses | uses `spec.cta` |
+| `cta` | Full-safe-zone end card: logo, headline, gradient button, URL, tagline, button pulses | uses `spec.cta` (+ optional `sub`) |
+| `popup` | A website (skeleton page, real domain in the URL bar) with the PropFuel Website Engagement pop-up | `site`, `question{at,text,answers or skeleton,pick,pickAt}` |
+| product beats | `builder`, `checklist`, `drafts`, `guard`, `signals`, `segment`, `profile`, `home`, `initiative`, `headline`, `site`: real PropFuel screens recreated in code | see the header of `engine/scenes-product.mjs` |
+| **effect beats** | `stack`, `sketch`, `brush`, `filter` (glow / glitch), `orb`, `words`: see **Effects library** below | `references/effects.md` |
+
+`stat` also takes `prefix`, `comma: true`, `size: md|sm`, and `dots: null` to hide the grid; a stat at
+`start: 0` shows its final value on frame 0.
 
 New beat type? Add a renderer function to `engine/build.mjs` and its CSS to `engine/template.html`,
 following the existing ones (static end-state HTML, then `tl.fromTo` from-states; `immediateRender: false`
 on any tween that starts later than its element is first visible).
 
-### 4. Build
+### 4. Build, then test the hardest second
 
 ```bash
 SK="<this skill's folder>"   # e.g. ~/Projects/propfuel-content-repurposer/.claude/skills/propfuel-motion-ad
@@ -94,6 +105,17 @@ AD="$HOME/Desktop/PropFuel Motion Ads/<slug>"
 node $SK/engine/build.mjs <spec.json> "$AD" --cuts 15s --formats 9x16,4x5      # add 1x1,16x9 / --cuts 6s as needed
 cp <spec.json> "$AD/spec.json"
 ```
+
+**4b. 1-second test (required when a beat uses an effect or anything new).** Before building every format,
+render only the hardest second, at 1080×1080, 30 fps:
+
+```bash
+$SK/scripts/test-1s.sh <spec.json> 15s:1@0.3      # cut 15s, scene index 1, starting 0.3 s into the beat
+```
+
+It writes `test_<cut>_s<i>.mp4` plus a timestamped keyframe sheet and an all-30-frames sheet to
+`~/Desktop/PropFuel Motion Ads/_fx-tests/<slug>/`. Look at them, show the requester, and wait for a yes on the
+texture and motion before expanding the effect into the full ad.
 
 Before writing composition HTML by hand, read the `hyperframes-core` skill (the engine already obeys it:
 one paused timeline on `window.__timelines["main"]`, local `@font-face`, vendored GSAP, no clocks/random/network).
@@ -119,9 +141,21 @@ DM Sans 750, charcoal, ≤7 words, one per beat, top of the safe box (left colum
 voiceover, the captions are the VO words, timed to it; if not, they are the narrative line. Never more than
 two text sizes competing in one zone.
 
-### 7. Render budget, then export (HyperFrames → H.264)
+### 7. Keyframe sheet, wait, then render (HyperFrames → H.264)
 
-Check usage first: `npx hyperframes usage --json`. Then:
+**7a. Pre-render keyframe sheet (required).** Fast: snapshots only, no video encoded.
+
+```bash
+$SK/scripts/keyframes.sh "$AD"
+```
+
+For every project it captures the start, just before and after every beat and caption change, the middle of
+each beat and the final hold, all labelled with their timestamps, into `qa/keyframes/<cut>-<fmt>_keyframes_<n>.jpg`.
+Check for cropped text, accidental overlaps and elements that vanish mid-transition. Then **stop: show the
+sheets and wait for the requester's feedback before the final render.** (Autonomous runs: note the check in the
+README and continue.)
+
+**7b. Render.** Check usage first: `npx hyperframes usage --json`. Then:
 
 ```bash
 $SK/scripts/render.sh "$AD" 600
@@ -155,7 +189,7 @@ per second, left to right), `_safezone.jpg` (same frames with the safe box in re
 - [ ] No overlapping text mid-transition (sample the hand-offs at 0.1s steps with `ffmpeg -ss`).
 - [ ] Every number on screen equals the source exactly (count-ups land on the final value).
 - [ ] One gradient element per frame; no pure white or black; DM Sans only; no banned words
-      (unlock, leverage, empower, transform, seamless, robust, game-changing, agent).
+      (unlock, leverage, empower, transform, seamless, robust, game-changing, best, agent, "!").
 - [ ] Nothing animates in before it should (a stray dot or ripple at rest means a missing `immediateRender: false`).
 - [ ] No AI imagery, no people, no stock: every pixel traces to the spec.
 
@@ -172,13 +206,20 @@ put something back in one sentence instead of re-briefing.
 ```
 ~/Desktop/PropFuel Motion Ads/<slug>/
   README.md                       storyboard, proof table, QA result, What I cut, approval status
+  brief.xml                       the XML brief (art_direction, references, timing, deliverable, proof)
   spec.json                       the program's input (re-render from this)
   <slug>_<cut>_<format>.mp4       deliverables
   qa/                             specs.txt, *_contact.jpg, *_safezone.jpg, *_poster.jpg
+  qa/keyframes/                   the pre-render keyframe sheets (step 7a)
   src/<cut>-<format>/             the generated HyperFrames projects (npx hyperframes preview to scrub)
+~/Desktop/PropFuel Motion Ads/_fx-tests/<slug>/   1-second tests (step 4b)
 ```
 
 Log the outcome to the OS (`log_update`) with the folder path. Don't commit mp4s to any repo.
+
+**Drive library:** after rendering, make sure `~/Projects/propfuel-drive-sync/manifest.yaml` covers the new ad's
+folder (status `pending` until Alex approves; flip it to `ready` on his yes), then run
+`~/Projects/propfuel-drive-sync/.venv/bin/python ~/Projects/propfuel-drive-sync/sync.py`.
 
 ### 11. Approval (standing rule)
 
@@ -187,10 +228,35 @@ to Meta, LinkedIn, YouTube, Webflow, HubSpot or anyone outside PropFuel until Al
 A re-render is a new file and needs a new yes. After approval, ad setup follows propfuel-meta-ads
 `campaign-setup` (always PAUSED).
 
+## Effects library
+
+Six effect beats on vendored open-source libraries, each made deterministic for HyperFrames (one paused
+timeline, seekable, seeded, no clocks or network). Full guide, spec fields and "don't use it when" in
+`references/effects.md`; licenses in `engine/vendor/LICENSES.md`.
+
+| type | Library | Use it for |
+|---|---|---|
+| `stack` | Matter.js | Word cards fall and pile up (topics, signals, reasons). `preDrop` lets it open the ad |
+| `sketch` | Rough.js | Hand-drawn circle / underline / box / hatch around one number or word |
+| `brush` | p5.brush (standalone, WebGL2) | Textured gradient swipe behind one word of a headline |
+| `filter` | PixiJS + pixi-filters (WebGL) | `glow`: a gold halo blooms on one line. `glitch`: a short seeded burst that resolves to clean type |
+| `orb` | thinking-orbs engine (MIT port) | An AI-thinking / listening moment: Poppy, "PropFuel is listening", the builder working |
+| `words` | Anime.js | Optional: GSAP covers this. The documented, seekable Anime.js pattern (`window.__hfAnime`) |
+
+Rules: one effect beat per ad, two at most; each counts toward the one-gradient-per-frame rule; every effect
+animates in, so frame 0 belongs to a caption + static beat (or `stack` with `preDrop`); a 1-second test (4b)
+before the full build. Demo spec: `examples/fx-demo.json` (no client named, only "370+ associations").
+Inspiration only, never copied: https://skillry.dev/ai-videos/opus-5-5 and
+https://github.com/yihui-dev/awesome-opus5-5-videos.
+
 ## Files
 
-- `engine/build.mjs` spec → projects · `engine/template.html` look (brand v5.2: cream #F4F1EA + grain, charcoal
+- `engine/build.mjs` spec → projects (`--test <cut>:<i>[@s]` builds a 1-second test) · `engine/scenes-product.mjs`
+  product-UI beats · `engine/scenes-fx.mjs` effect beats · `engine/template.html` look (brand v5.2: cream #F4F1EA + grain, charcoal
   #2F2F2F, DM Sans, one #F47C2C→#FBC02D gradient) · `engine/formats.json` canvases + safe zones ·
-  `engine/assets/` DM Sans variable font + PropFuel logo · `engine/vendor/gsap.min.js` (3.14.2, no CDN at render)
-- `scripts/render.sh` budget gate + check + render + H.264 export · `scripts/qa.sh` contact sheets
-- `examples/txcpa-autorenewal.json` the reference ad (15s + 6s cuts)
+  `engine/assets/` DM Sans variable font + PropFuel logo · `engine/vendor/` GSAP 3.14.2 + the effect libraries (no CDN at render; `LICENSES.md`, `licenses/`, and the
+  thinking-orbs port source in `src/`)
+- `scripts/test-1s.sh` 1-second test of one beat · `scripts/keyframes.sh` pre-render keyframe sheet ·
+  `scripts/render.sh` budget gate + check + render + H.264 export · `scripts/qa.sh` post-render contact sheets
+- `templates/brief.xml` the XML brief · `references/effects.md` the effects guide
+- `examples/txcpa-autorenewal.json` the reference ad (15s + 6s cuts) · `examples/fx-demo.json` every effect beat

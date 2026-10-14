@@ -1,0 +1,156 @@
+{
+  "slug": "fx-demo",
+  "title": "Effects library demo: stack, orb, sketch (internal, not an ad)",
+  "proof": {
+    "client": "none (no client named)",
+    "client_status": "n/a: internal demo of the effects library",
+    "claims": [
+      {
+        "on_screen": "370+ associations",
+        "source": "standing rule: the only association count PropFuel uses (Alex, 2026-10-08)"
+      },
+      {
+        "on_screen": "Know and Grow Your Membership.",
+        "source": "front-facing tagline (Alex, 2026-10-08)"
+      }
+    ]
+  },
+  "cta": {
+    "headline": "See it with your members",
+    "button": "Book a demo",
+    "url": "propfuel.com/book-a-demo",
+    "link": "https://www.propfuel.com/book-a-demo",
+    "tagline": "Know and Grow Your Membership."
+  },
+  "cuts": {
+    "13s": {
+      "duration": 13,
+      "captions": [
+        {
+          "start": 0,
+          "end": 3.4,
+          "eyebrow": "Membership directors",
+          "text": "What's on your members' minds?"
+        },
+        {
+          "start": 3.4,
+          "end": 6.4,
+          "text": "Ask one question. Hear every answer."
+        },
+        {
+          "start": 6.4,
+          "end": 9.4,
+          "text": "Associations already asking:"
+        }
+      ],
+      "scenes": [
+        {
+          "type": "stack",
+          "start": 0,
+          "end": 3.4,
+          "words": [
+            "Renewal",
+            "Events",
+            "Career",
+            "Dues",
+            "Community",
+            "Learning"
+          ],
+          "hero": 0,
+          "seed": 7,
+          "preDrop": 3
+        },
+        {
+          "type": "orb",
+          "start": 3.4,
+          "end": 6.4,
+          "state": "listening",
+          "label": "PropFuel is listening"
+        },
+        {
+          "type": "sketch",
+          "start": 6.4,
+          "end": 9.4,
+          "value": "370+",
+          "label": "associations",
+          "mark": "circle",
+          "seed": 3
+        },
+        {
+          "type": "cta",
+          "start": 9.4,
+          "end": 13
+        }
+      ]
+    },
+    "fx": {
+      "duration": 21,
+      "captions": [],
+      "scenes": [
+        {
+          "type": "stack",
+          "start": 0,
+          "end": 3,
+          "words": [
+            "Renewal",
+            "Events",
+            "Career",
+            "Dues",
+            "Community",
+            "Learning"
+          ],
+          "hero": 0,
+          "title": "What's on their minds?",
+          "seed": 7
+        },
+        {
+          "type": "sketch",
+          "start": 3,
+          "end": 6,
+          "value": "370+",
+          "label": "associations",
+          "mark": "circle",
+          "seed": 3
+        },
+        {
+          "type": "brush",
+          "start": 6,
+          "end": 9,
+          "text": "Know and Grow Your Membership.",
+          "mark": "Grow",
+          "seed": 11
+        },
+        {
+          "type": "filter",
+          "start": 9,
+          "end": 12,
+          "effect": "glow",
+          "text": "Your members are talking."
+        },
+        {
+          "type": "filter",
+          "start": 12,
+          "end": 15,
+          "effect": "glitch",
+          "text": "Another dues reminder.",
+          "sub": "Or one question they answer.",
+          "seed": 5
+        },
+        {
+          "type": "orb",
+          "start": 15,
+          "end": 18,
+          "state": "listening",
+          "label": "PropFuel is listening"
+        },
+        {
+          "type": "words",
+          "start": 18,
+          "end": 21,
+          "text": "One question. Every member.",
+          "hero": 3
+        }
+      ]
+    }
+  }
+}
