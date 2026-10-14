@@ -32,6 +32,10 @@ entirely in code").
 - Replacing any AI-generated video.
 - **Not** for real recorded footage (Gong clips, Dave on camera): that's `testimonial-video` in
   propfuel-meta-ads. Captions and lower-thirds on real footage can still borrow this look.
+- **Speaker tiles on real call footage** (Alex, Oct 13 + Oct 14 2026): a tile is either real moving footage from
+  that exact moment, or an avatar card that reads as "not on camera" (dark tile, small round avatar from the
+  initial or a real frame used as a profile photo, name label, no speaking ring while silent). Never a frozen or
+  dimmed still, and never footage looped or borrowed from another moment. Full rule in `testimonial-video`.
 
 ## Workflow
 

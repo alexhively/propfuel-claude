@@ -88,6 +88,8 @@ Not included on purpose: ECC's hooks, its coding and build agents, investor skil
 
 #### Changelog
 
+- **1.10.1 (Oct 14 2026):** `propfuel-motion-ad` carries the speaker-tile rule for real call footage: real moving footage from that exact moment, or an avatar card that reads as not on camera. Never a frozen frame or reused footage (Alex, ANA ad).
+
 - **1.10.0 (Oct 12 2026):** added `propfuel-motion-ad`: coded video ads (HyperFrames), the replacement for the AI-generated case-study videos. It ships with its engine, the DM Sans font (OFL), the PropFuel logo, vendored GSAP, and render and QA scripts.
 
 - **1.8.0 (Oct 12 2026):** `winback-walkthrough` publishes a per-prospect web page through the propfuel-winback generator (`npm run new -- "<account>" --preview`, then `publish-page` when the rep says so), and the cover email links to it; opens show in `npm run views`.
