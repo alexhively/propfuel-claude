@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Email voice skill (1.12.0)
+
+- `/email-voice`: Claude learns how you write from 5-20 of your own sent emails (Gmail connector; skips auto-replies, invites and forwards) and saves a private voice profile: tone, greetings, sign-offs, rhythm, words you use and never use, and a few anonymized example lines. After that, every email it drafts uses the profile. Say "learn my email voice" to set it up and "update my email voice" to refresh it. Profiles live only with you at `~/.claude/email-voice/<name>.md` (or your own claude.ai project or memory), never in this repo or the OS. Drafts only; it never sends. Also in OS knowledge as `Skill - email-voice.md`.
+
 ### Video ad skill (1.10.0)
 
 - `/propfuel-motion-ad`: a PropFuel video ad where every frame is drawn by code (HyperFrames: HTML, CSS and GSAP rendered to mp4). No video model, stock footage, AI imagery or AI people. It uses the real logo, real product UI recreated in code, and type. Storyboard first, then a `spec.json` builds 9:16, 4:5, 1:1 and 16:9 projects plus a 6s bumper, with platform safe zones and burned-in captions. A budget-gated render exports H.264 mp4s, and `qa.sh` writes contact sheets for the frame check. Outputs go to `~/Desktop/PropFuel Motion Ads/<slug>/`. Nothing is uploaded until Alex approves the exact file. Needs Node 22+ and ffmpeg. The reference ad is TXCPA autorenewal (15s). Also in OS knowledge as `Skill - propfuel-motion-ad.md`.
@@ -87,6 +91,8 @@ Eight more ECC skills (MIT), adapted to PropFuel: `email-ops` (draft-first; send
 Not included on purpose: ECC's hooks, its coding and build agents, investor skills, `security-review` (would shadow the built-in `/security-review`) and `social-publisher` (posts through a third-party API).
 
 #### Changelog
+
+- **1.12.0 (Oct 15 2026):** added `email-voice`: builds a private email voice profile from your own sent mail and drafts every email in it; never sends, profiles never leave your machine or account.
 
 - **1.11.0 (Oct 14 2026):** `propfuel-motion-ad` gains an effects library (Matter.js stack, Rough.js sketch, p5.brush swipe, PixiJS glow/glitch, thinking-orbs orb, Anime.js words), all vendored with licenses and made deterministic, plus product-UI beats and the new workflow: XML brief, then a 1-second test render of the hardest beat, then a keyframe sheet reviewed before the full render.
 
