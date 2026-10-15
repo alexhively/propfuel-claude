@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>[ASSOCIATION] · Win-back campaign walkthrough · PropFuel</title>
+<title>[ASSOCIATION] · [USE CASE] campaign walkthrough · PropFuel</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,400&display=swap">
 <style>
-/* Landscape Letter, 3 pages: the note · the campaign map · the comparison. Prospect colour = --their. */
+/* Landscape Letter, 3 pages: the note · the campaign map · the comparison. Prospect colour = --their.
+   Template ships filled with the WIN-BACK map and the no_show / re-engagement copy. Swap per SKILL.md + use-cases.md. */
 :root {
   --pf-yellow: #FBC02D; --pf-amber: #F9A825; --pf-orange: #F47C2C; --pf-deep: #F05A28;
   --page: #F4F1EA; --card: #FFFDF8; --cream: #F6F2E8; --line: #E3DDD2; --ink: #2F2F2F; --mid: #5F5A52; --light: #A9A39A;
@@ -118,6 +119,12 @@ p { margin: 0; }
 .cta b { font-size: 12.5pt; }
 .cta .btn { background: #2F2F2F; color: #fff; border-radius: 999px; padding: 8pt 16pt; font-weight: 700; font-size: 9.5pt; white-space: nowrap; }
 .merge { background: rgba(251,192,45,0.45); border-radius: 3px; }
+/* no single word stranded on a last line */
+p, li, .q, .who, .why, .sub, .choices, .l, .lbl, h3, .cta div, .always span { text-wrap: pretty; }
+h1, h2 { text-wrap: balance; }
+.cta a.btn { text-decoration: none; }
+.proof .src { font-size: 7.5pt; color: #A9A39A; }
+.proof .src a { color: #CFC7B8; }
 body.filled .merge { background: none; }
 </style>
 </head>
@@ -135,25 +142,28 @@ body.filled .merge { background: none; }
       <h1>I built this for <span class="accent">our call</span>. It’s yours either way.</h1>
       <div class="body">
         <p>[FIRST NAME],</p>
+        <!-- [OPENING LINE]: from the context-mode table. Cold never says "following up" or "when we last talked". -->
         <p>We had [MEETING DATE] on the calendar, so I put this together ahead of time. No worries that it didn’t happen. I’d rather you have it than leave it in a folder.</p>
-        <p>It's what a lapsed-member win-back would look like for <span class="merge">[ASSOCIATION]</span> in PropFuel: four short emails, each asking one question, and everything that happens behind the scenes when someone answers. Page 2 is the map. Page 3 puts it next to the win-back sequence most associations send today.</p>
-        <p>The short version: a standard reminder tells you who opened it. This tells you who didn't know they'd lapsed, who wants to come back, and why the rest left, and it updates your records and taps your team on the shoulder while it does.</p>
+        <!-- [GONG LINE]: optional, only from a real Gong call; delete this <p> when there is none. -->
+        <p>[GONG LINE]</p>
+        <p>It's what [USE CASE PHRASE] would look like for <span class="merge">[ASSOCIATION]</span> in PropFuel: four short emails, each asking one question, and everything that happens behind the scenes when someone answers. Page 2 is the map. Page 3 puts it next to the [STANDARD SEQUENCE NAME] most associations send today.</p>
+        <p>[SHORT VERSION]</p>
       </div>
       <div class="sig"><b>[REP NAME]</b>[TITLE], PropFuel · [REP EMAIL]</div>
     </div>
     <div class="vs">
       <div class="vsbox them">
-        <div class="lbl">One standard reminder email</div>
+        <div class="lbl">One standard email</div>
         <ul>
           <li><i>1</i>Sends the same “Your membership has expired” message to everyone</li>
           <li><i>2</i>Tells you who opened and who clicked</li>
-          <li><i>·</i>Doesn't tell you why anyone left</li>
+          <li><i>·</i>Doesn't tell you what anyone wants, or why</li>
           <li><i>·</i>Doesn't change anything in your membership database</li>
           <li><i>·</i>Doesn't tell your team who to call</li>
         </ul>
       </div>
       <div class="vsbox pf">
-        <div class="vsrow"><span class="big">22</span><span>automated actions from four one-question emails, none of them done by hand</span></div>
+        <div class="vsrow"><span class="big">[ACTION COUNT]</span><span>automated actions from four one-question emails, none of them done by hand</span></div>
         <div class="lbl">One PropFuel check-in</div>
         <ul>
           <li><i>✓</i>Asks one question members answer in a single click</li>
@@ -165,7 +175,7 @@ body.filled .merge { background: none; }
       </div>
     </div>
   </div>
-  <div class="foot"><span>Win-back campaign walkthrough · Prepared for [ASSOCIATION] by PropFuel</span><span>propfuel.com · Know and Grow Your Membership · 1 / 3</span></div>
+  <div class="foot"><span>[USE CASE] campaign walkthrough · Prepared for [ASSOCIATION] by PropFuel</span><span>propfuel.com · Know and Grow Your Membership · 1 / 3</span></div>
 </section>
 
 <!-- PAGE 2 · the map -->
@@ -173,7 +183,7 @@ body.filled .merge { background: none; }
   <div class="mapwrap">
     <div class="maphead">
       <div class="eyebrow">The campaign map</div>
-      <h2>What a win-back looks like for [ASSOCIATION]</h2>
+      <h2>What [USE CASE PHRASE] looks like for [ASSOCIATION]</h2>
       <div class="sub">Four emails, one question each. Under every question: what happens on its own when a member answers.</div>
     </div>
     <div>
@@ -182,7 +192,7 @@ body.filled .merge { background: none; }
     </div>
     <div class="always"><b>Running the whole time</b><span><b>Enrolled automatically</b> when the AMS marks a member lapsed</span><span><b>Removed the moment they rejoin</b> so no “last chance” emails to people who paid</span><span><b>Rejoins and dues counted</b> on the campaign as they happen</span></div>
   </div>
-  <div class="foot"><span>Structure from PropFuel’s recently-lapsed win-back walkthrough. Questions, timing and actions are set for each association; every action shown is a standard PropFuel feature.</span><span>2 / 3</span></div>
+  <div class="foot"><span>Structure from PropFuel’s campaign walkthroughs. Questions, timing and actions are set for each association; every action shown is a standard PropFuel feature.</span><span>2 / 3</span></div>
 </section>
 
 <!-- PAGE 3 · the comparison -->
@@ -191,8 +201,8 @@ body.filled .merge { background: none; }
   <h2 style="margin-bottom:10pt">The same four sends, two very different results</h2>
   <div class="p3">
     <div class="col them">
-      <h3>A standard win-back sequence</h3>
-      <div class="muted" style="font-size:8.5pt">Mailchimp, HubSpot, Constant Contact or your AMS's email tool</div>
+      <h3>A standard [STANDARD SEQUENCE NAME]</h3>
+      <div class="muted" style="font-size:8.5pt">[EMAIL SYSTEM LINE]</div>
       <div class="seq"><span class="em">“Your membership has expired”</span><span class="ar">→</span><span class="em">“Don't miss out”</span><span class="ar">→</span><span class="em">“We miss you”</span><span class="ar">→</span><span class="em">“Last chance”</span></div>
       <div class="learn">What you learn</div>
       <ul><li>Who opened and who clicked</li><li>Who renewed, once you check the AMS by hand</li></ul>
@@ -200,7 +210,7 @@ body.filled .merge { background: none; }
       <ul><li>No reason for leaving, from anyone</li><li>Members who renewed keep getting “last chance” emails until someone updates the list</li><li>Warm replies sit in an inbox</li><li>Your AMS looks exactly the same afterwards</li></ul>
     </div>
     <div class="col pf">
-      <h3>The PropFuel win-back on page 2</h3>
+      <h3>The PropFuel campaign on page 2</h3>
       <div class="muted" style="font-size:8.5pt">Four one-question emails, sent from [ASSOCIATION]'s own domain and branding</div>
       <div class="seq"><span class="em">Did you know it expired?</span><span class="ar">→</span><span class="em">Want to rejoin?</span><span class="ar">→</span><span class="em">What matters most?</span><span class="ar">→</span><span class="em">What's holding you back?</span></div>
       <div class="learn">What you learn</div>
@@ -211,30 +221,31 @@ body.filled .merge { background: none; }
   </div>
   <div class="build">
     <div class="list">
-      <h3>To rebuild page 2 in HubSpot or Mailchimp, you'd need to set up:</h3>
+      <h3>To rebuild page 2 in [EMAIL SYSTEM], you'd need to set up:</h3>
       <ol>
         <li>A custom field for every question</li>
         <li>A list or segment for every answer</li>
         <li>A workflow with branches for each email</li>
         <li>A landing page for every answer</li>
         <li>A follow-up question for the “no” answers</li>
-        <li>A sync that writes answers back to your AMS</li>
+        <li>A sync that writes answers back to [AMS]</li>
         <li>Staff notifications for warm replies</li>
-        <li>A rule that removes members when your AMS shows they renewed</li>
+        <li>[REMOVAL RULE]</li>
       </ol>
       <p class="muted" style="font-size:8pt;margin-top:7pt">PropFuel ships with all of it, plus 70+ ready-made campaigns your team edits and approves.</p>
     </div>
     <div class="proof">
-      <div class="eyebrow" style="color:var(--pf-yellow)">One question, seven weeks</div>
+      <div class="eyebrow" style="color:var(--pf-yellow)">[PROOF EYEBROW]</div>
       <div class="nums"><div><div class="n">42</div><div class="l">lapsed members rejoined</div></div><div><div class="n">$18,438</div><div class="l">recovered in dues</div></div><div><div class="n">72%</div><div class="l">of first answers: didn't know they'd lapsed</div></div></div>
-      <div class="q">An international medical society asked lapsed members “Are you aware your membership has expired?” on its first PropFuel campaign. It recovered more than it pays for PropFuel in a year. <span style="color:#A9A39A">Published case study, propfuel.com.</span></div>
+      <div class="q">An international medical society asked lapsed members “Are you aware your membership has expired?” on its first PropFuel campaign. It recovered more than it pays for PropFuel in a year.</div>
+      <div class="src">From a published PropFuel case study. Illustrative of what this kind of campaign can do, not a forecast or a claim about [ASSOCIATION]. Across PropFuel: 370+ associations and counting, and 12% average annual revenue growth after implementing PropFuel.</div>
     </div>
   </div>
   <div class="cta">
-    <div><b>Worth 20 minutes to walk through it together?</b><div style="font-size:9pt;color:#3E3A34">Pick any time that works and I’ll show you this campaign built on [ASSOCIATION]’s own data.</div></div>
-    <span class="btn">Pick a new time · [BOOKING LINK]</span>
+    <div><b>[CTA HEAD]</b><div style="font-size:9pt;color:#3E3A34">[CTA SUB]</div></div>
+    <a class="btn" href="[CHILI PIPER URL]">[CTA BUTTON]</a>
   </div>
-  <div class="foot"><span>[REP NAME] · [REP EMAIL]</span><span>propfuel.com · Know and Grow Your Membership · 3 / 3</span></div>
+  <div class="foot"><span>[REP NAME] · [REP EMAIL]</span><span>370+ associations and counting · propfuel.com · 3 / 3</span></div>
 </section>
 
 </body>
