@@ -25,7 +25,7 @@ Follow the REPEAT-PLAYBOOK:
 
 ## 3. Output
 - A deck JSON for the renderer (layouts and fields are the `LAYOUTS` dict at the top of it; every slide carries `notes` = the talk track for that slide, first person, in the presenter's voice, timed to the session length).
-- Render. The renderer is one self-contained Python file: in a content-repurposer checkout `templates/deck/render.py`; anywhere else `get_knowledge "Skill - webinar-deck - renderer.md"` and save its code block as `render.py`. Then `pip install python-pptx` and `python3 render.py deck.json --out <dir>` → `.pptx` (editable, talk track in the speaker notes, opens in Google Slides) + `.pdf` (house look; needs Chrome or Playwright Chromium, otherwise you get the PPTX and the HTML).
+- Render. The renderer is one self-contained Python file: in a content-repurposer checkout `templates/deck/render.py`; bundled next to this skill as `render.py` (claude.ai org skill); anywhere else `get_knowledge "Skill - webinar-deck - renderer.md"` and save its code block as `render.py`. Then `pip install python-pptx` and `python3 render.py deck.json --out <dir>` → `.pptx` (editable, talk track in the speaker notes, opens in Google Slides) + `.pdf` (house look; needs Chrome or Playwright Chromium, otherwise you get the PPTX and the HTML).
 - A one-page talk-track doc (slide number, headline, the notes, the timing) for the presenter to rehearse from.
 - On a webinar build: attach the PPTX, PDF and talk-track doc to the webinar's Notion card ("Slide deck" toggle) and set the OS asset slots `deck` and `talk_track` (update_event action asset, slot, link, status draft). The presenter reviews; never mark them done yourself.
 
