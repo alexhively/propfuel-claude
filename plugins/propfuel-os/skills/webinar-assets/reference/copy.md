@@ -11,7 +11,7 @@ Source: Alejandra's Webinar Assets project (master doc section 7 and 8). Draft o
 - Conversational, professional, human. First person from the actual sender. Bold only the full series name and the full session title.
 - No session counts ("Session 1 of 4"). No "free" near a CTA. No question marks in subject lines.
 - Never mention a repeat, a session that will run shorter than its blocked hour, or anything leadership asked to keep private. Never say "again" or "back by popular demand".
-- Never invent links, dates or registration pages. Unknowns are [square-bracket placeholders]. Speaker name stays out of the pop-up description.
+- Never invent links, dates or registration pages (use the card's Tracking Links). Unknowns are [square-bracket placeholders]. Speaker name stays out of the pop-up description.
 - Keep proof points and case studies out of the Zoom description.
 
 ## 1. Zoom description (no links)
