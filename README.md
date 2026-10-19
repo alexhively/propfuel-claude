@@ -115,3 +115,7 @@ Not included on purpose: ECC's hooks, its coding and build agents, investor skil
 - **1.4.0 (Oct 11 2026):** 8 more ECC skills and the `marketing-agent` and `seo-specialist` agents, PropFuel-adapted. Browser and click-path QA never submit real propfuel.com forms (they create real leads and ad conversions); email-ops is draft-first.
 
 - **1.3.0 (Oct 11 2026):** added the 11 `li-*` skills, the PropFuel voice default, and PropFuel brand tokens for carousels. The humanizer scripts now run from the plugin folder with `python3 -I`.
+
+## How skills reach the team
+
+Push to `main` and you're done. Every hour, `scripts/sync-skills.mjs` in the content repurposer (launchd `com.propfuel.skills-drift`) reads this repo's `origin/main`. A new or changed skill becomes its OS doc `Skill - <name>.md`, is listed in `Skills - Catalog.md`, and the claude.ai Marketing OS project loads it live. Plugin skills that changed are flagged on the /admin `skills-drift` card for upload to the claude.ai org skill library. A skill that only works in Claude Code goes in `claude_code_only` in the repurposer's `org-library.json` (and in `os_exclude` in `skills-manifest.json` if it shouldn't be an OS doc either).
