@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Webinar deck skill (1.15.0)
+
+- `/webinar-deck`: builds a webinar's slide deck and talk track from the webinar brain in the Marketing OS (`Webinar Deck - DECK-BRAIN.md`, `REPEAT-PLAYBOOK.md`, `INDEX.md` and 21 `Webinar Session - …` records: every 2026 slide with what was said over it and what landed). A new webinar gets a deck in the house structure and Brittany's voice; a repeat starts from its last run's deck and talk track and proposes a change list for approval before writing the new version. Renders an editable PPTX (talk track in the speaker notes; opens in Google Slides) and a PDF with the renderer in `Skill - webinar-deck - renderer.md`. Also the deck job in the OS webinar build ("Start the build").
+
 ### Email voice skill (1.12.0)
 
 - `/email-voice`: Claude learns how you write from 5-20 of your own sent emails (Gmail connector; skips auto-replies, invites and forwards) and saves a private voice profile: tone, greetings, sign-offs, rhythm, words you use and never use, and a few anonymized example lines. After that, every email it drafts uses the profile. Say "learn my email voice" to set it up and "update my email voice" to refresh it. Profiles live only with you at `~/.claude/email-voice/<name>.md` (or your own claude.ai project or memory), never in this repo or the OS. Drafts only; it never sends. Also in OS knowledge as `Skill - email-voice.md`.
