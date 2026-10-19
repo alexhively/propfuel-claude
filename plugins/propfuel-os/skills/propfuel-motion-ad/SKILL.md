@@ -101,7 +101,7 @@ on any tween that starts later than its element is first visible).
 
 ```bash
 SK="<this skill's folder>"   # e.g. ~/Projects/propfuel-content-repurposer/.claude/skills/propfuel-motion-ad
-AD="$HOME/Desktop/PropFuel Motion Ads/<slug>"
+AD="$HOME/Desktop/PropFuel/03 Video/PropFuel Motion Ads/<slug>"
 node $SK/engine/build.mjs <spec.json> "$AD" --cuts 15s --formats 9x16,4x5      # add 1x1,16x9 / --cuts 6s as needed
 cp <spec.json> "$AD/spec.json"
 ```
@@ -114,7 +114,7 @@ $SK/scripts/test-1s.sh <spec.json> 15s:1@0.3      # cut 15s, scene index 1, star
 ```
 
 It writes `test_<cut>_s<i>.mp4` plus a timestamped keyframe sheet and an all-30-frames sheet to
-`~/Desktop/PropFuel Motion Ads/_fx-tests/<slug>/`. Look at them, show the requester, and wait for a yes on the
+`~/Desktop/PropFuel/03 Video/PropFuel Motion Ads/_fx-tests/<slug>/`. Look at them, show the requester, and wait for a yes on the
 texture and motion before expanding the effect into the full ad.
 
 Before writing composition HTML by hand, read the `hyperframes-core` skill (the engine already obeys it:
@@ -204,7 +204,7 @@ put something back in one sentence instead of re-briefing.
 ### 10. Where outputs go
 
 ```
-~/Desktop/PropFuel Motion Ads/<slug>/
+~/Desktop/PropFuel/03 Video/PropFuel Motion Ads/<slug>/
   README.md                       storyboard, proof table, QA result, What I cut, approval status
   brief.xml                       the XML brief (art_direction, references, timing, deliverable, proof)
   spec.json                       the program's input (re-render from this)
@@ -212,7 +212,7 @@ put something back in one sentence instead of re-briefing.
   qa/                             specs.txt, *_contact.jpg, *_safezone.jpg, *_poster.jpg
   qa/keyframes/                   the pre-render keyframe sheets (step 7a)
   src/<cut>-<format>/             the generated HyperFrames projects (npx hyperframes preview to scrub)
-~/Desktop/PropFuel Motion Ads/_fx-tests/<slug>/   1-second tests (step 4b)
+~/Desktop/PropFuel/03 Video/PropFuel Motion Ads/_fx-tests/<slug>/   1-second tests (step 4b)
 ```
 
 Log the outcome to the OS (`log_update`) with the folder path. Don't commit mp4s to any repo.

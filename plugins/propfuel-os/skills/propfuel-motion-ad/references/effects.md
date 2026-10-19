@@ -3,7 +3,7 @@
 Six effect beats on top of the core beats (inbox, popup, stat, quote, cta and the product-UI beats). Each sits
 in `engine/scenes-fx.mjs`, loads only its own vendored library (`engine/vendor/LICENSES.md`) and renders the same
 pixels every time. Proven on 2026-10-14 by 1-second test renders, two-run snapshot hashes, and a 13s demo
-(`examples/fx-demo.json`); outputs in `~/Desktop/PropFuel Motion Ads/_fx-tests/`.
+(`examples/fx-demo.json`); outputs in `~/Desktop/PropFuel/03 Video/PropFuel Motion Ads/_fx-tests/`.
 
 **Use one effect beat per ad, two at most.** Effects support the message; they are never the message. Each one
 needs a 1-second test (`scripts/test-1s.sh`) before you build the full ad, and every effect animates in, so
