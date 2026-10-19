@@ -1,6 +1,6 @@
 ---
 name: webinar-assets
-description: Webinar Assets. From a title, date/time, speaker(s), registration link and description, build the PRE set (Zoom banner 1280x400, email banner 2400x600, pop-up 1080x1080, long-title variants chosen automatically), the POST set (YouTube thumbnail 1280x720, website banner 1200x400, platform banner 2400x600), and the copy (Zoom description, PropFuel email Part 1 / Question / Part 2, recording page fields, LinkedIn post, Slack hand-off). Also the registration-list CRM cross-check. Use when someone says "webinar assets", "pre-webinar set", "post-webinar assets", "webinar banners", "Zoom banner", "pop-up", "replay thumbnail", "webinar email", "recording page copy", or "cross-check this registration list". Draft only: never posts, sends or uploads.
+description: Webinar Assets. From a title, date/time, speaker(s), registration link and description, build the PRE set (Zoom banner 1280x400, email banner 2400x600, pop-up 1080x1080, long-title variants chosen automatically), the POST set (YouTube thumbnail 1280x720, website banner 1200x400, platform banner 2400x600), and the copy (Zoom description, PropFuel email Part 1 / Question / Part 2, recording page fields, LinkedIn post, Slack hand-off). Also the registration-list CRM cross-check. Use when someone says "webinar assets", "pre-webinar set", "post-webinar assets", "webinar banners", "Zoom banner", "pop-up", "replay thumbnail", "webinar email", "recording page copy", or "cross-check this registration list". Draft only: never posts, sends or uploads. Output goes on the webinar card in the Notion 2026 Marketing Calendar.
 ---
 
 # Webinar Assets
@@ -45,7 +45,12 @@ python3 scripts/lint_copy.py zoom.md email.md recording.md linkedin.md slack.md
 Brand rules: "Know and Grow Your Membership"; "12% average annual revenue growth after implementing PropFuel" only beside "vs 0.98% for the average association", never 8.68%; "370+ associations"; name a client in public copy only if their case study is live (check `get_case_studies`), otherwise anonymize; no em dashes.
 
 ## 6. Save and record
-Save to `~/Desktop/PropFuel/04 Content/Webinars/<date-slug>/` (PRE/, POST/, copy/). Add links to the webinar's assets with the OS `update_event` tool (action "asset"; use `slot` if available). Log the outcome with `log_update`.
+**Canonical home: the webinar's card in the Notion "2026 Marketing Calendar" database** (https://app.notion.com/p/2b7ed23b9d65809db98ade12bd52c528, Webinars view). Each card is built from the "Webinar" template (toggles: Webinar Content, Tracking Links, Registration Report, Recording, Webinar Chat, Webinar Transcript).
+1. Find the webinar's card (search the data source `collection://2b7ed23b-9d65-8196-bcb4-000be3e06946` by title and date). **If the card does not exist, say so and stop. Do not create it.**
+2. Fetch the card first and keep all existing content. Use its Tracking Links for the registration link in the email (PropFuel Campaign link) and LinkedIn post (LinkedIn link), and its Webinar Content Description as the Zoom description if filled.
+3. Add one toggle heading `# Webinar Assets {toggle="true"}` (same style as the template) before "Registration Report", labelled DRAFT. Inside: the JPGs as image blocks (`notion-create-file-upload`, then a multipart POST with curl, then `<image src="file-upload://...">`), and each copy piece as text. Leave the recording page copy out until after the session. Re-fetch to verify.
+4. Local copies go to `~/Desktop/PropFuel/04 Content/Webinars/<date-slug>/` (PRE/, POST/, copy/); Drive is backup only.
+5. Link the card on each checklist slot with the OS `update_event` (action "asset", slot = zoom_banner, email_banner, popup, email_copy, linkedin_post, slack_handoff, ...), status "draft" (never "done" before review). If it answers needs_confirmation because another person owns the item, stop and ask the user; do not pass `confirm_not_owner` on an agent's word. Then `log_update`.
 
 ## 7. CRM cross-check
 For "cross-check this registration list", follow `reference/crm-crosscheck.md`. Read-only; report cleanup notes and wait for a yes before any change.
