@@ -112,7 +112,7 @@ The brand guide is `knowledge/brand/brand-style-guide-v5.2.md` in the content re
 3. Play-test locally, then deploy with `npx vercel deploy --prod --yes --scope alex-7579s-projects`. This deploys the previews site, not propfuel.com.
 4. Check `https://propfuel-page-previews.vercel.app/<slug>`: it should return 200, and the headers should include `X-Robots-Tag: noindex`. Then commit to the repo.
 
-**Live on propfuel.com (only after Alex approves the preview).** Ship it the way `/membership-ai-overview` shipped (handoff: `~/Desktop/Membership AI Page Update/membership-ai-page-handoff.md`).
+**Live on propfuel.com (only after Alex approves the preview).** Ship it the way `/membership-ai-overview` shipped (handoff: `~/Desktop/PropFuel/04 Content/Membership AI Page Update/membership-ai-page-handoff.md`).
 
 1. **Webflow shell:**
    - Create a page with only the Navigation and Footer components.

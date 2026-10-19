@@ -14,7 +14,7 @@ set -euo pipefail
 SPEC="${1:?usage: test-1s.sh <spec.json> <cut>:<sceneIndex>[@sec] [outDir]}"
 WHICH="${2:?usage: test-1s.sh <spec.json> <cut>:<sceneIndex>[@sec] [outDir]}"
 SLUG=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" "$SPEC")
-OUT="${3:-$HOME/Desktop/PropFuel Motion Ads/_fx-tests/$SLUG}"
+OUT="${3:-$HOME/Desktop/PropFuel/03 Video/PropFuel Motion Ads/_fx-tests/$SLUG}"
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 HF="npx --yes hyperframes@0.8.150"
 CUT="${WHICH%%:*}"; REST="${WHICH#*:}"; I="${REST%%@*}"

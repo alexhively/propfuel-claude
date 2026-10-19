@@ -56,7 +56,7 @@ None of them post, comment or send anything. You read, approve and paste.
 
 ### Video ad skill (1.10.0)
 
-- `/propfuel-motion-ad`: a PropFuel video ad where every frame is drawn by code (HyperFrames: HTML, CSS and GSAP rendered to mp4). No video model, stock footage, AI imagery or AI people. It uses the real logo, real product UI recreated in code, and type. Storyboard first, then a `spec.json` builds 9:16, 4:5, 1:1 and 16:9 projects plus a 6s bumper, with platform safe zones and burned-in captions. A budget-gated render exports H.264 mp4s, and `qa.sh` writes contact sheets for the frame check. Outputs go to `~/Desktop/PropFuel Motion Ads/<slug>/`. Nothing is uploaded until Alex approves the exact file. Needs Node 22+ and ffmpeg. The reference ad is TXCPA autorenewal (15s). Also in OS knowledge as `Skill - propfuel-motion-ad.md`.
+- `/propfuel-motion-ad`: a PropFuel video ad where every frame is drawn by code (HyperFrames: HTML, CSS and GSAP rendered to mp4). No video model, stock footage, AI imagery or AI people. It uses the real logo, real product UI recreated in code, and type. Storyboard first, then a `spec.json` builds 9:16, 4:5, 1:1 and 16:9 projects plus a 6s bumper, with platform safe zones and burned-in captions. A budget-gated render exports H.264 mp4s, and `qa.sh` writes contact sheets for the frame check. Outputs go to `~/Desktop/PropFuel/03 Video/PropFuel Motion Ads/<slug>/`. Nothing is uploaded until Alex approves the exact file. Needs Node 22+ and ffmpeg. The reference ad is TXCPA autorenewal (15s). Also in OS knowledge as `Skill - propfuel-motion-ad.md`.
 
 ### Sales skill (1.7.0)
 
