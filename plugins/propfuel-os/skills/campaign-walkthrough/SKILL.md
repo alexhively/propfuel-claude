@@ -93,7 +93,7 @@ The CTA is `<a class="btn" href="{rep's Chili Piper URL}">`. It stays a real lin
 - The Gong line quotes a real call, is attributed and dated correctly, and says "a while back" if older than 9 months.
 - The CTA link works: the PDF has a link annotation to the rep's Chili Piper URL (`python3 -c "import fitz;d=fitz.open('x.pdf');print([l['uri'] for p in d for l in p.get_links()])"`).
 - Stats: only "370+ associations" and "12% average annual revenue growth after implementing PropFuel". **Never 8.68%.** No invented membership numbers.
-- Proof: only a Live case study for the same use case, labelled as published and illustrative, never as a forecast for them. Name a client only if its case study is live and Named.
+- Proof: only a Live case study for the same use case, labelled as published and illustrative, never as a forecast for them. Clients may be named without a live case study.
 - The last page's footer says "370+ associations and counting". Tagline: "Know and Grow Your Membership".
 - No `[` merge field left. Offer copy says we build it *with* them.
 - `log_update` to the Marketing OS (account, use case, mode, file). Don't change the opp.

@@ -20,8 +20,7 @@ entirely in code").
    A client's logo only if we hold the official file. Otherwise set the client's name in DM Sans.
 3. **Every claim is sourced.** Numbers come from ROI - Master, Case Studies - Master or the live case-study
    page (OS knowledge, `get_knowledge`). List each on-screen claim and its source in `spec.proof.claims`.
-4. **A client is named only if its case study is live** (OS `get_case_studies`: stage Live, shown_as Named,
-   and the URL returns 200 today). Anonymous studies stay anonymous ("a state CPA society").
+4. **Clients may be named without a live case study** (Alex, Oct 19 2026). Anonymous studies stay anonymous ("a state CPA society").
 5. **Count and tagline:** "370+ associations" and "Know and Grow Your Membership." Nothing else.
 6. **Nothing ships to an ad account, or anywhere public, until Alex approves the exact file** (path +
    render date). This skill never uploads. It saves locally and asks.

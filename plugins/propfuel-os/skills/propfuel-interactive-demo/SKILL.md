@@ -30,7 +30,7 @@ It's a draft until Alex approves it. Don't post the URL anywhere public, email i
 Load the proof with the OS `get_knowledge`: `ROI - Master.md` and `Case Studies - Master.md`. Pick **one** published result that the lab's switch stands for, and write down the exact line you're using.
 
 **The named rule.** Every number in the math comes from those two documents, and nothing else. Label each one:
-- **One client's result** (a case study): name the client only if its case study is live on propfuel.com (`get_case_studies`, stage Live). Otherwise say "one association". The Renewal lab uses AAMFT's 80.5% → 95% on-time renewals, unnamed.
+- **One client's result** (a case study): the client may be named without a live case study. The Renewal lab uses AAMFT's 80.5% → 95% on-time renewals, unnamed.
 - **Platform-wide** (ROI - Master, as of Feb 2026). For example: 8.68% average year-one revenue growth, $650K average first-year revenue growth, 72% of declining organisations reversed course. Write "platform-wide" or "across PropFuel clients" next to it.
 
 Never invent a benchmark, a lift, a conversion rate or a "typical association" number. If the model needs a number the documents don't have, the prospect sets it with a slider, or you cut that part and list it under "what I cut".
@@ -128,7 +128,7 @@ The brand guide is `knowledge/brand/brand-style-guide-v5.2.md` in the content re
 ## 5. Check before anyone external sees it
 
 - Every number in the script traces to a line in ROI - Master or Case Studies - Master, and the rule is stated on the page. Recompute the published starting point by hand: the Renewal lab at 80.5% must give exactly 95%.
-- Labels are honest: "one association" or "platform-wide", "not a forecast". No client name unless the case study is live.
+- Labels are honest: "one association" or "platform-wide", "not a forecast". Clients may be named without a live case study.
 - Play-test at 1280 and 375, and with reduced motion on.
   - Check the extremes of every slider: min, max, and any spot where rounding shows.
   - No console errors, no sideways scroll.

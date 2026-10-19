@@ -42,7 +42,7 @@ Write from `reference/copy.md` (brand rules, formats, approved examples), then l
 ```bash
 python3 scripts/lint_copy.py zoom.md email.md recording.md linkedin.md slack.md
 ```
-Brand rules: "Know and Grow Your Membership"; "12% average annual revenue growth after implementing PropFuel" only beside "vs 0.98% for the average association", never 8.68%; "370+ associations"; name a client in public copy only if their case study is live (check `get_case_studies`), otherwise anonymize; no em dashes.
+Brand rules: "Know and Grow Your Membership"; "12% average annual revenue growth after implementing PropFuel" only beside "vs 0.98% for the average association", never 8.68%; "370+ associations"; clients may be named in public copy without a live case study; no em dashes.
 
 ## 6. Save and record
 **Canonical home: the webinar's card in the Notion "2026 Marketing Calendar" database** (https://app.notion.com/p/2b7ed23b9d65809db98ade12bd52c528, Webinars view). Each card is built from the "Webinar" template (toggles: Webinar Content, Tracking Links, Registration Report, Recording, Webinar Chat, Webinar Transcript).

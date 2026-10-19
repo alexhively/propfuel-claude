@@ -70,7 +70,7 @@ Built <YYYY-MM-DD> from <N> sent emails (<date range>). Private: never share or 
 
 ## B. Draft in their voice (every email, every time)
 1. Read the profile first. If none exists, offer to build one (section A); if they decline, draft plainly and say it's not in their voice yet.
-2. PropFuel content rules still apply on top of the voice: for anything about PropFuel, start from the Marketing OS (`get_briefing`, the Master docs), "370+ associations", numbers only from the ROI and Case Studies masters, name a client only if their case study is live, no invented stats or quotes.
+2. PropFuel content rules still apply on top of the voice: for anything about PropFuel, start from the Marketing OS (`get_briefing`, the Master docs), "370+ associations", numbers only from the ROI and Case Studies masters, clients may be named without a live case study, no invented stats or quotes.
 3. Write the draft, then check it against the DRAFTING CHECKLIST: greeting, sign-off, paragraph length, exclamation and emoji habits, em dashes, banned words. Fix before showing it.
 4. Deliver as a Gmail draft (`create_draft`, or `replyToMessageId` for a reply) or a copy-ready block. Say which.
 

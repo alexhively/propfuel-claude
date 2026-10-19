@@ -6,7 +6,7 @@ Source: Alejandra's Webinar Assets project (master doc section 7 and 8). Draft o
 - Tagline: "Know and Grow Your Membership" (front-facing). "Make Membership Meaningful" is the umbrella line only.
 - Growth stat: "12% average annual revenue growth after implementing PropFuel", always next to "vs 0.98% for the average association". Never 8.68%.
 - Reach: "370+ associations" (end cards add "and counting").
-- A client is named in public copy only if their case study is live (check get_case_studies). Otherwise anonymize ("a veterinary association"). FelineVMA is always anonymous outward.
+- Clients may be named in public copy without a live case study. FelineVMA is always anonymous outward.
 - No em dashes. Use a colon, comma, period or parentheses. (Only exception: a series name that carries its own dash.)
 - Conversational, professional, human. First person from the actual sender. Bold only the full series name and the full session title.
 - No session counts ("Session 1 of 4"). No "free" near a CTA. No question marks in subject lines.

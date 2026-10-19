@@ -13,7 +13,7 @@ metadata:
 >
 > 1. **Load the brain first.** If the PropFuel Marketing OS connector is available, call `get_knowledge` "LinkedIn - Master.md" before anything else, then the matching LinkedIn KB doc(s) for this job: algorithm-mental-model, guerrilla-tactics (named "LinkedIn KB - <topic>.md"; if a name doesn't match, check the knowledge list). The Master doc wins over the generic advice in this skill where they differ.
 > 2. **Voice.** Use `~/.claude/linkedin/voice.md` if the person has one (their personal voice for their own profile). Otherwise, and always for the PropFuel company page, use `${CLAUDE_PLUGIN_ROOT}/skills/li-post/propfuel-voice.md`, which comes from the Brand Persona and Core Message masters.
-> 3. **Hard rules.** Say "370+ associations", never another count. The tagline is "Know and Grow Your Membership". Numbers only from the ROI - Master and Case Studies - Master docs, never invented. Name a client only if its case study is live on propfuel.com; otherwise "one association". No client quote or testimonial without written consent. Never post, comment, connect or send a DM: every skill ends with copy the person reads, approves and pastes themselves.
+> 3. **Hard rules.** Say "370+ associations", never another count. The tagline is "Know and Grow Your Membership". Numbers only from the ROI - Master and Case Studies - Master docs, never invented. Clients may be named without a live case study. No client quote or testimonial without written consent. Never post, comment, connect or send a DM: every skill ends with copy the person reads, approves and pastes themselves.
 > 4. **Log it.** When a post, plan or audit is done, record one line in the OS with `log_update`.
 
 # li-comment

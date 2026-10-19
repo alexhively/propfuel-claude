@@ -81,11 +81,9 @@ disagree, the master wins; re-read them with `get_knowledge` when in doubt.
 
 - **Topics we don't post about:** pricing, competitors by name, politics,
   anything a client told us in confidence.
-- **Clients we can name:** only those whose case study is live on
-  propfuel.com. Everyone else is "one association" or "a medical society".
+- **Clients we can name:** any client; no live case study needed (Alex, Oct 19 2026).
 - **Claims we can't make:** any number not in the ROI - Master or Case
-  Studies - Master docs; "guaranteed"; anything about a client without a
-  live case study; any client quote or testimonial without written consent.
+  Studies - Master docs; "guaranteed"; any client quote or testimonial without written consent.
 - **Counts:** always "370+ associations". Never another number.
 
 ## Proof we can use
@@ -94,8 +92,7 @@ Only from the OS masters (`get_knowledge` "ROI - Master.md" and "Case Studies -
 Master.md"). Re-check before every post; these are examples, not a cache:
 
 - 370+ associations use PropFuel.
-- One association took on-time renewals from 80.5% to 95% (name it only if
-  its case study is live).
+- One association took on-time renewals from 80.5% to 95% (the client may be named).
 - A weekly quiz campaign hit a 72% engagement rate.
 
 If a draft needs a number that isn't in the masters, leave `{{number from ROI
