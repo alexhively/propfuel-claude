@@ -12,7 +12,17 @@ Source: Alejandra's Webinar Assets project (master doc section 7 and 8). Draft o
 - No session counts ("Session 1 of 4"). No "free" near a CTA. No question marks in subject lines.
 - Never mention a repeat, a session that will run shorter than its blocked hour, or anything leadership asked to keep private. Never say "again" or "back by popular demand".
 - Never invent links, dates or registration pages (use the card's Tracking Links). Unknowns are [square-bracket placeholders]. Speaker name stays out of the pop-up description.
-- Keep proof points and case studies out of the Zoom description.
+- Keep proof points and case studies out of the Zoom description by default. If the proof fits in one sentence, propose it in a Notion callout next to the description and let the reviewer decide; never change the Zoom text yourself.
+- Every other promo piece carries the proof (see "Proof" below).
+
+## Proof (required for every promo, Alex Oct 19 2026)
+Source: OS knowledge doc `Webinar Proof Map.md`. One row per webinar use case: client, exact published stat, URL, a proof line of 90 characters or fewer. Use the published wording; never invent or round differently. Clients may be named, except where the page withholds the name (the Oct 28 win-back case study is "an international medical society").
+- **Banners and pop-up**: the proof line (zoom/email banners in the meta row, pop-up as a "Proof" block). Build with `--proof`.
+- **PropFuel email**: a short "Proof" paragraph in Part 2 after the bullets: the exact stat in one or two sentences plus the case study link. Add one subject-line option led by the stat.
+- **LinkedIn post**: one "Proof it works" sentence before the close, and "Case study: <url>" above the registration link.
+- **Slack hand-off**: a "Proof" bullet with the proof line and URL.
+- **Ads**: hook and offer in the first 125 characters; proof in a second paragraph and/or the description; proof line on every image.
+- Example (Oct 28 win-back): "An international medical society won back 42 lapsed members, $18,438 in 7 weeks" with https://www.propfuel.com/case-studies/medical-society-lapsed-member-win-back
 
 ## 1. Zoom description (no links)
 Bold title line, italic tagline line if a series, hook paragraph, framing paragraph naming the speaker and title, bold "You'll learn:" with 4 "•" bullets, one-line close that fits the series.
@@ -52,4 +62,4 @@ Scroll-stopping first line, short, content is the point. No hashtags wall. Link 
 Super quick and scannable: one-line header, then bullets (what is ready, where the files are, what needs a decision). No long prose.
 
 ## Final check
-Run `python3 scripts/lint_copy.py <file>` on every piece of copy before delivering.
+Run `python3 scripts/lint_copy.py <files>` on every piece of copy before delivering. It fails any promo file (email, linkedin, slack, popup, ads) with no case study proof link.

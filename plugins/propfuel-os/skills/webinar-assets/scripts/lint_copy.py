@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Brand-rule lint for webinar copy. Usage: lint_copy.py file [file...]  (exit 1 on any hit)."""
+"""Brand-rule lint for webinar copy. Usage: lint_copy.py [--allow-no-proof] file [file...]  (exit 1 on any hit).
+Promo files (email, linkedin, slack, popup, ad in the file name) must carry a proof line; zoom/recording files are exempt."""
 import re, sys
 
 RULES = [
@@ -21,10 +22,29 @@ def lint(text):
         out.append("association count must be '370+ associations'")
     return out
 
+PROOF_URL = r"propfuel\.com/case-studies/[a-z0-9-]+"
+PROMO = re.compile(r"email|linkedin|slack|popup|promo|(^|[_-])ads?([_.-]|$)", re.I)  # promo pieces must carry proof; zoom/recording must not
+
+def proof_issue(name, text):
+    """Alex, Oct 19 2026: every promo carries the premier case study proof from Webinar Proof Map.md."""
+    base = name.rsplit("/", 1)[-1]
+    if re.search(r"zoom|recording", base, re.I) or not PROMO.search(base):
+        return None
+    if not re.search(PROOF_URL, text):
+        return "promo piece has no proof line: add the premier case study stat and its propfuel.com/case-studies/ link (Webinar Proof Map.md), or pass --allow-no-proof for a GAP row"
+    return None
+
 if __name__ == "__main__":
+    args = sys.argv[1:]
+    allow = "--allow-no-proof" in args
+    files = [a for a in args if not a.startswith("--")]
     bad = 0
-    for f in sys.argv[1:]:
-        for h in lint(open(f, encoding="utf-8").read()):
+    for f in files:
+        text = open(f, encoding="utf-8").read()
+        hits = lint(text)
+        if not allow and (h := proof_issue(f, text)):
+            hits.append(h)
+        for h in hits:
             print(f"{f}: {h}"); bad = 1
     print("FAIL" if bad else "OK")
     sys.exit(bad)

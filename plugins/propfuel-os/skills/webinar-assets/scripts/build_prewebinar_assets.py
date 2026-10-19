@@ -122,6 +122,19 @@ MAX_TEXT_RIGHT = {"zoom": 1280 - 52 - 8, "email": 2400 - 96 - 10}
 MIN_ONELINE_FONT = {"zoom": 50, "email": 94}
 MIN_TWOLINE_FONT = {"zoom": 36, "email": 64}
 POPUP_DIVIDER_TOP = 553
+POPUP_DIVIDER_TOP_PROOF = 470   # with a proof line the pop-up divider moves up to make room
+
+# Proof line (Webinar Proof Map.md): premier case study result for the webinar's use case.
+PROOF_CSS = {
+  "zoom": ".proof { margin-left: 22px; max-width: 335px; padding-left: 10px; border-left: 3px solid #F47C2C; font-size: 15px; font-weight: 700; color: #2F2F2F; line-height: 1.25; }",
+  "email": ".proof { margin-left: 44px; max-width: 780px; padding-left: 18px; border-left: 5px solid #F47C2C; font-size: 28px; font-weight: 700; color: #2F2F2F; line-height: 1.25; }",
+  "popup": """
+  .proof { position: absolute; left: 80px; right: 72px; top: 776px; z-index: 3; padding-left: 26px; border-left: 6px solid #F47C2C; }
+  .proof-label { display: block; font-size: 20px; font-weight: 600; letter-spacing: 0.08em; color: #F47C2C; text-transform: uppercase; margin-bottom: 4px; }
+  .proof-text { display: block; font-size: 30px; font-weight: 700; color: #2F2F2F; line-height: 1.25; letter-spacing: -0.01em; }
+  .eyebrow { top: 94px; } .headline { top: 222px; }
+  .divider { top: 470px; } .datetime-row { top: 522px; } .description { top: 608px; }""",
+}
 
 
 def ensure_font():
@@ -164,6 +177,13 @@ def fill(kind, src, a):
         desc = (a.description or "").replace("&", "&amp;")
         s = re.sub(r'<p class="description">.*?</p>', f'<p class="description">{desc}</p>', s, flags=re.S)
         s = s.replace('<div class="cta-btn">Register Free ', f'<div class="cta-btn">{a.cta} ')
+    if a.proof:
+        p = a.proof.replace("&", "&amp;")
+        if kind == "popup":
+            s = s.replace('<span class="speaker-text">', f'<div class="proof"><span class="proof-label">Proof</span><span class="proof-text">{p}</span></div>\n  <span class="speaker-text">', 1)
+        else:
+            s = s.replace('<div class="speaker-push">', f'<div class="proof">{p}</div>\n    <div class="speaker-push">', 1)
+        s = with_css(s, PROOF_CSS[kind])
     return s
 
 
@@ -204,16 +224,17 @@ def build_one(kind, a, tdir, outdir):
 
     preset = a.preset
     if kind == "popup":
+        pop_div = POPUP_DIVIDER_TOP_PROOF if a.proof else POPUP_DIVIDER_TOP
         css = PRESETS["popup"]["two-line" if preset == "two-line" else "base"]
         size = 66 if preset == "two-line" else 76
         while True:
             m = attempt(css, preset)
             bottom = m["headline_box"]["bottom"] if m.get("headline_box") else 0
-            if bottom <= POPUP_DIVIDER_TOP - 24 or size <= 52:
+            if bottom <= pop_div - 24 or size <= 52:
                 break
             size -= 2
             css = f"\n  .headline {{ font-size: {size}px; }}"
-        print(f"  [popup] headline {size}px, bottom={bottom:.0f} (divider at {POPUP_DIVIDER_TOP})")
+        print(f"  [popup] headline {size}px, bottom={bottom:.0f} (divider at {pop_div})")
         return jpg_path
 
     # zoom / email
@@ -265,6 +286,7 @@ def main():
     ap.add_argument("--eyebrow", default="Live Webinar", help='"Live Webinar" | "Live Deminar" | "Live Session"')
     ap.add_argument("--cta", default="Register Free", help="pop-up button text")
     ap.add_argument("--preset", default="auto", choices=["auto", "one-line", "two-line", "base"])
+    ap.add_argument("--proof", default="", help="proof line from Webinar Proof Map.md (REQUIRED for promo sets; <= 90 chars)")
     ap.add_argument("--no-speaker", action="store_true")
     ap.add_argument("--no-duration", action="store_true")
     ap.add_argument("--only", nargs="*", choices=["zoom", "email", "popup"], default=["zoom", "email", "popup"])
@@ -272,6 +294,10 @@ def main():
     ap.add_argument("--templates", default=os.path.join(HERE, "..", "templates"))
     ap.add_argument("--out", default="/mnt/user-data/outputs" if os.path.isdir("/mnt/user-data/outputs") else "./out")
     a = ap.parse_args()
+    if not a.proof:
+        print("WARNING: no --proof. Every promo set needs the premier case study proof line (Webinar Proof Map.md).", file=sys.stderr)
+    elif len(a.proof) > 90:
+        ap.error("--proof must be 90 characters or fewer")
     if not a.slug:
         a.slug = re.sub(r"[^a-z0-9]+", "_", a.title.lower()).strip("_")[:40]
     tdir = os.path.abspath(a.templates)
