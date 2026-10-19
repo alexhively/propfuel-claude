@@ -135,3 +135,32 @@ NEXT STEP
 - the response names the account and thread or recipient
 - any send claim includes Sent proof or an explicit client-side confirmation
 - the final state is one of drafted / sent / blocked / awaiting verification
+
+## PropFuel email campaign approval step (Brittany reviews) (2026-10-12, Alex Hively)
+
+Requested by Brittany Oct 12, confirmed by Alex: **every marketing email campaign goes through OS Asks for Brittany's review before it is scheduled or sent.**
+
+When Alejandra (or anyone) has an email campaign ready to review:
+1. Finish the draft: subject line, preview text, full body, CTA + link, audience/list, planned send date.
+2. Submit it with `request_approval`, type **email**, title like "Email: <campaign> – <send date>", the full copy in text, and links to the HubSpot/PropFuel draft and any assets.
+3. Approver is **Brittany** (OS approver rule for type email). She gets a Slack DM with Approve / Changes / Decline.
+4. Changes requested → fix and resubmit; nothing is scheduled or sent until the exact final version is approved.
+5. Status words: drafted → approval-pending → approved → sent.
+
+This applies to webinar promotion emails, gifting/opt-in emails, newsletters and nurture sends. Client-facing sign-off (case studies, logos, quotes) is separate: that is Client approvals, not Asks.
+
+## PropFuel email campaign approval step (2026-10-12, Alex Hively)
+
+Every PropFuel marketing email (campaigns, newsletters, nurture or sequence emails, including Alejandra's) needs an OK before it is scheduled or sent. Brittany is the approver (Brittany + Alex, Oct 12 2026). Alex is not cc'd.
+
+How:
+1. Build the email in HubSpot as a draft. Don't schedule or send it.
+2. File an Ask with type **email**: on the OS Asks tab (Operations › Asks › Ask for approval; the form shows "Goes to Brittany"), with the connector tool `request_approval` (type: email), or in Slack with "@Poppy get an OK on this email: …". Include the subject line, preview text, the body or the HubSpot preview link, the list/segment, and the send date. Add a "needed by" date only if there is a real deadline.
+3. Brittany gets a Poppy DM with Approve / Request changes / Decline, and the ask shows in her Waiting on me. Her decision comes back in the thread the ask came from (or by DM).
+4. Only after Approve does a person schedule or send it in HubSpot. On Changes, edit and file a new ask.
+
+Every other ask type (LinkedIn post, ad, landing page, spend, other) still goes to Alex.
+
+## Correction: only webinar / event emails go to Brittany (2026-10-12, Alex Hively)
+
+Correction (Alex, Oct 12 2026) to "PropFuel email campaign approval step" above: Brittany approves only emails that promote what she owns, meaning **webinars and events/conferences** (invites, reminders, follow-ups). File those as ask type **event-email** ("Event / webinar email"). All other marketing emails use type **email** and go to Alex. The steps (HubSpot draft → ask → decision → a person schedules after Approve) are the same.

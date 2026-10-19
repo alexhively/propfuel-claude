@@ -115,3 +115,9 @@ Delete and rewrite any:
 - `crosspost` — multi-platform distribution
 - `market-research` — audience and competitive intelligence
 - `seo` — on-page optimisation for landing page copy
+
+## Email approvals go to Brittany (2026-10-12, Alex Hively)
+
+From Oct 12: when a campaign includes email, the last build step before scheduling is `request_approval` (type **email**, full copy + links, audience and send date) with **Brittany** as approver. Nothing is scheduled or sent until she approves that exact version. Full steps: "Skill - email-ops.md" → PropFuel email campaign approval step.
+
+Correction (Alex, Oct 12 2026): Brittany approves only webinar and event/conference emails (ask type **event-email**). All other marketing emails use type **email** and go to Alex. Full steps: `email-ops`.
