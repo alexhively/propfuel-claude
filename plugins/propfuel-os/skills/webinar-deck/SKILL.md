@@ -30,7 +30,7 @@ Follow the REPEAT-PLAYBOOK:
 - On a webinar build: attach the PPTX, PDF and talk-track doc to the webinar's Notion card ("Slide deck" toggle) and set the OS asset slots `deck` and `talk_track` (update_event action asset, slot, link, status draft). The presenter reviews; never mark them done yourself.
 
 ## Rules
-- Only sourced proof; current house numbers (12% avg annual revenue growth vs 0.98% for the average association; 370+ associations; tagline Know and Grow Your Membership). If a past slide disagrees with what was said aloud, use the sourced number and flag it.
+- Proof comes from the OS `Webinar Proof Map.md` first (each Q4 webinar's premier case study plus banks like the Oct 28 win-back proof bank, with exact wording and source checks), then `Case Studies - Master.md`. Only sourced proof; current house numbers (12% avg annual revenue growth vs 0.98% for the average association; 370+ associations; tagline Know and Grow Your Membership). If a past slide disagrees with what was said aloud, use the sourced number and flag it.
 - Client names only as the records and Case Studies - Master allow.
 - No attendee names anywhere.
 - Run `brand-qa` on the deck text and the talk track before handing it over.
