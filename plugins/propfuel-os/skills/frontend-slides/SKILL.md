@@ -186,3 +186,10 @@ Use these maxima unless the user explicitly asks for denser slides and readabili
 - animation is meaningful, not noisy
 - reduced motion is respected
 - file paths and customization points are explained at handoff
+
+## Visual QA before handoff (self-improve, Oct 20 2026)
+Alex has rejected visuals shipped without a render check. Before showing anything:
+- Render at desktop and 390px mobile; open the screenshots and look at them (do not assume).
+- Check: text overflow or smashed text, ugly negative space, orphan words (balance/pretty wrap), H2s on mobile, overlapping controls, button styling, GIF/video playback.
+- Re-check every feature Alex asked to keep (regression list), not just what you changed.
+- Fix issues first; only then send.
