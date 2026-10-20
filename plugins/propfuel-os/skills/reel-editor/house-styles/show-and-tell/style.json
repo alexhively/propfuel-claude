@@ -1,0 +1,17 @@
+{
+ "name": "Show and Tell",
+ "slug": "show-and-tell",
+ "created": "2026-10-20",
+ "picks": {
+  "mode": "preset",
+  "style": "show-and-tell",
+  "captionStyle": "none",
+  "effects": [
+   "the-stack",
+   "pointer-callout"
+  ],
+  "effectSections": null,
+  "updated": "2026-10-20T11:20:11+00:00"
+ },
+ "updated": "2026-10-20"
+}

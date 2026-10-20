@@ -1,0 +1,13 @@
+{
+ "name": "Viral Guy",
+ "slug": "viral-guy",
+ "created": "2026-10-20",
+ "picks": {
+  "mode": "preset",
+  "style": "viral-guy",
+  "captionStyle": "viral-guy",
+  "effects": [],
+  "effectSections": null
+ },
+ "updated": "2026-10-20"
+}

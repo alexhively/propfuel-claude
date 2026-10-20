@@ -1,0 +1,13 @@
+{
+ "name": "Color Block",
+ "slug": "color-block",
+ "created": "2026-10-20",
+ "picks": {
+  "mode": "preset",
+  "style": "color-block",
+  "captionStyle": "loud-lowercase",
+  "effects": [],
+  "effectSections": null
+ },
+ "updated": "2026-10-20"
+}
