@@ -34,3 +34,10 @@ Follow the REPEAT-PLAYBOOK:
 - Client names only as the records and Case Studies - Master allow.
 - No attendee names anywhere.
 - Run `brand-qa` on the deck text and the talk track before handing it over.
+
+## Visual QA before handoff (self-improve, Oct 20 2026)
+Alex has rejected visuals shipped without a render check. Before showing anything:
+- Render at desktop and 390px mobile; open the screenshots and look at them (do not assume).
+- Check: text overflow or smashed text, ugly negative space, orphan words (balance/pretty wrap), H2s on mobile, overlapping controls, button styling, GIF/video playback.
+- Re-check every feature Alex asked to keep (regression list), not just what you changed.
+- Fix issues first; only then send.
