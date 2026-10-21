@@ -12,7 +12,17 @@
       "name": "propfuel-os",
       "source": "./plugins/propfuel-os",
       "description": "Connects Claude Code to the PropFuel Marketing OS: reads the current state before PropFuel work and writes progress back.",
-      "version": "1.17.0"
+      "version": "1.18.0"
+    },
+    {
+      "name": "linkedin-skills",
+      "source": {
+        "source": "github",
+        "repo": "sergebulaev/linkedin-skills",
+        "sha": "6d512c995c95523c74a3603ffaa947db0ba97c4d"
+      },
+      "description": "Serge Bulaev's 12 LinkedIn skills (MIT, v1.1.24, pinned commit): post writer, comment drafter, reply handler, repurposer, content planner, profile optimizer, humanizer, interviewer, hook extractor, thread monitor, engager analytics (Apify), employee advocacy. Posting via Publora and scraping via Apify need your own keys in the plugin's .env; without them it drafts only.",
+      "version": "1.1.24"
     }
   ]
 }
