@@ -45,7 +45,7 @@ If the PropFuel Marketing OS connector is available, pull the masters with `get_
 - **Check the stakes test before drafting.** Who is it happening to, what's at risk, and why now. If any of these is unclear in the opening, fix the opening first.
 
 ## Corrections
-(none yet; add newest first, each with the user's reason)
+- 2026-10-21 (Dave Will, via Alex, on the running-reel hooks): **The hook must name something association pros really do and really feel.** Don't tell them to stop a standard practice (three renewal reminders are universal) or a habit they don't have (discounting lapsed members is rare), and never tell them to stop a growth channel we'd also recommend (ads for new members). Hook on the pain behind the practice instead, e.g. "Stop sending so many emails just to get your members to renew." Check every hook against: do associations actually do this, would PropFuel agree they should stop, and does it hurt?
 
 ## Examples
 Illustrative shapes only. Pull real numbers from the masters before using any of these.
