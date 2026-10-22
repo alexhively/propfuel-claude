@@ -50,6 +50,13 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Documentary and commercial skills (1.20.0)
+
+- `documentary`: turns one idea into a cinematic 3D documentary production plan (chapters, scene table, asset image prompts, 30-second motion prompts with sound design, narration with voice direction, edit checklist). It writes prompts only; you generate on your own platform.
+- `commercial-pipeline`: the end-to-end workflow for a short AI commercial or brand film. It plans the reference assets, writes the image prompts, writes the multi-segment video prompt and diagnoses broken generations. It writes prompts only.
+
+Both come from the PYNK "Creative Skills for Claude" pack (Oct 22 2026) and were reviewed first: Markdown only, no scripts or network calls. PropFuel's rule still applies: no AI video ships without Alex approving the exact file.
+
 ### Vertical safe zones skill (1.19.0)
 
 - `vertical-safe-zones`: the exact clear areas for 9:16 (1080x1920) content on Instagram Reels, Stories and Feed, TikTok For You, and Facebook Feed and Reels, copied from the Runneth post-preview app (Oct 18 2026), plus the combined safe box that is clear everywhere (x 100-880, y 290-1340). Rule: key elements as big as possible, fully inside the box. Ships CSS variables, a `?safe=1` debug overlay for HyperFrames/HTML, a fill-the-width helper and a frame QA step. Loads automatically for reels, stories, shorts, TikToks and vertical statics.
