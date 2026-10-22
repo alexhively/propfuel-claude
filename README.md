@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Vertical safe zones skill (1.19.0)
+
+- `vertical-safe-zones`: the exact clear areas for 9:16 (1080x1920) content on Instagram Reels, Stories and Feed, TikTok For You, and Facebook Feed and Reels, copied from the Runneth post-preview app (Oct 18 2026), plus the combined safe box that is clear everywhere (x 100-880, y 290-1340). Rule: key elements as big as possible, fully inside the box. Ships CSS variables, a `?safe=1` debug overlay for HyperFrames/HTML, a fill-the-width helper and a frame QA step. Loads automatically for reels, stories, shorts, TikToks and vertical statics.
+
 ### Webinar deck skill (1.15.0)
 
 - `/webinar-deck`: builds a webinar's slide deck and talk track from the webinar brain in the Marketing OS (`Webinar Deck - DECK-BRAIN.md`, `REPEAT-PLAYBOOK.md`, `INDEX.md` and 21 `Webinar Session - …` records: every 2026 slide with what was said over it and what landed). A new webinar gets a deck in the house structure and Brittany's voice; a repeat starts from its last run's deck and talk track and proposes a change list for approval before writing the new version. Renders an editable PPTX (talk track in the speaker notes; opens in Google Slides) and a PDF with the renderer in `Skill - webinar-deck - renderer.md`. Also the deck job in the OS webinar build ("Start the build").
