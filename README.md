@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Logo sting end cards (1.21.0)
+
+Every asset's closing screen uses the approved icon-only logo animation (`propfuel-motion-ad/engine/assets/compositions/propfuel-logo-sting.html` + SFX WAV). The tagline enters separately, with its own entrance. Documented in `propfuel-motion-ad` and `reel-editor`; masters live in Desktop/PropFuel/05 Brand & Social/Logo Animation (approved).
+
 ### Documentary and commercial skills (1.20.0)
 
 - `documentary`: turns one idea into a cinematic 3D documentary production plan (chapters, scene table, asset image prompts, 30-second motion prompts with sound design, narration with voice direction, edit checklist). It writes prompts only; you generate on your own platform.

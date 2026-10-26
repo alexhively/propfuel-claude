@@ -248,12 +248,32 @@ before the full build. Demo spec: `examples/fx-demo.json` (no client named, only
 Inspiration only, never copied: https://skillry.dev/ai-videos/opus-5-5 and
 https://github.com/yihui-dev/awesome-opus5-5-videos.
 
+## End card: logo sting (Alex approved Oct 26 2026)
+
+Every asset's closing title screen uses the approved v4 logo-icon animation (paper plane, pen trace, fuel fill, swoosh),
+then settles on the untouched official logo. The tagline "Know and Grow Your Membership" is NOT part of the sting: it
+comes in separately and its entrance varies per asset.
+
+- Block: `engine/assets/compositions/propfuel-logo-sting.html` (transparent background, GSAP from the host) + SFX stem
+  `engine/assets/propfuel-logo-sting-sfx.wav` (starts at t=0 of the sting; the tick at 2.95s is the logo settling, keep it).
+  Master of record: `~/Desktop/PropFuel/05 Brand & Social/Logo Animation (approved)/` (README, ProRes 4444 / VP9 alpha / cream MP4s).
+- Mount it in the project's `compositions/` and host:
+  `<div id="propfuel-logo-sting" data-composition-id="propfuel-logo-sting" data-composition-src="compositions/propfuel-logo-sting.html" data-start="S" data-duration="4.45" data-track-index="5" data-width="W" data-height="H" data-variable-values='{"cx":0.5,"cy":0.42,"logoWidth":420}' style="position:absolute; inset:0;"></div>`
+  plus `<audio src="assets/propfuel-logo-sting-sfx.wav" data-start="S" data-duration="4.45" data-volume="0.8">`.
+  `cx`/`cy` = centre of the SETTLED logo as canvas fractions; `logoWidth` = settled width in px (0 = 520 x short side / 1080).
+  Keep the logo box inside the format's safe box (`engine/formats.json`); raise `cy` to leave room for the tagline.
+- Timing: settles at S+2.95s (frame 88 @30fps equals the static logo). Animate the tagline in from `data-start + 2.92s` or later,
+  with its own entrance, in your own timeline. Block runs 10s, so any end card up to 10s works.
+- The engine's `cta` scene still draws the static logo (`.cta-logo`) so existing specs keep rendering. For a new ad's closing card
+  mount the sting over a cream end card instead of the static logo and keep the CTA button/URL after the tagline. Not HyperFrames:
+  composite the alpha master + WAV (ffmpeg overlay on a cream end card).
+
 ## Files
 
 - `engine/build.mjs` spec → projects (`--test <cut>:<i>[@s]` builds a 1-second test) · `engine/scenes-product.mjs`
   product-UI beats · `engine/scenes-fx.mjs` effect beats · `engine/template.html` look (brand v5.2: cream #F4F1EA + grain, charcoal
   #2F2F2F, DM Sans, one #F47C2C→#FBC02D gradient) · `engine/formats.json` canvases + safe zones ·
-  `engine/assets/` DM Sans variable font + PropFuel logo · `engine/vendor/` GSAP 3.14.2 + the effect libraries (no CDN at render; `LICENSES.md`, `licenses/`, and the
+  `engine/assets/` DM Sans variable font + PropFuel logo + the approved logo-sting block and SFX · `engine/vendor/` GSAP 3.14.2 + the effect libraries (no CDN at render; `LICENSES.md`, `licenses/`, and the
   thinking-orbs port source in `src/`)
 - `scripts/test-1s.sh` 1-second test of one beat · `scripts/keyframes.sh` pre-render keyframe sheet ·
   `scripts/render.sh` budget gate + check + render + H.264 export · `scripts/qa.sh` post-render contact sheets

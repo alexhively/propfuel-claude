@@ -58,6 +58,7 @@ Follow the Creator Studio skill's workflow ("edit it"). PropFuel rules win over 
 - **No AI-generated footage, people or voices** (Oct 12 rule). Editing real footage is fine; the
   Studio's GIFs and effects are fine as long as nothing claims to be a real person or client.
 - No em dashes in on-screen text. No single word alone on a caption's last line.
+- **Closing screen = the approved logo sting** (Oct 26 2026). End every reel on the icon-only logo animation (plane, trace, fuel fill, lands on the official logo), then bring the tagline "Know and Grow Your Membership" in separately from 2.92s after the sting starts, with an entrance that suits the style (it varies per reel). Use the masters in `~/Desktop/PropFuel/05 Brand & Social/Logo Animation (approved)/masters/` (ProRes 4444 / VP9 alpha over your end card, or the cream MP4s) plus `assets/propfuel-logo-sting-sfx.wav`. If the Studio runs HyperFrames, mount `compositions/propfuel-logo-sting.html` (see propfuel-motion-ad "End card: logo sting"). Keep the logo inside the vertical safe box.
 
 ## 4. Team style changes
 A note meant for every PropFuel reel ("always", "from now on") goes into the house style here, not
@@ -68,5 +69,6 @@ plugin version, and follow the save-skill recipe so everyone gets it. Personal o
 When a reel is delivered: `log_update` with one line (what, which style, where the file is).
 
 ## Changelog
+- 2026-10-26: closing screen is the approved logo sting (tagline entrance varies per reel).
 - 2026-10-20: created from Alex's setup session. House styles = his Studio Picker picks
   (Show and Tell with The Stack + Pointer Callout; Color Block; Viral Guy).
