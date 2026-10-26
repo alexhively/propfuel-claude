@@ -77,7 +77,9 @@
   const $ = (id) => document.getElementById("pfls-" + id), NS = "http://www.w3.org/2000/svg";
   // placement: cx, cy = centre of the settled logo as fractions of the canvas; logoWidth px (0 = 520 x min(W,H)/1080)
   const hv = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
-  const box = $("root"), CW = box.offsetWidth || 1080, CH = box.offsetHeight || 1080;
+  // canvas = the mount's data-width/height (layout size can be 0 or wrong before the host sizes the mount)
+  const box = $("root"), host = box.parentElement && box.parentElement.closest("[data-composition-id=\"propfuel-logo-sting\"][data-width]");
+  const CW = +(host && host.getAttribute("data-width")) || box.offsetWidth || 1080, CH = +(host && host.getAttribute("data-height")) || box.offsetHeight || 1080;
   const vx = +(hv.cx ?? 0.5), vy = +(hv.cy ?? 0.5), vw = +(hv.logoWidth ?? 0) || 520 * Math.min(CW, CH) / 1080, us = vw / 520;
   $("unit").setAttribute("transform", `translate(${(vx * CW).toFixed(2)} ${(vy * CH).toFixed(2)}) scale(${us.toFixed(5)}) translate(-540 -429.878)`);
   const LX = 280, LY = 214, K = 0.7624968840271565;

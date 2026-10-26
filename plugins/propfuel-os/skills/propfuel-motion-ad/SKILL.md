@@ -260,7 +260,7 @@ comes in separately and its entrance varies per asset.
 - Mount it in the project's `compositions/` and host:
   `<div id="propfuel-logo-sting" data-composition-id="propfuel-logo-sting" data-composition-src="compositions/propfuel-logo-sting.html" data-start="S" data-duration="4.45" data-track-index="5" data-width="W" data-height="H" data-variable-values='{"cx":0.5,"cy":0.42,"logoWidth":420}' style="position:absolute; inset:0;"></div>`
   plus `<audio src="assets/propfuel-logo-sting-sfx.wav" data-start="S" data-duration="4.45" data-volume="0.8">`.
-  `cx`/`cy` = centre of the SETTLED logo as canvas fractions; `logoWidth` = settled width in px (0 = 520 x short side / 1080).
+  `data-width`/`data-height` MUST equal the size of the area the mount covers (the block reads its canvas from them; layout size is only a fallback, and a wrong value lands the logo off-centre, e.g. a 9:16 mount must say 1080 x 1920). `cx`/`cy` = centre of the SETTLED logo as canvas fractions; `logoWidth` = settled width in px (0 = 520 x short side / 1080).
   Keep the logo box inside the format's safe box (`engine/formats.json`); raise `cy` to leave room for the tagline.
 - Timing: settles at S+2.95s (frame 88 @30fps equals the static logo). Animate the tagline in from `data-start + 2.92s` or later,
   with its own entrance, in your own timeline. Block runs 10s, so any end card up to 10s works.
