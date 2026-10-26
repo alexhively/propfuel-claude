@@ -50,6 +50,10 @@ Every skill loads **LinkedIn - Master.md** from the Marketing OS first, and the 
 
 None of them post, comment or send anything. You read, approve and paste.
 
+### Motion-ad end card draws the logo sting (1.21.1)
+
+The `cta` scene now mounts the approved sting in the static logo's slot (within 2px), tagline at the settle, SFX kept by `render.sh`. Cards under 3.3s (6s bumper) keep the static logo.
+
 ### Logo sting end cards (1.21.0)
 
 Every asset's closing screen uses the approved icon-only logo animation (`propfuel-motion-ad/engine/assets/compositions/propfuel-logo-sting.html` + SFX WAV). The tagline enters separately, with its own entrance. Documented in `propfuel-motion-ad` and `reel-editor`; masters live in Desktop/PropFuel/05 Brand & Social/Logo Animation (approved).

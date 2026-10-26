@@ -171,7 +171,18 @@ function quote(sc, i) {
   return { html, js };
 }
 
-function cta(sc, i, spec) {
+// The approved logo sting (Alex, Oct 26 2026) draws the end-card logo: a canvas-size mount centred on the
+// .cta-logo slot, so the logo settles exactly where the static PNG sat. Settles at start + 2.95s.
+const STING_SETTLE = 2.95;
+// shortcut: a card too short for the sting to settle (the 6s bumper's 2.6s card) keeps the static logo; give it >= 3.3s to get the sting
+const hasSting = (sc) => sc.type === "cta" && sc.end - sc.start >= STING_SETTLE + 0.35;
+function sting(start, len, f) {
+  const d = r2(Math.min(len, 10)); // the block holds the settled logo up to 10s
+  return `<div id="propfuel-logo-sting" class="cta-sting" data-composition-id="propfuel-logo-sting" data-composition-src="compositions/propfuel-logo-sting.html" data-start="${start}" data-duration="${d}" data-track-index="5" data-width="${f.w}" data-height="${f.h}" data-variable-values='{"cx":0.5,"cy":0.5,"logoWidth":${r2(300 * f.u)}}'></div>
+      <audio id="propfuel-logo-sting-sfx" src="assets/propfuel-logo-sting-sfx.wav" data-start="${start}" data-duration="4.45" data-track-index="6" data-volume="0.8"></audio>`;
+}
+
+function cta(sc, i, spec, f) {
   const id = `s${i}`;
   const c = spec.cta;
   const words = c.headline
@@ -181,7 +192,7 @@ function cta(sc, i, spec) {
   const html = `
   <section id="${id}" class="clip scene cta full" data-start="${sc.start}" data-duration="${r2(sc.end - sc.start)}" data-track-index="2">
     <div class="cta-wrap">
-      <img class="cta-logo" id="${id}-logo" src="assets/propfuel-logo.png" alt="PropFuel" />
+      ${hasSting(sc) ? `<div class="cta-logo" id="${id}-logo">${sting(sc.start, sc.end - sc.start, f)}</div>` : `<img class="cta-logo" id="${id}-logo" src="assets/propfuel-logo.png" alt="PropFuel" />`}
       <div class="cta-h">${words}</div>
       <div class="btn" id="${id}-btn">${esc(c.button)} <span class="btn-arrow">&rarr;</span></div>
       <div class="cta-url" id="${id}-url">${esc(c.url)}</div>
@@ -193,12 +204,12 @@ function cta(sc, i, spec) {
   const len = sc.end - sc.start;
   const pulses = [];
   for (let t = s + 2.2; t < sc.end - 0.8; t += 1.8) pulses.push(r2(t));
-  const js = `
-  tl.fromTo("#${id}-logo", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, ${r2(s + 0.05)});
+  const js = `${hasSting(sc) ? "" : `
+  tl.fromTo("#${id}-logo", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, ${r2(s + 0.05)});`}
   tl.fromTo("#${id} .cta-h .w", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.07, ease: "power3.out" }, ${r2(s + 0.3)});
   tl.fromTo("#${id}-btn", { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, ${r2(s + Math.min(0.75, len * 0.3))});
   tl.fromTo("#${id}-url", { opacity: 0 }, { opacity: 1, duration: 0.35 }, ${r2(s + Math.min(1.0, len * 0.35))});
-  tl.fromTo("#${id}-tag", { opacity: 0 }, { opacity: 1, duration: 0.35 }, ${r2(s + Math.min(1.25, len * 0.4))});${c.sub ? `
+  tl.fromTo("#${id}-tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, ${r2(s + (len >= STING_SETTLE + 0.8 ? STING_SETTLE : Math.min(1.25, len * 0.4)))});${c.sub ? `
   tl.fromTo("#${id}-sub", { opacity: 0 }, { opacity: 1, duration: 0.35 }, ${r2(s + Math.min(1.4, len * 0.45))});` : ""}
   ${pulses.map((t) => `tl.to("#${id}-btn", { scale: 1.045, duration: 0.22, yoyo: true, repeat: 1, ease: "sine.inOut" }, ${t});`).join("\n  ")}`;
   return { html, js };
@@ -290,7 +301,7 @@ function page(cut, fmtKey, test) {
   const C = test ? test.cut : spec.cuts[cut];
   const built = C.scenes.map((sc, i) => {
     if (!SCENES[sc.type]) throw new Error(`unknown scene type "${sc.type}"`);
-    return SCENES[sc.type](sc, i, spec);
+    return SCENES[sc.type](sc, i, spec, f);
   });
   // test build: the beat's clip covers the whole 1s composition; its tweens keep their real times (see __fxT0)
   if (test) built[0].html = built[0].html.replace(/data-start="[^"]*" data-duration="[^"]*"/, `data-start="0" data-duration="${C.duration}"`);
@@ -350,6 +361,10 @@ for (const { cut, fmt, test, name } of jobs) {
     for (const v of vendorFor((test ? test.cut : spec.cuts[cut]).scenes)) copy(path.join(HERE, "vendor", v), path.join(dir, "assets", v));
     copy(path.join(HERE, "assets/DMSans-Variable.ttf"), path.join(dir, "assets/DMSans-Variable.ttf"));
     copy(path.join(HERE, "assets/propfuel-logo.png"), path.join(dir, "assets/propfuel-logo.png"));
+    if ((test ? test.cut : spec.cuts[cut]).scenes.some(hasSting)) {
+      copy(path.join(HERE, "assets/compositions/propfuel-logo-sting.html"), path.join(dir, "compositions/propfuel-logo-sting.html"));
+      copy(path.join(HERE, "assets/propfuel-logo-sting-sfx.wav"), path.join(dir, "assets/propfuel-logo-sting-sfx.wav"));
+    }
     copy(path.join(HERE, "vendor/gsap.min.js"), path.join(dir, "assets/gsap.min.js"));
     fs.writeFileSync(
       path.join(dir, "hyperframes.json"),

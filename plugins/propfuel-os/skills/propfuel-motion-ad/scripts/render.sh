@@ -4,7 +4,7 @@
 #   scripts/render.sh "<adDir>" [capSecondsPerRender=600]
 #
 # For each <adDir>/src/<cut>-<fmt>/: hyperframes check -> hyperframes render (delivery, 30fps)
-# -> ffmpeg normalize (H.264 High, yuv420p, 30fps CFR, +faststart, silent AAC 48k stereo)
+# -> ffmpeg normalize (H.264 High, yuv420p, 30fps CFR, +faststart, AAC 48k stereo: the render's own audio (logo-sting SFX) or a silent track)
 # -> <adDir>/<slug>_<cut>_<fmt>.mp4
 set -euo pipefail
 AD="${1:?usage: render.sh <adDir> [capSeconds]}"
@@ -41,8 +41,10 @@ for p in "$AD"/src/*/; do
   wait $pid
   echo "rendered $name in $(( $(date +%s) - start ))s"
   out="$AD/${SLUG}_${name/-/_}.mp4"
+  # keep the render's own audio (the logo-sting SFX) when it has any; otherwise a silent track
+  amap="1:a:0"; [ -n "$(ffprobe -v error -select_streams a -show_entries stream=index -of csv=p=0 "$raw")" ] && amap="0:a:0"
   ffmpeg -y -loglevel error -i "$raw" -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 \
-    -map 0:v:0 -map 1:a:0 -shortest \
+    -map 0:v:0 -map "$amap" -ar 48000 -ac 2 -shortest \
     -c:v libx264 -profile:v high -level 4.1 -pix_fmt yuv420p -r 30 -crf 17 -maxrate 12M -bufsize 24M -g 60 \
     -c:a aac -b:a 128k -movflags +faststart "$out"
   echo "wrote $out"

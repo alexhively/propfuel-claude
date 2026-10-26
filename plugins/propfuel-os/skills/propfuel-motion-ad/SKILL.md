@@ -84,7 +84,7 @@ Scene types the engine draws today:
 | `inbox` | An email card; optional hand-off to a PropFuel question with answer buttons and a tap | `email{from,subject,body,rows,receipt}`, `question{at,text,answers,pick,pickAt}` |
 | `stat` | Hero number counting up (gradient), label, 100-dot grid, support line, source line | `value,decimals,suffix,label,sub,dots,source` |
 | `quote` | Verbatim client quote + name and title (only Gong-verified quotes: grep the transcript for the exact string) | `text,name,role` |
-| `cta` | Full-safe-zone end card: logo, headline, gradient button, URL, tagline, button pulses | uses `spec.cta` (+ optional `sub`) |
+| `cta` | Full-safe-zone end card: approved logo sting (static logo if the card is under 3.3s), headline, gradient button, URL, tagline, button pulses | uses `spec.cta` (+ optional `sub`) |
 | `popup` | A website (skeleton page, real domain in the URL bar) with the PropFuel Website Engagement pop-up | `site`, `question{at,text,answers or skeleton,pick,pickAt}` |
 | product beats | `builder`, `checklist`, `drafts`, `guard`, `signals`, `segment`, `profile`, `home`, `initiative`, `headline`, `site`: real PropFuel screens recreated in code | see the header of `engine/scenes-product.mjs` |
 | **effect beats** | `stack`, `sketch`, `brush`, `filter` (glow / glitch), `orb`, `words`: see **Effects library** below | `references/effects.md` |
@@ -264,9 +264,11 @@ comes in separately and its entrance varies per asset.
   Keep the logo box inside the format's safe box (`engine/formats.json`); raise `cy` to leave room for the tagline.
 - Timing: settles at S+2.95s (frame 88 @30fps equals the static logo). Animate the tagline in from `data-start + 2.92s` or later,
   with its own entrance, in your own timeline. Block runs 10s, so any end card up to 10s works.
-- The engine's `cta` scene still draws the static logo (`.cta-logo`) so existing specs keep rendering. For a new ad's closing card
-  mount the sting over a cream end card instead of the static logo and keep the CTA button/URL after the tagline. Not HyperFrames:
-  composite the alpha master + WAV (ffmpeg overlay on a cream end card).
+- **The engine's `cta` scene does this for you** (Oct 26): the sting draws the end-card logo in the exact slot the static
+  PNG used, the headline, button and URL come in on their usual cues (CTA still on screen by 10s), the tagline comes in at
+  the settle (+2.95s), and the SFX is on the render's audio track (`render.sh` keeps it). Existing specs need no change.
+  A card shorter than 3.3s (the 6s bumper's 2.6s card) keeps the static logo: the sting cannot settle in time. Not
+  HyperFrames: composite the alpha master + WAV (ffmpeg overlay on a cream end card).
 
 ## Files
 
