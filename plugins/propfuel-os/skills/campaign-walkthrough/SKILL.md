@@ -107,6 +107,23 @@ The CTA is `<a class="btn" href="{rep's Chili Piper URL}">`. It stays a real lin
 
 The per-prospect web page (propfuel-winback.vercel.app, `~/Projects/propfuel-winback`) still exists for the win-back `no_show` case; see that repo's README.
 
+## Correction: source = unperformed demo (automated no-show / cancelled / rescheduling) (2026-10-22, Ryan Graham)
+
+**Why (Ryan, Oct 22 2026):** unperformed-demo walkthroughs are now generated automatically for every unperformed demo and sent by Lisa inside the three Amplemarket unperformed-demo sequences. Ryan and Mike both run demos, so the booking link has to be the shared round-robin, not one rep's calendar.
+
+**Rule.** When the source is an unperformed demo (`Demo_Status__c` = No Show, Cancelled or Rescheduling, or the prompt says "unperformed demo" / names a Demo Unperformed opp), this overrides section 1's sender table:
+
+| field | value |
+|---|---|
+| Chili Piper (the button and every booking link) | **https://propfuel.chilipiper.com/round-robin/unknown-account** (round-robins Mike and Ryan) |
+| Sender / signature | Lisa McNeil, Sales Development Representative, lisa@propfuel.com |
+| Context mode | No Show → `no_show` · Cancelled → `cancelled` · Rescheduling → `no_show` copy, with the opening line acknowledging their note ("Thanks for letting us know {MEETING DATE} wouldn't work.") |
+| Use case | win-back by default, unless Gong or the opp notes name another one |
+| Draft-only rule | The automated run publishes the page and passes the link into the sequence. The section 5 checks become a pass/fail gate: on any FAIL, don't send the link. Flag it to Lisa instead. |
+
+Never use Mike's or Ryan's personal Chili Piper link on an unperformed-demo walkthrough. In the section 5 check, confirm the PDF/page link annotation equals the round-robin URL.
+
 ## Changelog
+- 2026-10-22: unperformed-demo rule (Ryan Graham): shared round-robin Chili Piper link, Lisa as sender, automated pass/fail gate. Written in the OS, merged to git Oct 29.
 - 2026-10-15: renamed from winback-walkthrough; any use case, three context modes, industry/value-prop/system tailoring, Gong line rules, clickable Chili Piper CTA (Mike default, Ryan when sender/owner), illustrative-proof label, 370+ end card, no stranded words (Sales Team OTM, Oct 15).
 - 2026-10-12: created as winback-walkthrough (Sales OTM, Oct 9).
