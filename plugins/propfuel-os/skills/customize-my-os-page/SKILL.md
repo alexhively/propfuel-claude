@@ -15,14 +15,19 @@ Pages belong to people. The Share panel on each page shows who owns it (Brittany
 - Every change returns a `change_id`. If they don't like it: `undo_change`. Tell the person what changed in one line and offer the undo.
 - Unknown ids, markup or long labels are refused with the reason. Fix the patch; don't try to sneak it in.
 
-## 2. New function? Use a branch (code)
-Only when `customize_page` can't do it (a new field, a new button, new logic):
+## 2. New function? Branch, edit, ship (code)
+Only when `customize_page` can't do it (a new field, a new button, new logic). No one has to approve it: it ships by itself when the automated gates pass.
 1. In the OS repo (`~/Projects/propfuel-marketing-os`), make a worktree and branch: `git worktree add ~/Projects/pfos-<topic> -b <your-name>/<topic> origin/main`. Never work on `main`.
-2. Edit **only your section's files**. The list is `.github/section-owners.json` (`sections`); `node scripts/check-section-paths.mjs --base origin/main --author <your GitHub login>` tells you before you push. `index.html`, `lib/store.js`, `lib/auth.js`, `lib/acl.js`, `api/mcp.js`, `package.json` and the other shared files are Alex's: if your idea needs them, say so in the PR instead of editing them.
-3. No secrets, no real names or emails in the repo. No `alert`, `confirm` or `prompt`.
-4. `npm run check` must be green.
-5. `vercel deploy` (no `--prod`) for a preview URL. Careful: previews read and write the **real** data, so look but don't click Save on anything you don't mean to change.
-6. Open a pull request with the preview URL and one plain sentence on what changed. Never merge to `main` and never `vercel --prod` yourself.
+2. Edit what the feature needs. Your own section's files are listed in `.github/section-owners.json`; shared core files (store, auth, acl, mcp, index.html) are allowed too, because the gates, not a person, decide. Don't edit the gate files (the `gate` list in that same file: the acl/ownership tests and the ship/scan/smoke/path scripts): a change that touches them is stopped.
+3. No secrets, no real names or emails in the repo, no `alert`/`confirm`/`prompt`. Add a test for new logic and add it to the `check` list in `package.json` (checks can be added, never removed).
+4. `node scripts/ship.mjs --dry-run --author <your GitHub login>` first. It runs the gates and shows what would happen.
+5. `npm run ship -- --author <your GitHub login>`. It runs every test, scans for secrets and personal data, merges to `main`, waits for the deploy, smoke-checks the live site, and rolls back by itself if that fails.
+6. Finish with the `LOG_UPDATE` line it prints: call `log_update` with that `summary` and `shipped` object. That puts "who shipped what" in the OS activity feed and in Slack.
 
-## 3. What happens next
-The `section-paths` check on the PR runs the same path guard. All green and inside your section: it can merge with a quick look. Anything shared or outside your section: it says **NEEDS ALEX**, and Alex reviews and merges. That is the system working, not a failure.
+## 3. When it stops
+Each stop comes with a plain reason; tell the person in one or two sentences and fix it.
+- A test failed (it names which, and what it said): fix the code, never the test.
+- Secrets or personal data found: remove them (env var or the private Blob store), commit, ship again.
+- You edited a gate file: split that file out of the change. Those files need Alex.
+- Main moved on: `git rebase origin/main`, ship again.
+- The deploy or smoke check failed after merging: it already rolled back. Report that to the person, and look at why before trying again.
