@@ -5,7 +5,7 @@ description: Turn a Gong call link into a finished vertical promo clip of a clie
 
 # Gong link to promo clip (draft)
 
-You paste a Gong call link; you get a 1080x1920 clip of a **client** talking, with captions, their name and the PropFuel end card, sitting as a draft in #testimonial-drafts for Alex and Brittany. Nothing goes public from this skill.
+You paste a Gong call link; you get a 1080x1920 clip of a **client** talking in the approved cream "Client stories" style (headline quote with the yellow highlight, gold-ringed call window with the "Recorded client call" tag, dark caption pill, name card, PropFuel logo sting end card), sitting as a draft in #testimonial-drafts for Alex and Brittany. Nothing goes public from this skill.
 
 ## Hard rules
 - Draft only. This skill never posts anywhere but #testimonial-drafts (via `submit_proof`), never uploads to YouTube or Meta, never emails a client. Consent is left "not asked": nothing with a client's face or words goes public until the client says yes and Alex or Brittany approve.
@@ -31,22 +31,22 @@ You paste a Gong call link; you get a 1080x1920 clip of a **client** talking, wi
 ## Step 2: choose the moment
 Read the client transcript (and the angle the person gave, e.g. "renewals"). Look for 15-30 s of one client speaking: a result, number, before/after, or a plain "why we use it", that stands alone with no context. Prefer a specific result over praise. Skip anything confidential, negative about a named person, or about pricing or contracts.
 Show the person: the best pick as the exact quote, its start-end in mm:ss, who said it and their org, plus 1-2 alternates in the same form. Ask which one (or "none"). Wait for the answer. Choose whole consecutive sentences by the same client; they are `sentences` in the spec.
-Also pick the **highlight**: 2-4 words from the quote that carry the point (e.g. "pretty much doubled"). It must appear in the quote word for word.
+Also write the **headline** (`head`): a short run of words the client actually said, in order and untouched, ideally the punchiest line; wrap the 2-4 words that carry the point in [brackets] for the yellow highlight, e.g. `Our numbers have [pretty much doubled.]`. The script refuses a headline that isn't contiguous spoken words. The look is fixed: don't restyle it.
 
 ## Step 3: render
 1. If the recording is video: find the speaker's tile. Gong records a gallery, or a screen share with a small active-speaker tile (often top right: the Elevate screen share was `[1600, 0, 320, 180]` on a 1920x1080 recording). Grab a frame in the quote: `ffmpeg -ss <t> -i call.mp4 -frames:v 1 frame.jpg`, open it, and give `face` as `[x, y, w, h]` of the speaker's tile in source pixels. No clear tile, or audio only: omit `face`.
-2. Write `spec.json`: `src` (the downloaded file), `out` (clip.mp4), `person`, `org`, optional `role` (their title), `highlight`, optional `face`, `sentences` (copied from the tool output, text untouched).
+2. Write `spec.json`: `src` (the downloaded file), `out` (clip.mp4), `person`, `org` (shown as "<org> · PropFuel client"), `head`, optional `face`, `sentences` (copied from the tool output, text untouched).
 3. `python3 "$SK/scripts/promo.py" render spec.json`. It prints the cut points, the room tone kept after the last word, and how much of the clip shows the speaker's face (staff faces that Gong flashes up under the client's words are replaced by the name tile automatically).
    - "the speaker runs on": the sentence has no pause after it. End the quote one sentence earlier or later and re-run.
-   - "text outside the 9:16 safe box": shorten the quote. 
+   - "caption too wide" or "headline must be words said": fix the spec and re-run.
    - A clip over ~30 s: pick a shorter moment.
-4. The end card is the approved v4 logo sting (icon animation with its sound). Don't swap it.
+4. The end card is the approved v4 logo sting (icon animation with its sound, then the tagline and Book a demo button). Don't swap it.
 
 ## Step 4: QA before posting
 1. `python3 "$SK/scripts/promo.py" qa clip.mp4 sheet.jpg`. It checks size, codec, length and that the voice has fully stopped in the room tone before the end card (a clipped last word fails). Fix and re-render on any FAIL.
-2. **Open `sheet.jpg`** and look: every caption readable and inside the frame, the name and org right, the face (or name tile) is the client, the last frame is the logo.
+2. **Open `sheet.jpg`** and look: every caption readable and inside the frame, the name and org right, the face (or name tile) is the client, the last frame is the logo end card. If you have a recent approved clip nearby (e.g. in the Testimonial Review folder), compare: it should look like the same family.
 3. Caption timing inside a sentence is estimated (Gong gives sentence times, not word times). Scrub 2-3 spots: `ffmpeg -ss <t> -i clip.mp4 -frames:v 1 f.png` and compare the caption to what is said at that second (listen with `ffplay -ss <t> -t 4 -nodisp clip.mp4` if available). If captions drift or there is a long pause inside a sentence, pick different sentences.
-4. Safe zone is enforced by the script (x 100-880, y 290-1340, see the vertical-safe-zones skill). Don't move text outside it.
+4. Layout is the house 9x16 layout (content inside x 40-1040, y 200-1560); the script refuses anything that runs outside it.
 
 ## Step 5: post the draft
 Key: `testimonial:gong-<callid>:<org-slug>-<mmss>`.
