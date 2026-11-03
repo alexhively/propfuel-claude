@@ -237,9 +237,10 @@ def levels(wav, n):
 
 def live_mask(arr, hold=round(0.6 * FPS)):
     """True while the speaker is the face in the tile. Gong switches the tile to whoever makes a sound, so staff faces
-    appear under client words: those frames get the name tile instead. Reference = the tile a third of a second in."""
+    appear under client words: those frames get the name tile instead. Reference = the most typical frame of the clip."""
     small = arr[:, ::arr.shape[1] // 18, ::arr.shape[2] // 24][:, :18, :24].astype(float)
-    ref = small[min(10, len(small) - 1)]
+    cand = small[::6]
+    ref = cand[int(np.argmin([np.median(np.abs(small - c).mean((1, 2, 3))) for c in cand]))]
     m = np.abs(small - ref).mean((1, 2, 3)) < 30
     for val in (False, True):  # widen short off-runs, then drop short on-runs
         i = 0
