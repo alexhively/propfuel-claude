@@ -12,6 +12,7 @@ You paste a Gong call link; you get a 1080x1920 clip of a **client** talking in 
 - The speaker is a **client** (Gong side `client`), never PropFuel staff. Use the OS tool's speaker data, not your guess from the transcript.
 - Captions are the words spoken, verbatim. Never paraphrase, tighten or fix grammar inside quote marks. Allowed: capitalise PropFuel, drop Gong's "..." marks.
 - Never clip a word's tail: the script cuts on the measured end of the last word plus real room tone, then fades. Never hand-set an end time that skips this.
+- **Required QA step, every render: "Are you cutting off at the end before they're done speaking?"** Transcript end-times run early or late and hide the decay of a last word (Alex, Nov 3: clip after clip still cut people off). The render refuses to write a clip that fails the end check (tail is room tone, the last word has decayed, the last transcribed word is the quote's last word) and prints `End check: last word '<word>' completes at <t>s, fade at <t>s, tail room tone <dB> -> PASS/FAIL`. Never bypass it; a FAIL means move the out point to the measured energy decay, then re-render.
 - No mid-phrase pauses (the script cuts gaps over 0.7 s between sentences; watch for pauses inside a sentence, see QA).
 - Numbers: "370+ associations"; the growth stat is "12% avg annual revenue growth vs 0.98% for the average association". Never the line "See One Question in 87 Seconds". Don't add stats the client didn't say; a stat in the clip must be what they said.
 - Gong credentials never leave the OS. You never ask for or handle a Gong key.
@@ -43,6 +44,7 @@ Also write the **headline** (`head`): a short run of words the client actually s
 4. The end card is the approved v4 logo sting (icon animation with its sound, then the tagline and Book a demo button). Don't swap it.
 
 ## Step 4: QA before posting
+0. **Are you cutting off at the end before they're done speaking?** Read the `End check:` line from step 3: it must say PASS. If the line is missing or no local whisper was found, the transcript half of the check did not run: say so, and also read the last 3 seconds aloud against the quote (`ffplay -ss <end-3> -t 4 -nodisp clip.mp4`) before submitting.
 1. `python3 "$SK/scripts/promo.py" qa clip.mp4 sheet.jpg`. It checks size, codec, length and that the voice has fully stopped in the room tone before the end card (a clipped last word fails). Fix and re-render on any FAIL.
 2. **Open `sheet.jpg`** and look: every caption readable and inside the frame, the name and org right, the face (or name tile) is the client, the last frame is the logo end card. If you have a recent approved clip nearby (e.g. in the Testimonial Review folder), compare: it should look like the same family.
 3. Caption timing inside a sentence is estimated (Gong gives sentence times, not word times). Scrub 2-3 spots: `ffmpeg -ss <t> -i clip.mp4 -frames:v 1 f.png` and compare the caption to what is said at that second (listen with `ffplay -ss <t> -t 4 -nodisp clip.mp4` if available). If captions drift or there is a long pause inside a sentence, pick different sentences.

@@ -53,6 +53,7 @@ Follow the Creator Studio skill's workflow ("edit it"). PropFuel rules win over 
   "370+ associations", never another count. Growth stat: "12% avg annual revenue growth after
   implementing PropFuel" next to "vs 0.98% for the average association". Tagline: "Know and Grow
   Your Membership". Never invent numbers, comments or results.
+- **Required QA step on every cut: "Are you cutting off at the end before they're done speaking?"** (Alex, Nov 3: people kept getting cut off.) Set every out point from the audio, not the transcript: find where the last word's energy decays (ffmpeg `astats`/`silencedetect` or a 5 ms RMS), keep 150-300 ms of that decay, then level-matched room tone, and start the fade only after the speech has ended. Before delivering, transcribe the last 3 seconds of the *rendered* file and confirm the last word is the full last word of the line, and check the last 150 ms before the fade is room tone. Write the result as `End check: last word '<word>' completes at <t>s, fade at <t>s, tail room tone <dB> -> PASS/FAIL` in your delivery note; do not deliver a FAIL.
 - **Captions say what was said.** Fix mishearings: PropFuel (not "prop fuel"/"proper fuel"),
   Claude (not "cloud"). Pass `"PropFuel, Claude, <client names>"` to `transcribe_cut.py`.
 - **No AI-generated footage, people or voices** (Oct 12 rule). Editing real footage is fine; the

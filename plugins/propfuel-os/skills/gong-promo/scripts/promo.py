@@ -405,6 +405,59 @@ def stream_frames(src, a, b, box, size):
     p.stdout.close(); p.kill(); p.wait()
 
 
+# ---------- end-of-speech gate: "Are you cutting off at the end before they're done speaking?" ----------
+def last_words(wav, t0, t1):
+    """Words in the last stretch of the rendered track, from a local whisper if one is installed (mlx_whisper, faster_whisper or whisper); None if none is."""
+    seg = Path(tempfile.mkdtemp()) / "end.wav"
+    sh("ffmpeg", "-v", "error", "-y", "-ss", f"{max(t0, 0):.3f}", "-t", f"{t1 - max(t0, 0):.3f}", "-i", wav, "-vn", "-ac", "1", "-ar", SR, seg)
+    try:
+        import mlx_whisper
+        r = mlx_whisper.transcribe(str(seg), path_or_hf_repo="mlx-community/whisper-large-v3-turbo", word_timestamps=True, condition_on_previous_text=False)
+        return [w["word"] for s in r["segments"] for w in s.get("words", [])]
+    except ImportError:
+        pass
+    try:
+        from faster_whisper import WhisperModel
+        segs, _ = WhisperModel("small", compute_type="int8").transcribe(str(seg), word_timestamps=True)
+        return [w.word for s in segs for w in s.words]
+    except ImportError:
+        pass
+    try:
+        import whisper
+        r = whisper.load_model("small").transcribe(str(seg), word_timestamps=True)
+        return [w["word"] for s in r["segments"] for w in s["words"]]
+    except ImportError:
+        return None
+
+
+def end_gate(wav, speech_end, fade, last_word, src=None, cut=None):
+    """Hard gate, run on the finished audio before any video is encoded. PASS needs: (a) the last 150 ms before the fade is room tone
+    (>=30 dB under the speech), (b) the speech has decayed at the cut (last 30 ms >=12 dB under it) and is not rising into a next word,
+    (c) a transcript of the last ~3 s ends on the full intended last word (whisper if installed; otherwise the energy checks plus the Gong
+    transcript's last word are all there is, and the line says so). Returns (ok, line)."""
+    _, d = read_db(wav, max(0, speech_end - 3.0), fade)
+    d = d[::2]  # 10 ms
+    k = round(min(3.0, speech_end) / 0.01)
+    w90 = float(np.percentile(d[:k], 90))
+    tail = float(d[-15:].mean())
+    dec = w90 - float(d[max(0, k - 3):k].mean())
+    rise = float(d[max(0, k - 3):k].mean()) - float(d[max(0, k - 9):max(0, k - 3)].mean())
+    why = []
+    if w90 - tail < 30: why.append(f"the last 150 ms before the fade is {tail:.0f} dB, the speech is {w90:.0f} dB (not room tone)")
+    if dec < 12: why.append(f"the speech is still {w90 - dec:.0f} dB at the cut ({dec:.0f} dB decay, need 12)")
+    if rise > 6 and dec < 16: why.append(f"a new sound is starting at the cut (+{rise:.0f} dB in the last 30 ms)")
+    want, got, note = re.sub(r"[^a-z0-9]", "", last_word.lower()), None, ""
+    ws = last_words(wav, speech_end - 3.0, min(fade, speech_end + 0.8))
+    if ws is None:
+        note = " (no local whisper: transcript check skipped, energy checks only; pip install mlx-whisper or faster-whisper)"
+    elif not ws or not re.sub(r"[^a-z0-9]", "", ws[-1].lower()) or not (want == (got := re.sub(r"[^a-z0-9]", "", ws[-1].lower())) or want.endswith(got)):
+        why.append(f"the last transcribed word is '{re.sub(r'[^a-z0-9]', '', ws[-1].lower()) if ws else ''}', the quote ends '{want}'")
+    line = (f"End check: last word '{want}' completes at {speech_end:.2f}s, fade at {fade:.2f}s, tail room tone {tail:.0f} dB (speech {w90:.0f} dB) -> "
+            + ("PASS" + note if not why else "FAIL: " + "; ".join(why)))
+    print(line, flush=True)
+    return not why, line
+
+
 # ---------- render ----------
 def build_audio(src, parts, wav, dur):
     f, labels = [], ""
@@ -459,6 +512,10 @@ def render(spec_path):
     tmp = Path(tempfile.mkdtemp(prefix="gong-promo-"))
     wav = tmp / "a.wav"
     build_audio(src, parts, wav, dur)
+    last = re.sub(r"[^A-Za-z0-9' ]", "", spec["sentences"][-1][2]).split()[-1]
+    ok, _ = end_gate(wav, dur - parts[-1]["room"], dur, last)  # the word ends `room` seconds before the end card
+    if not ok:
+        raise SystemExit("END CHECK FAILED, no file written. Move the out point to the measured end of the last word (energy decay), never the transcript end-time.")
     lv_all = levels(wav, round(dur * FPS))
     # per-frame source of the speaker tile
     seq = []
