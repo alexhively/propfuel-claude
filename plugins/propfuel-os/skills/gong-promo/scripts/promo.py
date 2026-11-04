@@ -450,7 +450,7 @@ def end_gate(wav, speech_end, fade, last_word, src=None, cut=None):
     ws = last_words(wav, speech_end - 3.0, min(fade, speech_end + 0.8))
     if ws is None:
         note = " (no local whisper: transcript check skipped, energy checks only; pip install mlx-whisper or faster-whisper)"
-    elif not ws or not re.sub(r"[^a-z0-9]", "", ws[-1].lower()) or not (want == (got := re.sub(r"[^a-z0-9]", "", ws[-1].lower())) or want.endswith(got)):
+    elif not ws or not re.sub(r"[^a-z0-9]", "", ws[-1].lower()) or not (want == (got := re.sub(r"[^a-z0-9]", "", ws[-1].lower())) or want.endswith(got) or "".join(re.sub(r"[^a-z0-9]", "", w.lower()) for w in ws[-2:]).endswith(want)):
         why.append(f"the last transcribed word is '{re.sub(r'[^a-z0-9]', '', ws[-1].lower()) if ws else ''}', the quote ends '{want}'")
     line = (f"End check: last word '{want}' completes at {speech_end:.2f}s, fade at {fade:.2f}s, tail room tone {tail:.0f} dB (speech {w90:.0f} dB) -> "
             + ("PASS" + note if not why else "FAIL: " + "; ".join(why)))
