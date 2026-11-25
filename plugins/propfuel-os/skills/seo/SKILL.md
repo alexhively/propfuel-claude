@@ -1,158 +1,77 @@
 ---
 name: seo
-description: Audit, plan, and implement SEO improvements across technical SEO, on-page optimization, structured data, Core Web Vitals, and content strategy. Use when the user wants better search visibility, SEO remediation, schema markup, sitemap/robots work, or keyword mapping.
-metadata:
-  origin: ECC
+description: PropFuel's SEO agency in a skill. Use for SEO, keyword research, site audit, technical SEO, meta titles and descriptions, H1s, schema, page outline or brief, "optimize this page", a new landing page or blog for SEO, backlinks, GEO / AEO / AI search / LLM visibility, the monthly SEO report, the weekly SEO check-in, or "what would Mamba do". Claude runs the program end to end (audit, keywords, fixes, outlines, articles, reports) and a person approves every change that ships.
 ---
 
-> **PropFuel adaptation.** From ECC (github.com/affaan-m/ECC, MIT). PropFuel rules win: voice, positioning and proof come from the Marketing OS Master docs (`get_knowledge`) and AMC-BRAIN.md; never invent customers, stats or quotes; tagline "Know and Grow Your Membership"; always "370+ associations"; live numbers come from the OS tools; nothing is published or sent without a person approving it. If the skill names a tool we don't have (Exa, Firecrawl, Apollo, X API), use what is connected or say what's missing. Log outcomes back to the OS when done.
+# SEO (PropFuel agency in a skill)
 
+## 1. What this replaces and how it runs
+Replaces the Mamba SEO agency engagement (Feb to Nov 2026: weekly call, Google Sheet workbook, per-page "Outline & Article" docs, paid guest posts, monthly report). Claude does that work. Alex (or a teammate he names) approves.
 
-# SEO
+Start every run:
+1. `get_briefing` (OS). 2. `get_knowledge seo-program.md` (program state: workbook and doc links, keyword-to-page map, open items, baselines). 3. Pick the mode below and open its reference file.
 
-Improve search visibility through technical correctness, performance, and content relevance, not gimmicks.
+End every run:
+1. `log_update` with initiative `mamba-seo` (one line per outcome). 2. Update `seo-program.md` (`update_knowledge`, mode "replace", only what changed: done, live, open items, numbers). 3. Say what needs Alex's approval, with the exact diff or link.
 
-## When to Use
+Links to the SEO Program workbook, the SEO and GEO report, the Schema audit, the Content Fix List and every page doc live in `seo-program.md`, not in this repo.
 
-Use this skill when:
-- auditing crawlability, indexability, canonicals, or redirects
-- improving title tags, meta descriptions, and heading structure
-- adding or validating structured data
-- improving Core Web Vitals
-- doing keyword research and mapping keywords to URLs
-- planning internal linking or sitemap / robots changes
+## 2. Modes
+| Mode | Say | Open |
+|---|---|---|
+| Audit | "SEO audit", "what is broken on the site" | references/audit.md (+ scripts/crawl_check.py) |
+| Keyword research | "keyword research", "what should we rank for" | references/keyword-research.md |
+| Technical fixes | "fix schema / canonicals / redirects / sitemap / llms.txt" | references/technical.md |
+| Optimize existing page | "optimize this page", "outline and article", "metadata and H1" | references/page-optimization.md |
+| New page | "new landing page for SEO", "integration page" | references/new-pages.md |
+| Blog / template content | "blog for SEO", "which template posts first" | references/blog-and-templates.md |
+| Backlinks | "backlinks", "guest posts", "Associations Now" | references/backlinks.md |
+| GEO | "AI search", "LLM visibility", "AEO prompts" | references/geo.md |
+| Monthly report | "monthly SEO report", "how did SEO do" | references/reporting.md |
+| Weekly check-in | "SEO status", "weekly SEO update" | references/program.md |
+| Program cycle | "what runs this month", "SEO roadmap" | references/program.md |
 
-## How It Works
+## 3. Hard rules
+- ICP filter: the word "association" is the ICP qualifier. Formula: use case + "for associations". Why: "member ___" alone also pulls YMCAs, yacht clubs, Boys and Girls Clubs. AMS, LMS, advocacy and generic marketing terms are out (PropFuel is not a CRM or LMS and cannot win that fight). Integration queries ("member engagement platform that integrates with <AMS>") are in.
+- One page, one primary intent. Landing pages own commercial terms; blogs never target a term a landing page owns. Why: cannibalization.
+- Everything a crawler needs is native HTML in Webflow, never JS-injected: titles, metas, canonicals, schema, FAQPage JSON-LD (matched word for word to the visible FAQ), OG tags, headings, copy, alt text, internal link hrefs. JS is for behavior only. Why: GPTBot, ClaudeBot, PerplexityBot and link unfurlers do not run JS.
+- Facts allow-list. Only: 370+ associations; tagline "Know and Grow Your Membership" (front-facing; "Make Membership Meaningful" is the umbrella job only); "12% average annual revenue growth after implementing PropFuel", always next to "vs 0.98% for the average association". Client results only from the Help Center or the Case Studies master, labeled as one client, never an average. Banned: AAMFT 12%, AAP 80%. Unknown number: write `{{number}}` and flag it. Why: Mamba's drafts carried unsourced stats (see Corrections).
+- US spelling ("organization", not "organisation"). No em dashes. Start sentences with a subject so AI engines can quote them.
+- Recommendations must be AI-executable: exact old text to exact new text, per element. Never "name the product" or "improve the hero". Why: Oct 1 lesson, the homepage H1 did not change because the brief was written for a human writer.
+- Label CRO suggestions (CTA wording, button tests) separately from SEO. Why: Alex asked why a free-demo CTA sat inside an SEO outline.
+- No gray-hat links. Paid placements must carry rel="sponsored". Why: undisclosed paid links are link spam; Mamba's batches did not disclose.
+- Nothing ships to Webflow or GitHub main until Alex approves that exact diff. Drafts (outlines, articles, metadata sheets, reports) go out end to end without asking.
+- After every Webflow publish, re-check the native title, meta and canonical of the pages touched. Why: a full-site publish once reverted the homepage meta title.
 
-### Principles
+## 4. Corrections from Alex (newest first)
+- 2026-11-13: Do not use gray-hat link tactics (an Instagram reel pushed a link trick). Mamba also advised against. Why: short-term gains, penalty risk.
+- 2026-11-12: Explain "outline" and "article": outline = research (keywords, competitors, headings, structure); article = the written content filled in. Also: filter to the top-10 keywords and say whether a count is monthly or a 3-month average (the "8 vs 5" question).
+- 2026-11-12: Approved all current blog briefs ("move forward and write them"). Low-volume but relevant posts stay for topical relevance and AI coverage.
+- 2026-10-30: Brand facts allowed are only 370+ associations, the tagline, and 12% vs 0.98%. Client results from the Help Center only, labeled as one client. Banned: AAMFT 12%, AAP 80%. "If you build a few, AI should be able to build the rest" (templates).
+- 2026-10-22: New ICP pages sit under the Use Cases dropdown as 2 mini cards above the product use cases (mirrors Membership AI above Solutions and Tools). Show keyword position changes in reports. Send links per page in Slack to approve and publish.
+- 2026-10-19: Treat the outlines as exactly what we want, subject to security and QA checks.
+- 2026-10-08: Tagline is "Know and Grow Your Membership"; the keyword goes in the H1 ("Member Engagement Software for Associations"). Model that works: the agency drafts the page and writes the content, Alex reviews diffs and signs off, Alex publishes. Always explain why each change was made. Split test CTAs.
+- 2026-10-01: Briefs must be specific enough for direct AI execution. Do one page first, then repeat the process.
+- 2026-09-24: Wants links in chat, not a doc to hunt for. Wants benchmark and metric data.
+- 2026-09-03: Association qualifier is the strongest signal; keep tiny-volume association keywords. Cut LMS and AMS brand keywords. Integration pages and ICP pages are wanted. PropFuel writes copy with its own Claude; the agency does not.
+- 2026-08-27: Prioritize association keywords but keep a balance with member TOFU. "Membership marketing" is yellow, not red (PropFuel can serve it). ICP: professional associations about 75% of clients, trade associations, individual.
+- 2026-06-18: AMS keywords are out (CRM territory, wrong intent, hardest fight). Use cases and webinar-style topics are rich. Research renewal and onboarding campaign terms.
+- 2026-02-04: Only association- or member-qualified keywords ("SMS marketing software for associations", never generic). Wants a playbook up front to avoid rework, and an outline per page before design.
 
-1. Fix technical blockers before content optimization.
-2. One page should have one clear primary search intent.
-3. Prefer long-term quality signals over manipulative patterns.
-4. Mobile-first assumptions matter because indexing is mobile-first.
-5. Recommendations should be page-specific and implementable.
+## 5. Data sources and gaps
+Connected:
+- Webflow MCP (pages, SEO fields, CMS, sitemap, publish) and the custom-code repo `alexhively/propfuel-webflow-custom` (GitHub Pages scripts, QA hooks). Local build source: `~/Projects/propfuel-page-previews/src/mamba-system`.
+- HubSpot AEO: `get_aeo_metrics`, `manage_aeo_prompts` (25 free prompt slots). Unconfigured as of 2026-11-25.
+- PostHog "SEO & AEO" dashboard and AI-assistant referrals.
+- Live HTML fetch (`scripts/crawl_check.py`, curl) and WebSearch for SERP, competitor and LLM checks.
 
-### Technical SEO checklist
+Not connected (raise the ask, do not fake the number):
+| Missing | Without it | Ask to raise |
+|---|---|---|
+| Google Search Console access | No clicks, impressions, positions, indexing status. Reports use the last Mamba snapshot (October) and are labeled stale. Rank checks fall back to WebSearch spot checks. | Give Claude GSC access (API or scheduled CSV export). Highest priority. |
+| GA4 conversions | No organic demo bookings. Report stops at clicks and AI referrals (PostHog). | Finish GA4 and GTM plus demo-booking conversion tracking (open since Sep). |
+| Volume / KD tool (Ahrefs, Semrush, DataForSEO, or Google Ads Keyword Planner with a developer token) | Keyword research reuses the 128-keyword list and its volumes; new terms get SERP-based difficulty judgment, labeled "no volume". No DR or backlink counts. | Pick one tool and connect it. Keyword Planner with the existing Google Ads MCP is the cheapest. |
+| HubSpot AEO prompts | GEO tracks by manual prompt runs in WebSearch only. | Load the key prompts (references/geo.md). |
 
-#### Crawlability
-
-- `robots.txt` should allow important pages and block low-value surfaces
-- no important page should be unintentionally `noindex`
-- important pages should be reachable within a shallow click depth
-- avoid redirect chains longer than two hops
-- canonical tags should be self-consistent and non-looping
-
-#### Indexability
-
-- preferred URL format should be consistent
-- multilingual pages need correct hreflang if used
-- sitemaps should reflect the intended public surface
-- no duplicate URLs should compete without canonical control
-
-#### Performance
-
-- LCP < 2.5s
-- INP < 200ms
-- CLS < 0.1
-- common fixes: preload hero assets, reduce render-blocking work, reserve layout space, trim heavy JS
-
-#### Structured data
-
-- homepage: organization or business schema where appropriate
-- editorial pages: `Article` / `BlogPosting`
-- product pages: `Product` and `Offer`
-- interior pages: `BreadcrumbList`
-- Q&A sections: `FAQPage` only when the content truly matches
-
-### On-page rules
-
-#### Title tags
-
-- aim for roughly 50-60 characters
-- put the primary keyword or concept near the front
-- make the title legible to humans, not stuffed for bots
-
-#### Meta descriptions
-
-- aim for roughly 120-160 characters
-- describe the page honestly
-- include the main topic naturally
-
-#### Heading structure
-
-- one clear `H1`
-- `H2` and `H3` should reflect actual content hierarchy
-- do not skip structure just for visual styling
-
-### Keyword mapping
-
-1. define the search intent
-2. gather realistic keyword variants
-3. prioritize by intent match, likely value, and competition
-4. map one primary keyword/theme to one URL
-5. detect and avoid cannibalization
-
-### Internal linking
-
-- link from strong pages to pages you want to rank
-- use descriptive anchor text
-- avoid generic anchors when a more specific one is possible
-- backfill links from new pages to relevant existing ones
-
-## Examples
-
-### Title formula
-
-```text
-Primary Topic - Specific Modifier | Brand
-```
-
-### Meta description formula
-
-```text
-Action + topic + value proposition + one supporting detail
-```
-
-### JSON-LD example
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Page Title Here",
-  "author": {
-    "@type": "Person",
-    "name": "Author Name"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Brand Name"
-  }
-}
-```
-
-### Audit output shape
-
-```text
-[HIGH] Duplicate title tags on product pages
-Location: src/routes/products/[slug].tsx
-Issue: Dynamic titles collapse to the same default string, which weakens relevance and creates duplicate signals.
-Fix: Generate a unique title per product using the product name and primary category.
-```
-
-## Anti-Patterns
-
-| Anti-pattern | Fix |
-| --- | --- |
-| keyword stuffing | write for users first |
-| thin near-duplicate pages | consolidate or differentiate them |
-| schema for content that is not actually present | match schema to reality |
-| content advice without checking the actual page | read the real page first |
-| generic “improve SEO” outputs | tie every recommendation to a page or asset |
-
-## Related Skills
-
-- `seo-specialist`
-- `frontend-patterns`
-- `brand-voice`
-- `market-research`
+## 6. Changelog
+- 2026-11-25: rebuilt from the full Mamba engagement (14 weekly calls, shared Slack channel, workbook and docs, the Webflow custom-code repo history, live-site fetch). Replaces the ECC generic SEO skill. Program state moved to OS knowledge `seo-program.md`.

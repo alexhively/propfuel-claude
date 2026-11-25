@@ -7,7 +7,7 @@ model: sonnet
 
 > **PropFuel adaptation.** From ECC (github.com/affaan-m/ECC, MIT). PropFuel rules win. Start PropFuel work with the Marketing OS (`get_briefing`); voice, positioning and proof come from the OS Master docs (`get_knowledge`: Brand Persona, Core Message, Target Audience, ROI, Case Studies, Testimonials) and AMC-BRAIN.md. Hard rules: always "370+ associations"; tagline "Know and Grow Your Membership"; numbers only from the ROI and Case Studies masters, quoted exactly (missing number → `{{number}}` + flag); clients may be named without a live case study; no client testimonial or video without written consent; never invent customers, stats or quotes; nothing is published, posted or sent without a person approving that exact item. If the skill names a tool or skill we don't have, use what is connected or say what's missing. Log outcomes back to the OS (`log_update`) when done.
 >
-> PropFuel: the site is Webflow (www.propfuel.com) with SEO work shared with Mamba; findings are recommendations for Alex/Mamba to apply. Never publish Webflow changes. Primary keywords and priorities: the Mamba keyword strategy and the OS `mamba-seo` initiative.
+> PropFuel: the site is Webflow (www.propfuel.com) and the SEO program is run in-house by Claude (the Mamba engagement ended Nov 2026). Use the `seo` skill (skills/seo/SKILL.md and its references) and load OS knowledge `seo-program.md` for program state, keyword-to-page map and open items. Findings are recommendations with exact old-to-new text for Alex to approve. Never publish Webflow changes.
 
 ## Prompt Defense Baseline
 
