@@ -70,9 +70,10 @@ Not connected (raise the ask, do not fake the number):
 | Missing | Without it | Ask to raise |
 |---|---|---|
 | GA4 conversions | No organic demo bookings. Report stops at clicks and AI referrals (PostHog). | Finish GA4 and GTM plus demo-booking conversion tracking (open since Sep). |
-| Volume / KD tool (Ahrefs, Semrush, DataForSEO, or Google Ads Keyword Planner with a developer token) | Keyword research reuses the 128-keyword list and its volumes; new terms get SERP-based difficulty judgment, labeled "no volume". No DR or backlink counts. | Pick one tool and connect it. Keyword Planner with the existing Google Ads MCP is the cheapest. |
+| Keyword volumes (Google Ads Keyword Planner via `scripts/kp.py`; Basic API access applied 2026-11-25, pending Google approval. No difficulty tool by choice) | Until approved, `kp.py` exits with DEVELOPER_TOKEN_NOT_APPROVED: reuse the 128-keyword list volumes and label new terms "no volume". Difficulty is always a SERP judgment (who ranks in the top 10, are they big brands, does an AI Overview show). | Check approval in Google Ads > manager account > Admin > API Center. |
 | HubSpot AEO prompts | GEO tracks by manual prompt runs in WebSearch only. | Load the key prompts (references/geo.md). |
 
 ## 6. Changelog
+- 2026-11-25: Keyword Planner script (scripts/kp.py); Alex chose Google Ads Basic access only, no paid SEO tool.
 - 2026-11-25: Search Console connected (scripts/gsc.py); unbranded numbers now exclude person-name queries.
 - 2026-11-25: rebuilt from the full Mamba engagement (14 weekly calls, shared Slack channel, workbook and docs, the Webflow custom-code repo history, live-site fetch). Replaces the ECC generic SEO skill. Program state moved to OS knowledge `seo-program.md`.
