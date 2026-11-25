@@ -18,7 +18,7 @@ Awareness: Total Impressions (GSC); Unbranded Impressions (GSC); Branded Impress
 Consideration: Total Clicks (GSC); Unbranded Clicks (GSC); Branded Clicks (GSC); Avg CTR (GSC; Mamba used GA4).
 SEO hygiene: Domain Rating (volume/DR tool); Total Backlinks (same); # Indexed Pages (GSC).
 Add when GA4 conversions exist: organic sessions and organic demo bookings (not tracked today).
-Branded query regex: `propfuel|prop fuel`. Unbranded = everything else.
+Branded query regex: `propfuel|prop fuel`. Report a third bucket, "people" (team-member and celebrity-name queries such as michael arisco, love is blind, dave will, lisa mcneil), and keep it out of unbranded: in Oct 27 to Nov 23 it was most of the unbranded clicks. Unbranded = everything else.
 
 ## Reading average position
 - New pages enter at low positions (50 to 100) and temporarily raise the average. Filter by page or keyword; do not read the site-wide average.

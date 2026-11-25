@@ -63,15 +63,16 @@ Connected:
 - Webflow MCP (pages, SEO fields, CMS, sitemap, publish) and the custom-code repo `alexhively/propfuel-webflow-custom` (GitHub Pages scripts, QA hooks). Local build source: `~/Projects/propfuel-page-previews/src/mamba-system`.
 - HubSpot AEO: `get_aeo_metrics`, `manage_aeo_prompts` (25 free prompt slots). Unconfigured as of 2026-11-25.
 - PostHog "SEO & AEO" dashboard and AI-assistant referrals.
+- Google Search Console (connected 2026-11-25, property `sc-domain:propfuel.com`): `python3 -I scripts/gsc.py query --site sc-domain:propfuel.com --start YYYY-MM-DD --end YYYY-MM-DD --dims query,page > out.csv`. Token in ~/.config/propfuel/gsc.json on Alex's Mac (re-run `gsc.py auth` if it expires). Data lags about 2 days. Branded = regex `propfuel|prop fuel`; also exclude team-member and person-name queries (e.g. Michael Arisco, Love is Blind traffic) from unbranded before reporting.
 - Live HTML fetch (`scripts/crawl_check.py`, curl) and WebSearch for SERP, competitor and LLM checks.
 
 Not connected (raise the ask, do not fake the number):
 | Missing | Without it | Ask to raise |
 |---|---|---|
-| Google Search Console access | No clicks, impressions, positions, indexing status. Reports use the last Mamba snapshot (October) and are labeled stale. Rank checks fall back to WebSearch spot checks. | Give Claude GSC access (API or scheduled CSV export). Highest priority. |
 | GA4 conversions | No organic demo bookings. Report stops at clicks and AI referrals (PostHog). | Finish GA4 and GTM plus demo-booking conversion tracking (open since Sep). |
 | Volume / KD tool (Ahrefs, Semrush, DataForSEO, or Google Ads Keyword Planner with a developer token) | Keyword research reuses the 128-keyword list and its volumes; new terms get SERP-based difficulty judgment, labeled "no volume". No DR or backlink counts. | Pick one tool and connect it. Keyword Planner with the existing Google Ads MCP is the cheapest. |
 | HubSpot AEO prompts | GEO tracks by manual prompt runs in WebSearch only. | Load the key prompts (references/geo.md). |
 
 ## 6. Changelog
+- 2026-11-25: Search Console connected (scripts/gsc.py); unbranded numbers now exclude person-name queries.
 - 2026-11-25: rebuilt from the full Mamba engagement (14 weekly calls, shared Slack channel, workbook and docs, the Webflow custom-code repo history, live-site fetch). Replaces the ECC generic SEO skill. Program state moved to OS knowledge `seo-program.md`.
