@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
 """Google Ads Keyword Planner volumes for the seo skill. Stdlib only.
 
-  python3 kp.py "member engagement software" "member onboarding" > vols.csv
+  python3 kp.py "keyword one" "keyword two" > vols.csv
   python3 kp.py --file keywords.txt > vols.csv          one keyword per line
-  python3 kp.py --ideas "member engagement" > ideas.csv  related keyword ideas
+  python3 kp.py --ideas "seed keyword" > ideas.csv  related keyword ideas
 
-Needs Basic API access on the Google Ads manager account (applied 2026-11-25; until approved
-the API returns DEVELOPER_TOKEN_NOT_APPROVED). Credentials: ~/.config/propfuel/google-ads.env
-and google-ads-adc.json. US, English, Google Search. No keyword difficulty: judge from the SERP.
+Needs Basic API access on the Google Ads manager account (until approved the API returns
+DEVELOPER_TOKEN_NOT_APPROVED). Credentials: <config dir>/google-ads.env and google-ads-adc.json,
+where config dir = env SEO_CONFIG_DIR, default ~/.config/seo, falling back to ~/.config/propfuel
+if it exists. US, English, Google Search. No keyword difficulty: judge from the SERP.
 """
 import argparse, csv, json, os, sys, urllib.parse, urllib.request
 
-CFG = os.path.expanduser("~/.config/propfuel")
+def config_dir():
+    d = os.environ.get("SEO_CONFIG_DIR")
+    if d:
+        return os.path.expanduser(d)
+    legacy = os.path.expanduser("~/.config/propfuel")
+    return legacy if os.path.isdir(legacy) else os.path.expanduser("~/.config/seo")
+
+
+CFG = config_dir()
 VERSION = "v23"  # bump when Google deprecates it (UNSUPPORTED_VERSION error)
 
 
@@ -68,9 +77,9 @@ def main():
     p.add_argument("--self-test", action="store_true")
     a = p.parse_args()
     if a.self_test:
-        r = row("member onboarding", {"avgMonthlySearches": "70", "competition": "LOW", "competitionIndex": "12",
+        r = row("example keyword", {"avgMonthlySearches": "70", "competition": "LOW", "competitionIndex": "12",
                                       "lowTopOfPageBidMicros": "2500000", "highTopOfPageBidMicros": "9120000"})
-        assert r == ["member onboarding", "70", "LOW", "12", 2.5, 9.12], r
+        assert r == ["example keyword", "70", "LOW", "12", 2.5, 9.12], r
         print("self-test OK"); return
     w = csv.writer(sys.stdout); w.writerow(HEADER)
     if a.ideas:

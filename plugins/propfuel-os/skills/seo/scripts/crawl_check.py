@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Raw-HTML SEO crawl (no JS). Usage:
-  python3 -I crawl_check.py https://www.propfuel.com/sitemap.xml [--limit 20] [--out crawl.csv]
+  python3 -I crawl_check.py https://example.com/sitemap.xml [--limit 20] [--out crawl.csv]
   python3 -I crawl_check.py --self-test
 What it sees is what GPTBot/ClaudeBot/PerplexityBot see: server HTML only.
 shortcut: sequential fetch, no robots.txt or rate handling; fine for ~300 URLs, add threads if slower."""
@@ -9,7 +9,7 @@ from html.parser import HTMLParser
 
 COLS = ["url", "status", "title", "title_len", "meta_description", "meta_len", "canonical",
         "robots_meta", "h1_count", "h1_text", "jsonld_types", "word_count", "internal_links_out"]
-UA = {"User-Agent": "Mozilla/5.0 (compatible; PropFuelSEOCheck/1.0)"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; SEOCheck/1.0)"}
 
 
 class Page(HTMLParser):
@@ -97,14 +97,14 @@ def sitemap_urls(url):
 
 
 def self_test():
-    html = ('<html><head><title>Member Engagement Software</title><meta name="description" content="Desc here.">'
+    html = ('<html><head><title>Example Title</title><meta name="description" content="Desc here.">'
             '<link rel="canonical" href="https://x.com/a"><meta name="robots" content="noindex">'
             '<script type="application/ld+json">{"@graph":[{"@type":"WebPage"},{"@type":["FAQPage","Thing"]}]}</script>'
             '<script>var x="not counted words";</script></head><body><h1>Hello <b>World</b></h1><h1>Two</h1>'
             '<p>one two three</p><a href="/b">in</a><a href="https://x.com/c">in2</a><a href="https://o.com">out</a>'
             '<a href="#t">frag</a></body></html>')
     r = analyze("https://x.com/a", 200, html)
-    assert r["title"] == "Member Engagement Software" and r["title_len"] == 26
+    assert r["title"] == "Example Title" and r["title_len"] == 13
     assert r["meta_description"] == "Desc here." and r["canonical"] == "https://x.com/a"
     assert r["robots_meta"] == "noindex" and r["h1_count"] == 2 and r["h1_text"] == "Hello World | Two"
     assert r["jsonld_types"] == "FAQPage,Thing,WebPage", r["jsonld_types"]

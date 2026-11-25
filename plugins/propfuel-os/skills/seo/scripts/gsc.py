@@ -1,19 +1,28 @@
 #!/usr/bin/env python3
 """Google Search Console for the seo skill. Stdlib only.
 
-  python3 gsc.py auth                      one-time browser consent; saves ~/.config/propfuel/gsc.json (600)
+  python3 gsc.py auth                      one-time browser consent; saves <config dir>/gsc.json (600)
   python3 gsc.py sites                     list properties this login can read
-  python3 gsc.py query --site sc-domain:propfuel.com --start 2026-10-01 --end 2026-10-31 \
-      [--dims query,page] [--limit 1000] [--contains "member"] > out.csv
+  python3 gsc.py query --site sc-domain:example.com --start 2026-10-01 --end 2026-10-31 \
+      [--dims query,page] [--limit 1000] [--contains "term"] > out.csv
 
-OAuth client: any Desktop-type client JSON with client_id/client_secret. Default is the one in
-~/.config/propfuel/google-ads-adc.json (PropFuel GCP project); override with --client <file>.
+Config dir: env SEO_CONFIG_DIR, default ~/.config/seo, falling back to ~/.config/propfuel if it exists.
+OAuth client: any Desktop-type client JSON with client_id/client_secret. Default is
+<config dir>/google-ads-adc.json; override with --client <file>.
 The Search Console API must be enabled in that client's GCP project.
 """
 import argparse, csv, http.server, json, os, sys, urllib.parse, urllib.request, webbrowser
 
-CFG = os.path.expanduser("~/.config/propfuel/gsc.json")
-DEFAULT_CLIENT = os.path.expanduser("~/.config/propfuel/google-ads-adc.json")
+def config_dir():
+    d = os.environ.get("SEO_CONFIG_DIR")
+    if d:
+        return os.path.expanduser(d)
+    legacy = os.path.expanduser("~/.config/propfuel")
+    return legacy if os.path.isdir(legacy) else os.path.expanduser("~/.config/seo")
+
+
+CFG = os.path.join(config_dir(), "gsc.json")
+DEFAULT_CLIENT = os.path.join(config_dir(), "google-ads-adc.json")
 SCOPE = "https://www.googleapis.com/auth/webmasters.readonly"
 API = "https://searchconsole.googleapis.com/webmasters/v3"
 
@@ -47,6 +56,7 @@ def auth(client_file):
         sys.exit(f"consent failed: {got['error'][0]}")
     tok = post("https://oauth2.googleapis.com/token", {"code": got["code"][0], "client_id": cid,
                "client_secret": secret, "redirect_uri": redirect, "grant_type": "authorization_code"})
+    os.makedirs(os.path.dirname(CFG), exist_ok=True)
     fd = os.open(CFG, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
     with os.fdopen(fd, "w") as f:
         json.dump({"client_id": cid, "client_secret": secret, "refresh_token": tok["refresh_token"]}, f)
@@ -90,8 +100,8 @@ def main():
     else:
         import io
         buf = io.StringIO()
-        rows_to_csv([{"keys": ["member engagement software"], "clicks": 3, "impressions": 120, "ctr": 0.025, "position": 4.83}], ["query"], buf)
-        assert buf.getvalue().splitlines()[1] == "member engagement software,3,120,0.025,4.8", buf.getvalue()
+        rows_to_csv([{"keys": ["example keyword"], "clicks": 3, "impressions": 120, "ctr": 0.025, "position": 4.83}], ["query"], buf)
+        assert buf.getvalue().splitlines()[1] == "example keyword,3,120,0.025,4.8", buf.getvalue()
         print("self-test OK")
 
 
