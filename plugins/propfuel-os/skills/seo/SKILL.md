@@ -70,10 +70,11 @@ Not connected (raise the ask, do not fake the number):
 | Missing | Without it | Ask to raise |
 |---|---|---|
 | GA4 conversions | No organic demo bookings. Report stops at clicks and AI referrals (PostHog). | Finish GA4 and GTM plus demo-booking conversion tracking (open since Sep). |
-| Keyword volumes (Google Ads Keyword Planner via `scripts/kp.py`; Basic API access applied 2026-11-25, pending Google approval. No difficulty tool by choice) | Until approved, `kp.py` exits with DEVELOPER_TOKEN_NOT_APPROVED: reuse the 128-keyword list volumes and label new terms "no volume". Difficulty is always a SERP judgment (who ranks in the top 10, are they big brands, does an AI Overview show). | Check approval in Google Ads > manager account > Admin > API Center. |
+| Keyword volumes: Google Ads API Basic access was denied twice (2026-11-25) because the OAuth app is Internal and cannot be brand-verified; do not switch it to External (breaks OS sign-in). No paid tool by Alex's choice. | Get volumes from Keyword Planner in the Google Ads web UI via Claude in Chrome (new tab, never Alex's open tabs): Tools > Keyword Planner > "Get search volume and forecasts", paste up to ~50 keywords, US, English, download the "Historical metrics" CSV and read avg monthly searches, competition and top-of-page bid. `scripts/kp.py` stays for if API access is ever granted. Difficulty is always a SERP judgment (who ranks top 10, big brands, AI Overview present). | None. |
 | HubSpot AEO prompts | GEO tracks by manual prompt runs in WebSearch only. | Load the key prompts (references/geo.md). |
 
 ## 6. Changelog
+- 2026-11-25: Basic API denied twice (Internal app); volumes come from Keyword Planner in Chrome.
 - 2026-11-25: Keyword Planner script (scripts/kp.py); Alex chose Google Ads Basic access only, no paid SEO tool.
 - 2026-11-25: Search Console connected (scripts/gsc.py); unbranded numbers now exclude person-name queries.
 - 2026-11-25: rebuilt from the full Mamba engagement (14 weekly calls, shared Slack channel, workbook and docs, the Webflow custom-code repo history, live-site fetch). Replaces the ECC generic SEO skill. Program state moved to OS knowledge `seo-program.md`.
